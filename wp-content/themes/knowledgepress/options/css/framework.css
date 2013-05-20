@@ -1,0 +1,279 @@
+/*-------------------------------------------------------------------------------------------*/
+/* Guerilla Framework Admin Styles */
+/*-------------------------------------------------------------------------------------------*/
+
+.updated {
+	max-width:764px;
+	margin-bottom:0px !important;
+}
+#guerillaframework {
+	position:relative;
+	z-index: 0;
+/*	max-width:780px; */
+	background:#fff;
+}
+#guerillaframework textarea, #guerillaframework input[type="text"] {
+	padding:4px;
+}
+#guerillaframework h3 {
+	cursor: default;
+}
+#guerillaframework p {
+	margin-bottom:0;
+	padding-bottom:10px;
+	line-height: 1.4em;
+}
+#guerillaframework .section {
+	padding:10px 10px 16px 0;
+	display:block;
+}
+#guerillaframework .section-heading {
+	padding:5px 10px 0 0;
+	margin-bottom: 20px;
+	display:block;
+	border-bottom: 1px solid #EEE;
+}
+#guerillaframework .section-heading p{
+	margin-top:-11px;
+	margin-left:1px;
+	padding-bottom:8px;
+}
+#guerillaframework .section-info p{
+	margin-top:5px;
+}
+#guerillaframework .group {
+	padding-bottom:25px;
+}
+#guerillaframework .section .heading {
+	padding:6px 0px 14px 12px;
+	width:200px;
+	float:left;
+}
+#guerillaframework .section .option {
+	margin-left:212px;
+}
+
+#guerillaframework .section .controls {
+	float: left;
+	width:350px;
+	padding-right:2%;
+}
+#guerillaframework .section .explain {
+	float: left;
+	font-size: 12px;
+	line-height:16px;
+	font-style:italic;
+	color: #888;
+	padding:6px 0px;
+}
+#guerillaframework .wp-editor-wrap {
+	margin-bottom:20px;
+	max-width:665px	
+}
+#guerillaframework .section-checkbox .controls {
+	width: 98%;
+}
+#guerillaframework .section-checkbox .heading {
+	padding-top:1px;
+}
+#guerillaframework .section-checkbox .explain {
+	max-width:94%;
+	padding:1px 0px;
+}
+#guerillaframework .section-color .controls {
+	min-width:125px;
+	width:125px
+}
+#guerillaframework .heading-notitle {
+	height:30px;
+}
+#guerillaframework .controls input[type="text"], #guerillaframework .controls select, #guerillaframework .controls textarea {
+	margin-bottom:0;
+	width:100%; 
+}
+#guerillaframework .section-radio label, #guerillaframework .section-multicheck label {
+	float:left;
+	max-width:90%;
+	line-height: 16px;
+	margin-bottom: 5px;
+}
+#guerillaframework input.checkbox, #guerillaframework input.of-radio {
+	width: 30px;
+	margin-top:2px;
+	float:left;
+	clear:both;
+}
+#guerillaframework .controls .of-color {
+	float:left;
+	width: 80px;
+	margin-left:5px;
+	margin-right:5px;
+}
+#guerillaframework .controls .of-typography-size {
+	width:100px;
+	margin-left:5px;
+	/*float:left*/
+}
+#guerillaframework .controls .of-typography-unit {
+	width:50px;
+	margin-left:5px;
+	float:left
+}
+#guerillaframework .controls .of-typography-face {
+	width:100px;
+	margin-left:5px;
+	/*float:left */
+}
+#guerillaframework .controls .of-typography-style {
+	width:80px;
+	margin-left:5px;
+	margin-right:5px;
+	float:left
+}
+#guerillaframework .of-background-properties {
+	clear:both;
+	margin-top: 18px;	
+}
+#guerillaframework .controls .of-background-repeat {
+	width:125px;
+	margin-right:5px;
+	float:left
+}
+#guerillaframework .controls .of-background-position {
+	width:125px;
+	margin-right:5px;
+	float:left
+}
+#guerillaframework .controls .of-background-attachment {
+	width:125px;
+	margin-right:5px;
+	float:left
+}
+#guerillaframework div.section-background .controls input.upload {
+	width:47%;
+}
+#guerillaframework .controls .of-radio-img-img {
+	border:3px solid #FFF;
+	margin:0 8px 10px 0;
+	display:none;
+	cursor:pointer;
+	float:left;
+}
+#guerillaframework .controls .of-radio-img-selected {
+	border:3px solid #A2DAEC;
+}
+#guerillaframework .controls .of-radio-img-img:hover {
+	opacity:.8;
+}
+#guerillaframework .controls .of-border-width {
+	width:80px;
+	float:left
+}
+#guerillaframework .controls .of-border-style {
+	width:120px;
+	float:left
+}
+#guerillaframework .hide {
+	display:none;
+}
+#guerillaframework .of-option-image {
+	max-width:340px;
+	margin:3px 0 18px 0;
+}
+#guerillaframework .mini .controls select, #guerillaframework .section .mini .controls {
+	width: 140px;
+}
+#guerillaframework .mini .controls input, #guerillaframework .mini .controls {
+	min-width:140px;
+	width: 140px;
+}
+#guerillaframework .explain-info {
+	font-style:italic;
+	color:#888;
+}
+#guerillaframework .mini .explain {
+	max-width:74%;
+}
+#guerillaframework .cmb_colorpicker {
+	margin-right:10px;
+}
+/* Editor */
+
+#guerillaframework .section-editor .explain {
+	max-width: 98%;
+	float:none;
+	margin-bottom:5px;
+}
+
+/* Image Uploader */
+
+#guerillaframework .controls input.upload {
+	width:80%;
+}
+#guerillaframework .controls input.upload_button {
+}
+#guerillaframework .controls input.upload_button:hover {
+}
+#guerillaframework .screenshot {
+	float:left;
+	margin-left:1px;
+	position:relative;
+	width:344px;
+	margin-top:3px;
+}
+#guerillaframework .screenshot img {
+	background:#FAFAFA;
+	border-color:#FFF;
+	border-style:solid;
+	border-width:1px;
+	float:left;
+	max-width:250px;
+	padding:4px;
+	margin-bottom:10px;
+}
+#guerillaframework .screenshot .mlu_remove {
+	background:url("../images/ico-delete.png") no-repeat;
+	border:medium none;
+	bottom:7px;
+	display:block;
+	float:left;
+	height:16px;
+	padding:0;
+	position:absolute;
+	left:-3px;
+	text-indent:-9999px;
+	width:16px;
+	-webkit-border-radius: 0;
+	border-radius: 0;
+}
+#guerillaframework .screenshot .no_image .file_link {
+	margin-left: 20px;
+}
+#guerillaframework .screenshot .no_image .mlu_remove {
+	bottom: 0px;
+}
+#guerillaframework .reset-button {
+/*	float:left; */
+	cursor:pointer;
+}
+
+/* Bottom Section */
+
+#guerillaframework-submit {
+	margin-bottom:30px;	
+}
+#guerillaframework .button-primary {
+/*	float:right; */
+}
+
+/* Bottom Section */
+
+#guerillaframework .section:before, #guerillaframework .section:after {
+	content: "";
+	display: table;
+}
+#guerillaframework .section:after {
+	clear: both;
+}
+
+#guerillaframework .cmb_colorpicker { width:125px !important;}
