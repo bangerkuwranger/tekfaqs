@@ -21,7 +21,7 @@ Template Name: Home
   </div>
 </div>
 
-<div id="boxes-container">
+<div id="boxes-container"><h1>Browse By:</h1>
   <div class="container">
   <div class="row boxes">
     <div class="span4">
