@@ -285,15 +285,18 @@ nav select{display:inline-block;width:100%!important}
 nav{position:relative;right:auto;top:auto;width:100%}
 #social-icons {float: none!important;margin: 0 auto;display: inline; text-align: center;}
 .copyright-text { float:none !important; text-align:center;}
+.box-title h2 a{font-size: 38px;}
 }
 @media(min-width:480px) and (max-width:767px){body{padding:0}
 nav ul{display:none}
 nav select{display:inline-block;width:100%!important}
 nav{position:relative;right:auto;top:auto;width:100%}
+.box-title h2 a{font-size: 1.25em;}
 }
 @media(min-width:767px) and (max-width:980px){#menu a{padding:6px 8px!important}
 #menu ul a{padding:8px;width:100px}
 #menu ul ul{left:130px}
+.box-title h2 a{font-size: .9em;}
 }
 @media (max-width: 979px){
 .navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
@@ -318,6 +321,7 @@ form#searchform {margin: 0;}
 @media (min-width: 1200px){
 	.logo img {max-width: 100%;}
 	#menu {padding: 84px 0 0;}
+	.box-title h2 a{font-size: 38px;}
 }
 
 /* ==========================================================================
@@ -725,6 +729,45 @@ ol.linenums li {
   line-height: 18px;
   text-shadow: 0 1px 0 #fff;
 }
+.nav-tile {
+font-size: 2em;
+width: 300px;
+height: 300px;
+text-align: center;
+color: #004d72;
+font-family: Oswald, Helvetica Neue, Helvetica, sans-serif;
+background: url('../img/leftorgarrow.png') no-repeat right;
+margin-bottom: 75px;
+padding-right: 15px;
+}
+.nav-tile img {
+height: 250px;
+width: 250px;
+margin: 0 25px 16px;
+}
+.nav-tile a {
+color: #004d72;
+text-decoration: none;
+}
+.nav-tile a:hover {
+color: #40A8C9;
+}
+.ghosty {
+opacity: 0.5;
+background: none;
+}
+.listing-item {
+margin-bottom: 10px;
+padding-left: 25px;
+background: url('../img/leftorgarrow.png') no-repeat top left;
+}
+.listing-item a {
+color: #004d72;
+}
+.listing-item a:hover {
+color: #40A8C9;
+text-decoration: none;
+}
 
 /* ==========================================================================
    Widgets
@@ -738,8 +781,8 @@ ol.linenums li {
 #sidebar .widget-inner > ul > li > ul {background-color: #fff;}
 #sidebar .widget-inner > ul > li > ul:hover {background-color: #fff;}
 #sidebar .widget li a {text-decoration: none;}
-#sidebar .widget li:hover a{color: #fff;}
-#sidebar .widget li:hover i{color:#fff;}
+#sidebar .widget li:hover a{color: #40A8C9;}
+#sidebar .widget li:hover i{color:#40A8C9;}
 
 /* Twitter widget */
 .guerilla_tweet_widget ul {margin: 0 0 10px 0;list-style-type: none;}
@@ -779,7 +822,7 @@ h2.faq-section-heading {margin-bottom: 30px;margin-top: 30px;}
 
 /* knowledge */
 .knowledge-base { margin-bottom: 30px;}
-.knowledge-base span.label { margin-top: 12px;}
+.knowledge-base span.label { margin-top: 12px; background: #f36f37;} .knowledge-base span.label:hover { background: #40a8c9; }
 .knowledge-base h2 {margin-bottom: 12px;}
 .knowledge-base li a { color: #444; }
 .knowledge-base li a:hover { color: #444; }
@@ -857,7 +900,7 @@ top: -50px;
 @media(min-width:480px) and (max-width:767px){
 	#boxes-container h1 {top: -20px;}
 }
-.box {margin: 0 auto;background-color: rgba(0, 0, 0, 0.05);padding: 50px 30px 32px;border: solid 1px rgba(243, 111, 55, 1);
+.box {margin: 0 auto 10px;background-color: rgba(0, 0, 0, 0.05);padding: 50px 30px 32px;border: solid 1px rgba(243, 111, 55, 1);
   -moz-border-radius: 7px; 
   -webkit-border-radius: 7px;
   border-radius: 7px; 
@@ -867,7 +910,7 @@ top: -50px;
 .box-icon {margin-bottom: 10px;text-align: center;}
 .box-icon i {font-size: 100px; color: #fff;}
 .box-title {text-align: center;padding: 25px 0 6px;}
-.box-title h2 a {color: #fff;font-size: 38px;
+.box-title h2 a {color: #fff;
 -webkit-transition: color .1s linear;
 -moz-transition: color .1s linear;
 -o-transition: color .1s linear;

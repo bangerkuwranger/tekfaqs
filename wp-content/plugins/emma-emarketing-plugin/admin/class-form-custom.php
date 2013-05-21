@@ -29,19 +29,19 @@ class Form_Custom {
     public static function get_settings_defaults() {
         $defaults = array(
             'border_width' => '1',
-            'border_color' => '000',
+            'border_color' => '004d72',
             'border_type' => 'solid',
-            'txt_color' => '000',
+            'txt_color' => '042E34',
             'bg_color' => 'FFF',
             'submit_txt_color' => 'FFF',
-            'submit_bg_color' => '000',
+            'submit_bg_color' => 'f36f37',
             'submit_border_width' => '1',
-            'submit_border_color' => '555',
+            'submit_border_color' => 'f36f37',
             'submit_border_type' => 'solid',
-            'submit_hover_txt_color' => '000',
+            'submit_hover_txt_color' => 'fff',
             'submit_hover_border_width' => '1',
-            'submit_hover_bg_color' => 'FFF',
-            'submit_hover_border_color' => '555',
+            'submit_hover_bg_color' => '40A8C9',
+            'submit_hover_border_color' => '40A8C9',
             'submit_hover_border_type' => 'solid'
         );
         return $defaults;

@@ -121,7 +121,7 @@ function theme_style_options(){
           color: ' . $theme_color . '; 
         }
         #menu ul a:hover, .label-color, #sidebar .widget li:hover, .loop-like .label-likes {
-          background-color: ' . $theme_color . '; 
+          background: none; 
         }
         #page-header-container {
           background-color: ' . $theme_color . '; 

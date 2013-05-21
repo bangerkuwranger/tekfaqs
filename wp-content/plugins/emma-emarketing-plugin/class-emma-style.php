@@ -60,6 +60,8 @@ class Emma_Style {
                 border: <?php echo $this->settings['submit_border_width'] . 'px ' . $this->settings['submit_border_type'] . ' #' . $this->settings['submit_border_color']; ?>;
                 color: #<?php echo $this->settings['submit_txt_color']; ?>;
                 background-color: #<?php echo $this->settings['submit_bg_color']; ?>;
+                border-radius: 6px;
+                padding: 4px 8px;
             }
             #emma-form input[type="submit"]:hover {
                 border: <?php echo $this->settings['submit_hover_border_width'] . 'px ' . $this->settings['submit_hover_border_type'] . ' #' . $this->settings['submit_hover_border_color']; ?>;
