@@ -36,6 +36,7 @@ function guerillaframework_options() {
 							'check'	=> 'Check',
 							'cloud'	=> 'Cloud',
 							'cogs'	=> 'Cogs',
+							'desktop' => 'Desktop',
 							'download'	=> 'Download',
 							'envelope'	=> 'Envelope',
 							'facebook'	=> 'Facebook',

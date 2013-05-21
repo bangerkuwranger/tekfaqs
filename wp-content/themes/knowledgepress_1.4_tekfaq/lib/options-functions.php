@@ -141,7 +141,7 @@ function theme_style_options(){
           background-image: url('. $hero_image .');
         }
         .box {
-          background-color: rgba(0, 0, 0, 0.45);
+          background-color: rgba(243, 111, 55, 1);
         }';
       } else {
         $theme_options_styles .= '
