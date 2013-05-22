@@ -3,7 +3,7 @@
     <?php
     if (gt_get_option('logo_image')) { ?>
       <div class="logo">
-        <a title="<?php bloginfo('name'); ?>" href="<?php echo home_url(); ?>"><img src="<?php echo gt_get_option('logo_image'); ?>" alt="<?php bloginfo('name'); ?>"/></a>
+        <a title="<?php bloginfo('name'); ?>" href="<?php echo home_url(); ?>/?noplace=home"><img src="<?php echo gt_get_option('logo_image'); ?>" alt="<?php bloginfo('name'); ?>"/></a>
       </div>
     <?php }
     else { ?>
