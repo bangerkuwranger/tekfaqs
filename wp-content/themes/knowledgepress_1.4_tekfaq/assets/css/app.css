@@ -926,7 +926,7 @@ transition: color .1s linear;
 .box-text {text-align: center;color: #fff;}
 .box-text .btn-black {margin-top: 25px;display: inline-block;}  
 .btn-custom:hover {text-decoration: none;background: #40A8C9 url(../img/btn-custom.png);}
-.btn-black:hover {text-decoration: none;background-color: #40A8C9;}
+.btn-black:hover {text-decoration: none;color: #fff;background-color: #40A8C9;}
 
 #section-container article { padding: 0; margin-bottom: 0; border:none;background-color: #fff;padding: 10px 25px 20px;
 -moz-border-radius: 4px;
