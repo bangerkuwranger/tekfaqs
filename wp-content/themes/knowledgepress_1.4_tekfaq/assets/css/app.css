@@ -152,7 +152,7 @@ ul#menu, #menu ul {margin: 0;}
 #menu .active a, #menu li a:hover, #menu ul a:hover, #menu .current-menu-item a, #menu .current-menu-parent>a {}
 #menu .active>a, #menu .current-menu-item a, #menu .current-menu-parent>a {background-color: transparent; text-shadow:none; }
 
-#menu > li > a { color:#f36f37;text-transform: uppercase;}
+#menu > li > a { color:#f36f37;text-transform: uppercase; font-family: Oswald, Helvetica Neue, sans-serif; }
 #menu ul a { color:#40A8C9;}
 #menu > li > a:hover { color:#40A8C9;}
 
