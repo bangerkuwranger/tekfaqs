@@ -1,27 +1,91 @@
-# Ignore everything in the root except the "wp-content" directory.
-#/*
-# !.gitignore
-# !wp-content/
- 
-# Ignore everything in the "wp-content" directory, except the "plugins"
-# and "themes" directories.
-# wp-content/*
-# !wp-content/plugins/
-# !wp-content/themes/
- 
-# Ignore everything in the "plugins" directory, except the plugins you
-# specify (see the commented-out examples for hints on how to do this.)
-# wp-content/plugins/*
-# !wp-content/plugins/my-single-file-plugin.php
-# !wp-content/plugins/my-directory-plugin/
- 
-# Ignore everything in the "themes" directory, except the themes you
-# specify (see the commented-out example for a hint on how to do this.)
-# wp-content/themes/*
-# !wp-content/themes/tekfaq/
+*~
+.svn
+.cvs
+.git
+.listing
+*.bak
+*.swp
+plugins/wp-file-cache/cache
+cache
+_wpeprivate
+.cache
+temp
+tmp
+*.tmp
+imagecache*
+uploads*
+*_backup
+gt-cache
+ics-importer-cache
+wp-config-sample.php
+wp-content/w3tc*
+wp-content/w3-*
+wp-content/plugins/wpengine-snapshot/snapshots/*
+wp-content/uploads/snapshots
+wp-content/themes/thesis*/custom/cache
+wp-content/themes/thesis*/lib/scripts/cache
+wp-content/themes/*/cache
+wp-content/plugins/*/cache
+wp-content/w3tc-bak
+wp-content/backup*
+wp-content/temp*
+wp-content/upgrade/*
+wp-content/uploads
+wp-content/blogs.dir/*/*
+pclzip-*
 
-# Ignore phpMyAdmin
-phpMyAdmin/*
+# WordPress debugging files
+log.txt
+debug.log
 
-# Oh, Apple…
-.DS_Store
+# Gallaries in various places
+gallery/*
+wp-content/gallery/*
+wp-content/album/*
+
+# Found in 'sneakernews' - probably just a backup but never going to be good to include
+wp-content/plugins/plugins
+
+# Found in the root of pod-1009
+.a
+
+# Forum software we probably shouldn't support anyway
+forum/*
+
+# known large file types
+*.hqx
+*.bin
+*.exe
+*.dll
+*.deb
+*.dmg
+*.iso
+*.img
+*.msi
+*.msp
+*.msm
+*.mid
+*.midi
+*.kar
+*.mp3
+*.ogg
+*.m4a
+*.ra
+*.3gpp
+*.3gp
+*.mp4
+*.mpeg
+*.mpg
+*.mov
+*.webm
+*.flv
+*.m4v
+*.mng
+*.asx
+*.asf
+*.wmv
+*.avi
+*.zip
+*.tar
+*.tgz
+*.gz
