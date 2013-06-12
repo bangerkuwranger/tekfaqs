@@ -128,7 +128,18 @@ function create_os_taxonomy()  {
 // Hook into the 'init' action
 add_action( 'init', 'create_os_taxonomy', 0 );
 
+function theme_add_editor_styles() {
+    add_editor_style( 'editor-style.css' );
+}
+add_action( 'init', 'theme_add_editor_styles' );
 
+function bloginfo_shortcode( $atts ) {
+    extract(shortcode_atts(array(
+        'key' => '',
+    ), $atts));
+    return get_bloginfo($key);
+}
+add_shortcode('bloginfo', 'bloginfo_shortcode');
 
 // comment_form();
 /*
