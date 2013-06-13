@@ -33,6 +33,8 @@ wp-content/upgrade/*
 wp-content/uploads
 wp-content/blogs.dir/*/*
 pclzip-*
+verboten/
+verboten/*
 
 # WordPress debugging files
 log.txt
