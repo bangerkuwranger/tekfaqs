@@ -1155,7 +1155,63 @@ img.contentHeaderImage{
 position: absolute;
 top: -150px;
 left: 25px; 
-height: 150px;
+height: 100px;
 }
 @media (max-width: 979px) { img.contentHeaderImage { top: -125px; left: 150px; } }
 @media (max-width: 767px) { img.contentHeaderImage { position: relative; left: 0px; top: 0px;} }
+/*
+ * nRelate Text: Tek FAQs
+ *
+ * This layout is only for TEN items
+ * You can easily add more by adjusting the
+ * row items below.
+ */
+ 
+ 
+/* = Change nRelate defaults
+-----------------------------------------------*/
+.nrelate .nr_post_title {
+	font-weight: bold;
+	font-size: 200%;
+	line-height: 250%;
+	display: block;
+	font-family: Helvetica LT Std, Oswald, sans-serif;
+}
+.nrelate .nr_excerpt {
+	display: block;
+}
+
+/* Remove all bullets */
+.nrelate ul li, .nr_inner ul li {
+	list-style-type: none !important;
+	background: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	width: 98%;
+}
+
+/* Move rows as far left as possible */
+.nrelate .nr_inner ul {
+	margin-left: 0 !important;
+	padding-left: 0 !important;
+}
+
+/* Text styles */
+.nrelate ul li a {
+	display: block;
+	color: #004d72 !important;
+	font-size: 60%;
+	font-weight: bold;
+	line-height: 110%;
+	height: 100% !important;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+	.nrelate ul li a:hover {
+		color: #40a8c9 !important;
+	}
+
+/* Advertising */	
+.nrelate .nr_source {
+	display: block;
+	padding: 1% 0 0 0;
+	}	
