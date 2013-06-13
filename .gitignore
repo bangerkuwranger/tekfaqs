@@ -36,7 +36,8 @@ pclzip-*
 verboten/
 verboten/*
 wp-content/uploads/*
-
+wp-content/mu-plugins/
+wp-content/mu-plugins/*
 
 # WordPress debugging files
 log.txt
