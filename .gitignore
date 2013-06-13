@@ -35,6 +35,8 @@ wp-content/blogs.dir/*/*
 pclzip-*
 verboten/
 verboten/*
+wp-content/uploads/*
+
 
 # WordPress debugging files
 log.txt
