@@ -37,6 +37,40 @@ pre {line-height: 1em;}
 /* ==========================================================================
    Base
    ========================================================================== */
+@font-face {
+  font-family: 'Helvetica LT Std Condensed';
+  font-style: normal;
+  font-weight: bold;
+  src: local('Helvetica LT Std Bold Condensed'), local('HelveticaLTStd-BoldCond'), url('..fonts/HelveticaSTD/HelveticaLTStd-BoldCond.otf');
+}
+@font-face {
+  font-family: 'Helvetica LT Std Condensed';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Helvetica LT Std Condensed'), local('HelveticaLTStd-Cond'), url('..fonts/HelveticaSTD/HelveticaLTStd-Cond.otf');
+}@font-face {
+  font-family: 'Helvetica Neue LT Com';
+  font-style: normal;
+  font-weight: bold;
+  src: local('Helvetica Neue LT Com 75 Bold'), local('HelveticaNeueLTCom-Bd'), url('..fonts/HelveticaSTD/HelveticaNeueLTCom-Bd.ttf');
+}@font-face {
+  font-family: 'Helvetica Neue LT Com';
+  font-style: normal;
+  font-weight: 800;
+  font-stretch: condensed;
+  src: local('Helvetica Neue LT Com 87 Heavy Condensed'), local('HelveticaNeueLTCom-HvCn'), url('..fonts/HelveticaSTD/HelveticaNeueLTCom-HvCn.ttf');
+}@font-face {
+  font-family: 'Helvetica Neue LT Com';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Helvetica Neue LT Com 65 Medium'), local('HelveticaNeueLTCom-Md'), url('..fonts/HelveticaSTD/HelveticaNeueLTCom-Md.ttf');
+}@font-face {
+  font-family: 'Helvetica Neue LT Com';
+  font-style: italic;
+  font-weight: normal;
+  src: local('Helvetica Neue LT Com 66 Medium Italic'), local('HelveticaNeueLTCom-MdIt'), url('..fonts/HelveticaSTD/HelveticaNeueLTCom-MdIt.ttf');
+}
+   
 
 body { }
 h1, h2, h3, h4, h5, h6 {color: #004d72;}
@@ -152,7 +186,7 @@ ul#menu, #menu ul {margin: 0;}
 #menu .active a, #menu li a:hover, #menu ul a:hover, #menu .current-menu-item a, #menu .current-menu-parent>a {}
 #menu .active>a, #menu .current-menu-item a, #menu .current-menu-parent>a {background-color: transparent; text-shadow:none; }
 
-#menu > li > a { color:#f36f37;text-transform: uppercase; font-family: Oswald, Helvetica Neue, sans-serif; font-weight: bold; }
+#menu > li > a { color:#f36f37;text-transform: uppercase; font-family: 'Helvetica Neue LT Com', Oswald, Helvetica Neue, sans-serif; font-weight: bold; }
 #menu ul a { color:#40A8C9;}
 #menu > li > a:hover { color:#40A8C9;}
 
@@ -748,7 +782,7 @@ width: 300px;
 height: 300px;
 text-align: center;
 color: #004d72;
-font-family: Oswald, Helvetica Neue, Helvetica, sans-serif;
+font-family: 'Helvetica Neue LT Com', Oswald, Helvetica Neue, Helvetica, sans-serif;
 background: url('../img/leftorgarrow.png') no-repeat right;
 margin-bottom: 75px;
 padding-right: 15px;
@@ -1093,7 +1127,7 @@ text-decoration: none;
 .devicenav li { margin-bottom: 1em;
 font-size: 2em;
 font-weight: bold;
-font-family: Oswald, Helvetica Neue, Helvetica, sans-serif;
+font-family: 'Helvetica Neue LT Com', Oswald, Helvetica Neue, Helvetica, sans-serif;
 line-height: 1.1em;
 list-style: none;
 color: #004d72;
