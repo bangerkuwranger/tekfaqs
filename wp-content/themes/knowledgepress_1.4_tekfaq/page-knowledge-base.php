@@ -125,18 +125,9 @@ foreach($categories as $category) {
             </a>
         </span>
     </div>
-    <?PHP		
-    
-    if($i%3==0){
-        ?>
-        </div>
-        <?PHP
-    }
-   
+    <?PHP		   
 }
-if($i%3!=0){
-        echo "</div>";
-    }
 ?>
-
+</div>
+</div><!-- Stupid, stupid bug is dead; sidebar is outside main now -->
 

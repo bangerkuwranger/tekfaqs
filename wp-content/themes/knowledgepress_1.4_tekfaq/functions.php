@@ -133,13 +133,13 @@ function theme_add_editor_styles() {
 }
 add_action( 'init', 'theme_add_editor_styles' );
 
-function bloginfo_shortcode( $atts ) {
-    extract(shortcode_atts(array(
-        'key' => '',
-    ), $atts));
-    return get_bloginfo($key);
+function sk_bloginfo_shortcode( $atts ) {
+   extract(shortcode_atts(array(
+       'key' => '',
+   ), $atts));
+   return get_bloginfo($key);
 }
-add_shortcode('bloginfo', 'bloginfo_shortcode');
+add_shortcode('bloginfo', 'sk_bloginfo_shortcode');
 
 // comment_form();
 /*

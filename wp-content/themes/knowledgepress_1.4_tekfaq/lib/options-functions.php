@@ -37,7 +37,7 @@ function options_typography_get_os_fonts() {
 		'Copse, sans-serif' => 'Copse',
 		'Garamond, "Hoefler Text", Times New Roman, Times, serif' => 'Garamond',
 		'Georgia, serif' => 'Georgia',
-		'"Helvetica Neue", Helvetica, sans-serif' => 'Helvetica Neue',
+		'"Helvetica Neue LT Com", Oswald, Helvetica Neue, sans-serif' => 'Helvetica Neue',
 		'Tahoma, Geneva, sans-serif' => 'Tahoma'
 	);
 	return $os_faces;

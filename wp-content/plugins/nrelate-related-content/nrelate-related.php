@@ -33,7 +33,8 @@ define( 'NRELATE_RELATED_ADMIN_VERSION', '0.05.3' );
 define( 'NRELATE_RELATED_NAME' , __('Related Content','nrelate'));
 define( 'NRELATE_RELATED_DESCRIPTION' , sprintf( __('The related content plugin allows you to display related posts on your website.','nrelate')));
 
-if(!defined('NRELATE_CSS_URL')) { define( 'NRELATE_CSS_URL', 'http://static.nrelate.com/common_wp/' . NRELATE_RELATED_ADMIN_VERSION . '/' ); }
+if(!defined('NRELATE_CSS_URL')) { define( 'NRELATE_CSS_URL', 'http://tekserve.wpengine.com/wp-content/themes/knowledgepress_1.4_tekfaq/assets/css/' // . NRELATE_RELATED_ADMIN_VERSION . '/' 
+); }
 if(!defined('NRELATE_BLOG_ROOT')) { define( 'NRELATE_BLOG_ROOT', urlencode(str_replace(array('http://','https://'), '', get_bloginfo( 'url' )))); }
 if(!defined('NRELATE_JS_DEBUG')) { define( 'NRELATE_JS_DEBUG', isset($_REQUEST['nrelate_debug']) ? true : false ); }
 

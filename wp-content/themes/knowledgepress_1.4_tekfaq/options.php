@@ -251,21 +251,21 @@ function guerillaframework_options() {
 	$options[] = array( 'name' => __('Main Body Text', 'guerilla'),
 						'desc' => __('Used in P tags.', 'guerilla'),
 						'id' => 'main_body_typography',
-						'std' => array('face' => '"Helvetica Neue", Helvetica, sans-serif','size' => '15px','color' => '#666666'),
+						'std' => array('face' => '"Helvetica Neue LT Com", Oswald, Helvetica Neue, sans-serif','size' => '15px','color' => '#004a72	'),
 						'type' => 'typography',
 						'options' => $typography_options_body );
 						
 	$options[] = array( 'name' => __('Navigation', 'guerilla'),
 						'desc' => __('Main navigation.', 'guerilla'),
 						'id' => 'top_nav_link',
-						'std' => array('face' => '"Helvetica Neue", Helvetica, sans-serif','size' => '16px'),
+						'std' => array('face' => '"Helvetica Neue LT Com", Oswald, Helvetica Neue, sans-serif','size' => '16px'),
 						'type' => 'typography',
 						'options' => $typography_options_navigation );
 						
 	$options[] = array( 'name' => __('Headings', 'guerilla'),
 						'desc' => __('Used in H1, H2, H3, H4, H5 & H6 tags.', 'guerilla'),
 						'id' => 'heading_typography',
-						'std' => array('face' => 'Raleway, sans-serif'),
+						'std' => array('face' => '"Helvetica Neue LT Com", Oswald, Helvetica Neue, sans-serif'),
 						'type' => 'typography',
 						'options' => $typography_options_headers );
 
@@ -434,7 +434,7 @@ function guerillaframework_options() {
 	$options[] = array(	'name' => __('Article Excerpt Length', 'guerilla'),
 						'desc' => __('Specify article excerpt length displayed on "Articles" page template and search page.', 'guerilla'),
 						'id' => 'post_excerpt',
-						'std' => '100',
+						'std' => '25',
 						'class' => 'mini',
 						'type' => 'text');
 

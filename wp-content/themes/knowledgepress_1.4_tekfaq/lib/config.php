@@ -37,7 +37,7 @@ function roots_sidebar_class() {
 $get_theme_name = explode('/themes/', get_template_directory());
 define('GOOGLE_ANALYTICS_ID',       gt_get_option('analytics')); // UA-XXXXX-Y
 define('POST_EXCERPT_LENGTH',       gt_get_option('post_excerpt'));
-define('HOME_EXCERPT_LENGTH',       14);
+define('HOME_EXCERPT_LENGTH',       20);
 define('WP_BASE',                   wp_base_dir());
 define('THEME_NAME',                next($get_theme_name));
 define('RELATIVE_PLUGIN_PATH',      str_replace(site_url() . '/', '', plugins_url()));
