@@ -314,13 +314,8 @@ nav select{display:none}
   .hero-search input.search-query { font-size: 16px; }
 }
 /* little MacBooks and the like get the big picture*/
-<<<<<<< HEAD
 @media(min-width:1025px) and (max-height:900px){body{zoom:.8;}}
 @media(min-width:1025px) and (max-height:767px){body{zoom:.75;}}
-=======
-@media(min-width:1200px) and (max-height:900px){body{zoom:.75;}}
-@media(min-width:1200px) and (max-height:767px){body{zoom:.66;}}
->>>>>>> c2c8253a4657db3f09e78db44c578c6d40f9313d
 
 
 /* =============================================================================
@@ -1259,7 +1254,6 @@ margin-top: 2em;
 .nrelate .nr_source {
 	display: block;
 	padding: 1% 0 0 0;
-<<<<<<< HEAD
 }
 
 #stylePal { position: absolute; }
@@ -1359,75 +1353,3 @@ only screen and (min-device-pixel-ratio : 1.5) {
 #hero {height:300px;}
 .recent-title h2 { font-size: 24px; }
 }
-=======
-<<<<<<< HEAD
-	}	
-=======
-	}	
-
-/* = Rows
------------------------------------------------
-
- */
-
-/* Set padding for rows 
-.nrelate li a {
-	padding: 3% 2% 3% 4%;
-}
-	/* Widget padding should be different 
-	.nrelate-popular-widget .nrelate li a {
-		padding: 5% 2% 5% 4%;
-	}
-
-.nrelate li a.nr_row_1 {
-	background: #004d72;
-	margin: 7px 0 0;
-
-}
-.nrelate li a.nr_row_2 {
-	background: #f36f37;
-	margin: -5px 0 0;
-
-}
-.nrelate li a.nr_row_3 {
-	background: #004d72;
-	margin: -5px 0 0;
-
-}
-.nrelate li a.nr_row_4 {
-	.nrelate li a.nr_row_2 {
-	background: #f36f37;
-	margin: -5px 0 0;
-	margin: -5px 0 0;
-
-}
-.nrelate li a.nr_row_5 {
-	background: #004d72;
-	margin: -5px 0 0;
-
-}
-.nrelate li a.nr_row_6 {
-	.nrelate li a.nr_row_2 {
-	background: #f36f37;
-	margin: -5px 0 0;
-	margin: -5px 0 0;
-}
-.nrelate li a.nr_row_7 {
-	background: #004d72;
-	margin: -5px 0 0;
-}
-.nrelate li a.nr_row_8 {
-	background: #f36f37;
-	margin: -5px 0 0;
-}
-.nrelate li a.nr_row_9 {
-	background: #004d72;
-	width: 55%;
-}
-.nrelate li a.nr_row_10 {
-	background: #f36f37;
-	margin: -5px 0 0;
-	width: 50%;
-}*/
->>>>>>> 764722fd185353c2257a7ebd9ada2c962146be39
->>>>>>> c2c8253a4657db3f09e78db44c578c6d40f9313d
