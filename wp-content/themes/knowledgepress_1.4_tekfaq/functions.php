@@ -141,6 +141,7 @@ function sk_bloginfo_shortcode( $atts ) {
 }
 add_shortcode('bloginfo', 'sk_bloginfo_shortcode');
 
+<<<<<<< HEAD
 function new_excerpt_length($length) {
     return 20;
 }
@@ -148,6 +149,8 @@ add_filter('excerpt_length', 'new_excerpt_length');
 
 
 
+=======
+>>>>>>> c2c8253a4657db3f09e78db44c578c6d40f9313d
 // comment_form();
 /*
 add_filter( 'the_excerpt', 'remove_code_shortcode' );
