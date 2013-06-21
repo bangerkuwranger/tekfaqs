@@ -39,6 +39,7 @@ function roots_setup() {
   // Add post thumbnails (http://codex.wordpress.org/Post_Thumbnails)
   add_theme_support('post-thumbnails');
   // set_post_thumbnail_size(150, 150, false);
+	add_image_size('image_254x400', 254, 400, true); 
   add_image_size('image_870x490', 870, 490, true); 
   // add_image_size('image_870x870', 870, 870, true); 
 
@@ -55,6 +56,97 @@ function roots_setup() {
 }
 
 add_action('after_setup_theme', 'roots_setup');
+
+// Register Custom Taxonomy
+function create_device_taxonomy()  {
+	$labels = array(
+		'name'                       => _x( 'Devices', 'Taxonomy General Name', 'text_domain' ),
+		'singular_name'              => _x( 'Device', 'Taxonomy Singular Name', 'text_domain' ),
+		'menu_name'                  => __( 'Device', 'text_domain' ),
+		'all_items'                  => __( 'All Devices', 'text_domain' ),
+		'parent_item'                => __( 'Parent Device', 'text_domain' ),
+		'parent_item_colon'          => __( 'Parent Device:', 'text_domain' ),
+		'new_item_name'              => __( 'New Device Name', 'text_domain' ),
+		'add_new_item'               => __( 'Add New Device', 'text_domain' ),
+		'edit_item'                  => __( 'Edit Device', 'text_domain' ),
+		'update_item'                => __( 'Update Device', 'text_domain' ),
+		'separate_items_with_commas' => __( 'Separate devices with commas', 'text_domain' ),
+		'search_items'               => __( 'Search devices', 'text_domain' ),
+		'add_or_remove_items'        => __( 'Add or remove devices', 'text_domain' ),
+		'choose_from_most_used'      => __( 'Choose from previously used devices', 'text_domain' ),
+	);
+
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => false,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => false,
+	);
+
+	register_taxonomy( 'device', 'post', $args );
+}
+
+// Hook into the 'init' action
+add_action( 'init', 'create_device_taxonomy', 0 );
+
+
+// Register Custom Taxonomy
+function create_os_taxonomy()  {
+	$labels = array(
+		'name'                       => _x( 'Operating Systems', 'Taxonomy General Name', 'text_domain' ),
+		'singular_name'              => _x( 'Operating System', 'Taxonomy Singular Name', 'text_domain' ),
+		'menu_name'                  => __( 'Operating System', 'text_domain' ),
+		'all_items'                  => __( 'All Operating Systems', 'text_domain' ),
+		'parent_item'                => __( 'Parent OS', 'text_domain' ),
+		'parent_item_colon'          => __( 'Parent OS:', 'text_domain' ),
+		'new_item_name'              => __( 'New OS Name', 'text_domain' ),
+		'add_new_item'               => __( 'Add New OS', 'text_domain' ),
+		'edit_item'                  => __( 'Edit OS', 'text_domain' ),
+		'update_item'                => __( 'Update OS', 'text_domain' ),
+		'separate_items_with_commas' => __( 'Separate operating systems with commas', 'text_domain' ),
+		'search_items'               => __( 'Search operating systems', 'text_domain' ),
+		'add_or_remove_items'        => __( 'Add or remove OSes', 'text_domain' ),
+		'choose_from_most_used'      => __( 'Choose from previously used OSes', 'text_domain' ),
+	);
+
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => false,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => false,
+	);
+
+	register_taxonomy( 'os', 'post', $args );
+}
+
+// Hook into the 'init' action
+add_action( 'init', 'create_os_taxonomy', 0 );
+
+function theme_add_editor_styles() {
+    add_editor_style( 'editor-style.css' );
+}
+add_action( 'init', 'theme_add_editor_styles' );
+
+function sk_bloginfo_shortcode( $atts ) {
+   extract(shortcode_atts(array(
+       'key' => '',
+   ), $atts));
+   return get_bloginfo($key);
+}
+add_shortcode('bloginfo', 'sk_bloginfo_shortcode');
+
+function new_excerpt_length($length) {
+    return 20;
+}
+add_filter('excerpt_length', 'new_excerpt_length');
+
+
 
 // comment_form();
 /*

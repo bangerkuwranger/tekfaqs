@@ -43,7 +43,7 @@ jQuery.noConflict()(function($){
       $("<option />", {
          "selected": "selected",
          "value"   : "",
-         "text"    : "Please choose page"
+         "text"    : "Tekserve.com Menu"
       }).appendTo("#nav-main select");
       
       // Populate dropdown with menu items

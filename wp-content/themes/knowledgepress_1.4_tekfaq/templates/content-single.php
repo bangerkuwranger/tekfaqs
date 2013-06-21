@@ -18,7 +18,7 @@
         <?php if ($video_vimeo) {echo '<div class="fitvids">' . $video_vimeo . '</div>';}  ?> 
       <?php } ?>
       <?php if ( has_post_thumbnail() && get_post_format() != 'video' ) { ?>
-        <?php the_post_thumbnail('image_1170x659'); ?>
+        <?php the_post_thumbnail('image_254x400', array('style' => 'box-shadow:4px 6px 6px #eee;')); ?>
       <?php } ?>
       <?php the_content(); ?>
     </div>

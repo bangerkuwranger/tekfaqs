@@ -27,7 +27,15 @@
           single_cat_title();
         }
       } elseif (is_search()) {
-        printf(__('Results for %s', 'guerilla'), get_search_query());
+      		$wpsq = get_search_query();
+      		if ($wpsq == '\t') {
+        		printf(__('Results for %s', 'guerilla'), get_search_query());
+        	}
+        	else {
+        		$wpsq = wp_title('»', false);
+        		$wpsq = preg_replace("/» Tekserve FAQ/", "", $wpsq);
+        		print($wpsq);
+        	}
       } elseif (is_404()) {
         _e('File Not Found', 'guerilla');
       } else {

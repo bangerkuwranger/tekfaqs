@@ -23,4 +23,158 @@ Tags: one-column, two-columns, right-sidebar, flexible-width, custom-menu, edito
 /assets/css/app.css - ln 85, 92, 97, 288, 294, 299, 324, 360, 732-748; 753-763, 786, +489-579
 /page-home.php - ln 24
 /lib/options-functions.php - ln 124
+
+****
+5-23-13
+/templates/comments.php - ln 72
+/assets/js/tekadds.js
+/lib/options-functions.php - ln 114
+/assets/css/app.css - ln 6, 1036, 1058-1098, 1064
+/functions.php - ln 57-92
+
+***
+5-24-13
+/assets/css/app.css - ln 110, 276, 282, 310, 320, 322-332, 342, 346, 386, 770, 828, 831, 832, 836, 1069, 1086
+/assets/js/main.js - ln 46
+/lib/options-functions.php - ln 158
+
+***
+5-28-13
+/functions.php - ln 42, 95-125
+/templates/content-single.php - ln 21
+
+***
+5-29-13
+/assets/css/app.css - ln 929
+/style.css - ln 52-170
+
+***
+6-3-13
+/assets/css/app.css - ln 123-130
+
+***
+6-4-13
+/functions.php - ln 131-139
+/assets/css/app.css - ln  110
 */
+
+/*
+ * nRelate Text: Tek FAQs
+ *
+ * This layout is only for TEN items
+ * You can easily add more by adjusting the
+ * row items below.
+ */
+ 
+ 
+/* = Change nRelate defaults
+-----------------------------------------------*/
+.nrelate_tekfaqs .nr_post_title {
+	font-weight: bold;
+	font-size: 200%;
+	display: block;
+	font-family: Oswald, sans-serif;
+}
+.nrelate_tekfaqs .nr_excerpt {
+	display: block;
+}
+
+/* Remove all bullets */
+.nrelate ul li {
+	list-style-type: none !important;
+	background: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	width: 98%;
+}
+
+/* Move rows as far left as possible */
+.nrelate .nr_inner ul {
+	margin-left: 0 !important;
+	padding-left: 0 !important;
+}
+
+/* Text styles */
+.nrelate ul li a {
+	display: block;
+	color: #fff !important;
+	font-size: 110%;
+	font-weight: bold;
+	line-height: 110%;
+	height: 100% !important;
+	font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
+	.nrelate ul li a:hover {
+		color: #40a8c9 !important;
+	}
+
+/* Advertising */	
+.nrelate .nr_source {
+	display: block;
+	padding: 1% 0 0 0;
+	}	
+
+/* = Rows
+-----------------------------------------------
+
+ */
+
+/* Set padding for rows */
+.nrelate li a {
+	padding: 3% 2% 3% 4%;
+}
+	/* Widget padding should be different */
+	.nrelate-popular-widget .nrelate li a {
+		padding: 5% 2% 5% 4%;
+	}
+
+.nrelate li a.nr_row_1 {
+	background: #004d72;
+	margin: 7px 0 0;
+
+}
+.nrelate li a.nr_row_2 {
+	background: #f36f37;
+	margin: -5px 0 0;
+
+}
+.nrelate li a.nr_row_3 {
+	background: #004d72;
+	margin: -5px 0 0;
+
+}
+.nrelate li a.nr_row_4 {
+	.nrelate li a.nr_row_2 {
+	background: #f36f37;
+	margin: -5px 0 0;
+	margin: -5px 0 0;
+
+}
+.nrelate li a.nr_row_5 {
+	background: #004d72;
+	margin: -5px 0 0;
+
+}
+.nrelate li a.nr_row_6 {
+	.nrelate li a.nr_row_2 {
+	background: #f36f37;
+	margin: -5px 0 0;
+	margin: -5px 0 0;
+}
+.nrelate li a.nr_row_7 {
+	background: #004d72;
+	margin: -5px 0 0;
+}
+.nrelate li a.nr_row_8 {
+	background: #f36f37;
+	margin: -5px 0 0;
+}
+.nrelate li a.nr_row_9 {
+	background: #004d72;
+	width: 55%;
+}
+.nrelate li a.nr_row_10 {
+	background: #f36f37;
+	margin: -5px 0 0;
+	width: 50%;
+}

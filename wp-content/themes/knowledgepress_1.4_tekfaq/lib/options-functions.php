@@ -37,7 +37,7 @@ function options_typography_get_os_fonts() {
 		'Copse, sans-serif' => 'Copse',
 		'Garamond, "Hoefler Text", Times New Roman, Times, serif' => 'Garamond',
 		'Georgia, serif' => 'Georgia',
-		'"Helvetica Neue", Helvetica, sans-serif' => 'Helvetica Neue',
+		'"Helvetica Neue LT Com", Oswald, Helvetica Neue, sans-serif' => 'Helvetica Neue',
 		'Tahoma, Geneva, sans-serif' => 'Tahoma'
 	);
 	return $os_faces;
@@ -99,7 +99,7 @@ function options_typography_enqueue_google_font($font) {
 	if ( $font == 'Raleway' )
 		$font = 'Raleway:300';
 	if ( $font == 'Oswald' )
-		$font = 'Oswald:300';
+		$font = 'Oswald:300,400,700';
 	$font = str_replace(" ", "+", $font);
 	wp_enqueue_style( "options_typography_$font", "http://fonts.googleapis.com/css?family=$font", false, null, 'all' );
 }
@@ -111,7 +111,7 @@ function theme_style_options(){
       $theme_color = gt_get_option('theme_color');
       if ($theme_color) {
         $theme_options_styles .= '
-        a, #menu > .active > a, #menu > li > a:hover {
+         #menu > .active > a, #menu > li > a:hover {
           color: ' . $theme_color . '; 
         }
         .faq-page article h3, .knowledge-index h2 a:hover {
@@ -120,7 +120,7 @@ function theme_style_options(){
         #sidebar i, #main article h2 i, .author-links i, #footer-container i, .recent-posts i, .box-video-links i, .autocomplete-suggestions strong {
           color: ' . $theme_color . '; 
         }
-        #menu ul a:hover, .label-color, #sidebar .widget li:hover, .loop-like .label-likes {
+        #menu ul a:hover, #sidebar .widget li:hover, .loop-like .label-likes {
           background: none; 
         }
         #page-header-container {
@@ -154,7 +154,8 @@ function theme_style_options(){
       if ($heading_typography) {
         $theme_options_styles .= '
         h1, h2, h3, h4, h5, h6, .hero-unit p, .hero-unit h1 { 
-          font-family: ' . $heading_typography['face'] . '; 
+          font-family: ' . $heading_typography['face'] . ';
+          text-rendering: geometricPrecision; 
         }';
       }
       

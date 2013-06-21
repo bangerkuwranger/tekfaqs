@@ -1,5 +1,5 @@
 <?php get_template_part('templates/head'); ?>
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?> onload="window.top.scrollTo(0, 1);">
 
   <?php get_template_part('templates/header'); ?>
 

@@ -136,6 +136,7 @@ if (gt_get_option('live_search_enable')) {
 	    }
 		
 		$results = $wpdb->get_results($sql_query);
+// 		$results = relevanssi_do_query($search_term);
 		
 		$search_json = array( "query" => "Unit", "suggestions" => array() );   // create a json array
 		
