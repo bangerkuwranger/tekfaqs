@@ -3,7 +3,7 @@ Contributors: hubspot, JonBishop, dcancel, bwhalley, andypitre, tjoconnr
 Tags: analytics, hubspot, tracking code, feedburner, action, call to action, team, about, contact, form, leads, api, shortcode, widget, dashboard, post, admin, sidebar, twitter, page, inbound, business, marketing, google map, call to action, cta, ad manager
 Requires at least: 3.0
 Tested up to: 3.5
-Stable tag: 1.8.2
+Stable tag: 1.8.3
 
 
 Integrate your WordPress blog or website with HubSpot

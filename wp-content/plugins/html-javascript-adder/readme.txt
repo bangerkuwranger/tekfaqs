@@ -6,8 +6,8 @@ Author URI: http://www.aakashweb.com/
 Plugin URI: http://www.aakashweb.com/wordpress-plugins/html-javascript-adder/
 License: GPLv2 or later
 Requires at least: 2.8.0
-Tested up to: 3.5.1
-Stable tag: 3.7
+Tested up to: 3.6
+Stable tag: 3.8
 
 Advanced widget plugin for inserting HTML, Javascripts, shortcodes in the sidebar with the feature to place in all pages or in specific pages.
 
@@ -23,8 +23,14 @@ HTML Javascript Adder allows to insert HTML, javascripts, shortcodes, advertisem
 * Can insert shortcodes also.
 * Advanced settings for targeting widget in Posts and Pages. Seperate settings to Show/Hide a widget in a page eg: Can Show/hide a widget in home page, archive page etc.
 * Can show/hide the widget to Administrators (Helpful in hiding ads to admins).
-* Available in 11 Languages.
+* Available in 12 Languages.
 * [AW Quick Tag](http://www.aakashweb.com/javascripts/aw-quick-tag-editor/) toolbar for editing codes in widget.
+
+= New features and bug fixes in v3.8 =
+
+* Fixed freezing issue in some browsers and source code is revised.
+* Post ID selector feature is removed.
+* New language added (Serbo-Croatian) [Credits](other_notes/)
 
 See [Change Log](changelog/) for more information
 
@@ -92,6 +98,11 @@ For more FAQs please visit the [Plugin homepage](http://www.aakashweb.com/wordpr
 
 == Changelog ==
 
+= 3.8 =
+* Fixed freezing issue in some browsers and source code is revised.
+* Post ID selector feature is removed.
+* New language added (Serbo-Croatian) [Credits](other_notes/)
+
 = 3.7 =
 * Widget blank screen bug is fixed.
 * JS and CSS files are now loaded properly.
@@ -152,16 +163,14 @@ For more FAQs please visit the [Plugin homepage](http://www.aakashweb.com/wordpr
 == Upgrade Notice ==
 Install to get some advanced features and smoother UI.
 
-== Known issues ==
-* None
+= Language Translations credits = 
 
-== Credits ==
+Most of the translations with Poedit using Google Translate. User contributed languages are
+
+* Serbo-Croatian language by [Anja Skrba](http://science.webhostinggeeks.com/html-javascript-adder)
+* Persian language contributed by [Sushyant Zavarzadeh](http://zavarzadeh.org/)
+* Swedish translation dded on 11-1-11) is made by Mats Bergsten.
+
+== Author ==
 
 Created by [Aakash Chakravarthy](http://www.aakashweb.com/) - [Donate](http://bit.ly/hjaDonate) 
-
-= Language Translations = 
-
-Made with Poedit and Google Translate.
-
-* Persian language contributed by [Sushyant Zavarzadeh](http://zavarzadeh.org/)
-* Swedish translation (added on 11-1-11) is made by Mats Bergsten.

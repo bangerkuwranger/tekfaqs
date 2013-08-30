@@ -4,7 +4,7 @@ Plugin Name: HTML Javascript Adder
 Plugin URI: http://www.aakashweb.com
 Description: A widget plugin for adding Javascripts, HTML scripts, Shortcodes, advertisements and even simple texts in the sidebar with advanced targeting on posts and pages.
 Author: Aakash Chakravarthy
-Version: 3.7
+Version: 3.8
 Author URI: http://www.aakashweb.com/
 */
 
@@ -158,23 +158,30 @@ class html_javascript_adder_widget extends WP_Widget{
 			$content = $instance['content'];
 		}
 		
+		if($this->all_ok($instance)){
+			$content = do_shortcode($content);
+		}
+		
 		$before_content = "\n" . '<div class="hjawidget textwidget">' . "\n";
 		$after_content = "\n" . '</div>' . "\n";
 		
+		$before_cmt = "\n<!-- Start - HTML Javascript Adder plugin v" . HJA_VERSION . " -->\n";
+		$after_cmt =  "<!-- End - HTML Javascript Adder plugin v" . HJA_VERSION . " -->\n";
+		
 		## Output
 		$output_content = 
-			$before_widget . 
-			"\n\n<!-- Start - HTML Javascript Adder plugin v" . HJA_VERSION . " -->\n" .
-			$title . 
-			$before_content . 
-			$content . 
-			$after_content . 
-			"<!-- End - HTML Javascript Adder plugin v" . HJA_VERSION . " -->\n\n" .
-			$after_widget;
+			$before_cmt .
+				$before_widget . 
+					$title . 
+					$before_content . 
+						$content . 
+					$after_content . 
+				$after_widget.
+			$after_cmt;
 		
-		if($this->all_ok($instance)){
-			echo do_shortcode($output_content);
-		}
+		## Print the output
+		echo $output_content;
+
 	}
 	
 	## Save settings
@@ -381,17 +388,6 @@ function hja_admin_footer(){
 			<iframe id="hjaIframe" name="hjaIframe" src="about:blank"></iframe>
 			If the script is not working, try it in <a href="http://jsfiddle.com" target="_blank">jsfiddle</a>
 		</div>';
-		
-		echo '<div class="hjaPostsList"><div class="hjaArrow"></div><h4>Select the posts</h4><ul>';
-		query_posts('posts_per_page=-1');
-		while ( have_posts() ) : the_post();
-			$title = get_the_title($post->ID);
-			echo '<li data-id="' . $post->ID . '">';
-			echo ($title == '') ? '(no-title)' : $title;
-			echo '</li>';
-		endwhile;
-		wp_reset_query();
-		echo '</ul><input type="hidden" class="hjaInputId" /></div>';
 		
 	}
 

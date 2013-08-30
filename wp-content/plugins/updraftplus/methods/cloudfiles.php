@@ -7,17 +7,17 @@ class UpdraftPlus_BackupModule_cloudfiles {
 		
 		global $updraftplus;
 
-		if(!class_exists('CF_Authentication')) require_once(UPDRAFTPLUS_DIR.'/includes/cloudfiles/cloudfiles.php');
+		if (!class_exists('UpdraftPlus_CF_Authentication')) require_once(UPDRAFTPLUS_DIR.'/includes/cloudfiles/cloudfiles.php');
 
 		if (!defined('UPDRAFTPLUS_SSL_DISABLEVERIFY')) define('UPDRAFTPLUS_SSL_DISABLEVERIFY', UpdraftPlus_Options::get_updraft_option('updraft_ssl_disableverify'));
 
-		$auth = new CF_Authentication($user, $apikey, NULL, $authurl);
+		$auth = new UpdraftPlus_CF_Authentication($user, $apikey, NULL, $authurl);
 
 		$updraftplus->log("Cloud Files authentication URL: $authurl");
 
 		$auth->authenticate();
 
-		$conn = new CF_Connection($auth);
+		$conn = new UpdraftPlus_CF_Connection($auth);
 
 		if (!$useservercerts) $conn->ssl_use_cabundle(UPDRAFTPLUS_DIR.'/includes/cacert.pem');
 
@@ -27,7 +27,7 @@ class UpdraftPlus_BackupModule_cloudfiles {
 
 	function backup($backup_array) {
 
-		global $updraftplus;
+		global $updraftplus, $updraftplus_backup;
 
 		$updraft_dir = $updraftplus->backups_dir_location().'/';
 		$path = untrailingslashit(UpdraftPlus_Options::get_updraft_option('updraft_cloudfiles_path'));
@@ -44,21 +44,21 @@ class UpdraftPlus_BackupModule_cloudfiles {
 
 		$user = UpdraftPlus_Options::get_updraft_option('updraft_cloudfiles_user');
 		$apikey = UpdraftPlus_Options::get_updraft_option('updraft_cloudfiles_apikey');
-		
+
 		try {
 			$conn = $this->getCF($user, $apikey, $authurl, UpdraftPlus_Options::get_updraft_option('updraft_ssl_useservercerts'));
 			$cont_obj = $conn->create_container($container);
 		} catch(AuthenticationException $e) {
 			$updraftplus->log('Cloud Files authentication failed ('.$e->getMessage().')');
-			$updraftplus->error(__('Cloud Files authentication failed','updraftplus').' ('.$e->getMessage().')');
+			$updraftplus->log(sprintf(__('%s authentication failed','updraftplus'),'Cloud Files').' ('.$e->getMessage().')', 'error');
 			return false;
 		} catch(NoSuchAccountException $s) {
 			$updraftplus->log('Cloud Files authentication failed ('.$e->getMessage().')');
-			$updraftplus->error(__('Cloud Files authentication failed','updraftplus').' ('.$e->getMessage().')');
+			$updraftplus->log(sprintf(__('%s authentication failed','updraftplus'),'Cloud Files').' ('.$e->getMessage().')', 'error');
 			return false;
 		} catch (Exception $e) {
 			$updraftplus->log('Cloud Files error - failed to create and access the container ('.$e->getMessage().')');
-			$updraftplus->error(__('Cloud Files error - failed to create and access the container', 'updraftplus').' ('.$e->getMessage().')');
+			$updraftplus->log(__('Cloud Files error - failed to create and access the container', 'updraftplus').' ('.$e->getMessage().')', 'error');
 			return;
 		}
 
@@ -75,7 +75,7 @@ class UpdraftPlus_BackupModule_cloudfiles {
 			$chunk_path = "chunk-do-not-delete-$file";
 
 			try {
-				$object = new CF_Object($cont_obj, $cfpath);
+				$object = new UpdraftPlus_CF_Object($cont_obj, $cfpath);
 				$object->content_type = "application/zip";
 
 				$uploaded_size = (isset($object->content_length)) ? $object->content_length : 0;
@@ -85,7 +85,7 @@ class UpdraftPlus_BackupModule_cloudfiles {
 					$fp = @fopen($fullpath, "rb");
 					if (!$fp) {
 						$updraftplus->log("Cloud Files: failed to open file: $fullpath");
-						$updraftplus->error("$file: ".sprintf(__('%s Error: Failed to open local file','updraftplus'),'Cloud Files'));
+						$updraftplus->log("$file: ".sprintf(__('%s Error: Failed to open local file','updraftplus'),'Cloud Files'), 'error');
 						return false;
 					}
 
@@ -102,7 +102,7 @@ class UpdraftPlus_BackupModule_cloudfiles {
 							$updraftplus->uploaded_file($file);
 						} catch (Exception $e) {
 							$updraftplus->log("Cloud Files regular upload: failed ($file) (".$e->getMessage().")");
-							$updraftplus->error("$file: ".sprintf(__('%s Error: Failed to upload','updraftplus'),'Cloud Files'));
+							$updraftplus->log("$file: ".sprintf(__('%s Error: Failed to upload','updraftplus'),'Cloud Files'), 'error');
 						}
 					} else {
 						$errors_so_far = 0;
@@ -113,7 +113,7 @@ class UpdraftPlus_BackupModule_cloudfiles {
 							$upload_remotepath = $chunk_path."_$i";
 							// Don't forget the +1; otherwise the last byte is omitted
 							$upload_size = $upload_end - $upload_start + 1;
-							$chunk_object = new CF_Object($cont_obj, $upload_remotepath);
+							$chunk_object = new UpdraftPlus_CF_Object($cont_obj, $upload_remotepath);
 							$chunk_object->content_type = "application/zip";
 							// Without this, some versions of Curl add Expect: 100-continue, which results in Curl then giving this back: curl error: 55) select/poll returned error
 							// Didn't make the difference - instead we just check below for actual success even when Curl reports an error
@@ -134,7 +134,7 @@ class UpdraftPlus_BackupModule_cloudfiles {
 									$updraftplus->log("Cloud Files chunk upload: error: ($file / $i) (".$e->getMessage().")");
 									// Experience shows that Curl sometimes returns a select/poll error (curl error 55) even when everything succeeded. Google seems to indicate that this is a known bug.
 									
-									$chunk_object = new CF_Object($cont_obj, $upload_remotepath);
+									$chunk_object = new UpdraftPlus_CF_Object($cont_obj, $upload_remotepath);
 									$chunk_object->content_type = "application/zip";
 									$remote_size = (isset($chunk_object->content_length)) ? $chunk_object->content_length : 0;
 									
@@ -144,7 +144,7 @@ class UpdraftPlus_BackupModule_cloudfiles {
 
 									} else {
 
-										$updraftplus->error("$file: ".sprintf(__('%s Error: Failed to upload','updraftplus'),'Cloud Files'));
+										$updraftplus->log("$file: ".sprintf(__('%s Error: Failed to upload','updraftplus'),'Cloud Files'), 'error');
 										$errors_so_far++;
 										if ($errors_so_far >=3 ) return false;
 
@@ -166,7 +166,7 @@ class UpdraftPlus_BackupModule_cloudfiles {
 // 						} catch (InvalidResponseException $e) {
 						} catch (Exception $e) {
 							$updraftplus->log('Cloud Files error - failed to re-assemble chunks ('.$e->getMessage().')');
-							$updraftplus->error(__('Cloud Files error - failed to re-assemble chunks', 'updraftplus').' ('.$e->getMessage().')');
+							$updraftplus->log(sprintf(__('%s error - failed to re-assemble chunks', 'updraftplus'),'Cloud Files').' ('.$e->getMessage().')', 'error');
 							return false;
 						}
 					}
@@ -176,50 +176,74 @@ class UpdraftPlus_BackupModule_cloudfiles {
 
 			} catch (Exception $e) {
 				$updraftplus->log(__('Cloud Files error - failed to upload file', 'updraftplus').' ('.$e->getMessage().')');
-				$updraftplus->error(__('Cloud Files error - failed to upload file', 'updraftplus').' ('.$e->getMessage().')');
+				$updraftplus->log(sprintf(__('%s error - failed to upload file', 'updraftplus'),'Cloud Files').' ('.$e->getMessage().')', 'error');
 				return false;
 			}
 
 		}
 
-		$updraftplus->prune_retained_backups('cloudfiles', $this, array('cloudfiles_object' => $cont_obj, 'cloudfiles_orig_path' => $path, 'cloudfiles_container' => $container));
+		$updraftplus_backup->prune_retained_backups('cloudfiles', $this, array('cloudfiles_object' => $cont_obj, 'cloudfiles_orig_path' => $path, 'cloudfiles_container' => $container));
 
 	}
 
-	function delete($file, $cloudfilesarr) {
+	function delete($files, $cloudfilesarr = false) {
 
 		global $updraftplus;
+		if (is_string($files)) $files=array($files);
 
-		$cont_obj = $cloudfilesarr['cloudfiles_object'];
-		$container = $cloudfilesarr['cloudfiles_container'];
-		$path = $cloudfilesarr['cloudfiles_orig_path'];
-// 		$fpath = ($path == '') ? $file : "$path/$file";
- 		$fpath = $file;
-
-		$updraftplus->log("Cloud Files: Delete remote: container=$container, path=$fpath");
-
-		// We need to search for chunks
-		//$chunk_path = ($path == '') ? "chunk-do-not-delete-$file_" : "$path/chunk-do-not-delete-$file_";
-		$chunk_path = "chunk-do-not-delete-$file";
-
-		try {
-			$objects = $cont_obj->list_objects(0, NULL, $chunk_path.'_');
-			foreach ($objects as $chunk) {
-				$updraftplus->log('Cloud Files: Chunk to delete: '.$chunk);
-				$cont_obj->delete_object($chunk);
-				$updraftplus->log('Cloud Files: Chunk deleted: '.$chunk);
+		if ($cloudfilesarr) {
+			$cont_obj = $cloudfilesarr['cloudfiles_object'];
+			$container = $cloudfilesarr['cloudfiles_container'];
+			$path = $cloudfilesarr['cloudfiles_orig_path'];
+		} else {
+			try {
+				$user = UpdraftPlus_Options::get_updraft_option('updraft_cloudfiles_user');
+				$apikey = UpdraftPlus_Options::get_updraft_option('updraft_cloudfiles_apikey');
+				$path = untrailingslashit(UpdraftPlus_Options::get_updraft_option('updraft_cloudfiles_path'));
+				$container = $path;
+				$authurl = UpdraftPlus_Options::get_updraft_option('updraft_cloudfiles_authurl', 'https://auth.api.rackspacecloud.com');
+				$conn = $this->getCF($user, $apikey, $authurl, UpdraftPlus_Options::get_updraft_option('updraft_ssl_useservercerts'));
+				$cont_obj = $conn->create_container($container);
+			} catch(Exception $e) {
+				$updraftplus->log('Cloud Files authentication failed ('.$e->getMessage().')');
+				$updraftplus->log(sprintf(__('%s authentication failed','updraftplus'), 'Cloud Files').' ('.$e->getMessage().')', 'error');
+				return false;
 			}
-		} catch (Exception $e) {
-			$updraftplus->log('Cloud Files chunk delete failed: '.$e->getMessage());
 		}
 
-		try {
-			$cont_obj->delete_object($fpath);
-			$updraftplus->log('Cloud Files: Deleted: '.$fpath);
-		} catch (Exception $e) {
-			$updraftplus->log('Cloud Files delete failed: '.$e->getMessage());
-		}
+// 		$fpath = ($path == '') ? $file : "$path/$file";
 
+		$ret = true;
+		foreach ($files as $file) {
+
+			$fpath = $file;
+
+			$updraftplus->log("Cloud Files: Delete remote: container=$container, path=$fpath");
+
+			// We need to search for chunks
+			//$chunk_path = ($path == '') ? "chunk-do-not-delete-$file_" : "$path/chunk-do-not-delete-$file_";
+			$chunk_path = "chunk-do-not-delete-$file";
+
+			try {
+				$objects = $cont_obj->list_objects(0, NULL, $chunk_path.'_');
+				foreach ($objects as $chunk) {
+					$updraftplus->log('Cloud Files: Chunk to delete: '.$chunk);
+					$cont_obj->delete_object($chunk);
+					$updraftplus->log('Cloud Files: Chunk deleted: '.$chunk);
+				}
+			} catch (Exception $e) {
+				$updraftplus->log('Cloud Files chunk delete failed: '.$e->getMessage());
+			}
+
+			try {
+				$cont_obj->delete_object($fpath);
+				$updraftplus->log('Cloud Files: Deleted: '.$fpath);
+			} catch (Exception $e) {
+				$updraftplus->log('Cloud Files delete failed: '.$e->getMessage());
+				$ret = false;
+			}
+		}
+		return $ret;
 	}
 
 	function download($file) {
@@ -235,15 +259,15 @@ class UpdraftPlus_BackupModule_cloudfiles {
 			$conn = $this->getCF($user, $apikey, $authurl, UpdraftPlus_Options::get_updraft_option('updraft_ssl_useservercerts'));
 		} catch(AuthenticationException $e) {
 			$updraftplus->log('Cloud Files authentication failed ('.$e->getMessage().')');
-			$updraftplus->error(__('Cloud Files authentication failed','updraftplus').' ('.$e->getMessage().')');
+			$updraftplus->log(sprintf(__('%s authentication failed','updraftplus'), 'Cloud Files').' ('.$e->getMessage().')', 'error');
 			return false;
 		} catch(NoSuchAccountException $s) {
 			$updraftplus->log('Cloud Files authentication failed ('.$e->getMessage().')');
-			$updraftplus->error(__('Cloud Files authentication failed','updraftplus').' ('.$e->getMessage().')');
+			$updraftplus->log(sprintf(__('%s authentication failed','updraftplus'), 'Cloud Files').' ('.$e->getMessage().')', 'error');
 			return false;
 		} catch (Exception $e) {
 			$updraftplus->log('Cloud Files error - failed to create and access the container ('.$e->getMessage().')');
-			$updraftplus->error(__('Cloud Files error - failed to create and access the container', 'updraftplus').' ('.$e->getMessage().')');
+			$updraftplus->log(__('Cloud Files error - failed to create and access the container', 'updraftplus').' ('.$e->getMessage().')', 'error');
 			return;
 		}
 
@@ -261,7 +285,9 @@ class UpdraftPlus_BackupModule_cloudfiles {
 		try {
 			$cont_obj = $conn->create_container($container);
 		} catch(Exception $e) {
-			$updraftplus->error(__('Cloud Files error - failed to create and access the container','updraftplus').' ('.$e->getMessage().')');
+			$updraftplus->log('Cloud Files error - failed to create and access the container ('.$e->getMessage().')');
+			$updraftplus->log(__('Cloud Files error - failed to create and access the container','updraftplus').' ('.$e->getMessage().')', 'error');
+			return false;
 		}
 
 // 		$path = ($path == '') ? $file : "$path/$file";
@@ -271,7 +297,7 @@ class UpdraftPlus_BackupModule_cloudfiles {
 
 		try {
 			// The third parameter causes an exception to be thrown if the object does not exist remotely
-			$object = new CF_Object($cont_obj, $path, true);
+			$object = new UpdraftPlus_CF_Object($cont_obj, $path, true);
 			
 			$fullpath = $updraft_dir.'/'.$file;
 
@@ -289,7 +315,7 @@ class UpdraftPlus_BackupModule_cloudfiles {
 			// Some more remains to download - so let's do it
 			if (!$fh = fopen($fullpath, 'a')) {
 				$updraftplus->log("Cloud Files: Error opening local file: $fullpath");
-				$updraftplus->error("$file: ".__("Cloud Files Error",'updraftplus').": ".__('Error opening local file: Failed to download','updraftplus'));
+				$updraftplus->log(sprintf("$file: ".__("%s Error",'updraftplus'),'Cloud Files').": ".__('Error opening local file: Failed to download','updraftplus'), 'error');
 				return false;
 			}
 
@@ -306,7 +332,7 @@ class UpdraftPlus_BackupModule_cloudfiles {
 				$object->stream($fh, $headers);
 			} catch (Exception $e) {
 				$updraftplus->log("Cloud Files: Failed to download: $file (".$e->getMessage().")");
-				$updraftplus->error("$file: ".__("Cloud Files Error",'updraftplus').": ".__('Error downloading remote file: Failed to download'.' ('.$e->getMessage().")",'updraftplus'));
+				$updraftplus->log("$file: ".sprintf(__("%s Error",'updraftplus'), 'Cloud Files').": ".__('Error downloading remote file: Failed to download'.' ('.$e->getMessage().")",'updraftplus'), 'error');
 				return false;
 			}
 			
@@ -315,11 +341,11 @@ class UpdraftPlus_BackupModule_cloudfiles {
 
 		} catch (NoSuchObjectException $e) {
 			$updraftplus->log('Cloud Files error - no such file exists at Cloud Files ('.$e->getMessage().')');
-			$updraftplus->error(__('Cloud Files error - no such file exists at Cloud Files','updraftplus').' ('.$e->getMessage().')');
+			$updraftplus->log(sprintf(__('Error - no such file exists at %s','updraftplus'),'Cloud Files').' ('.$e->getMessage().')', 'error');
 			return false;
 		} catch(Exception $e) {
 			$updraftplus->log('Cloud Files error - failed to download the file ('.$e->getMessage().')');
-			$updraftplus->error(__('Cloud Files error - failed to download the file','updraftplus').' ('.$e->getMessage().')');
+			$updraftplus->log(sprintf(__('Error - failed to download the file from %s','updraftplus'),'Cloud Files').' ('.$e->getMessage().')' ,'error');
 			return false;
 		}
 
@@ -328,7 +354,7 @@ class UpdraftPlus_BackupModule_cloudfiles {
 	public static function config_print_javascript_onready() {
 		?>
 		jQuery('#updraft-cloudfiles-test').click(function(){
-			jQuery(this).html('<?php echo __('Testing - Please Wait...','updraftplus');?>');
+			jQuery(this).html('<?php echo esc_js(__('Testing - Please Wait...','updraftplus'));?>');
 			var data = {
 				action: 'updraft_ajax',
 				subaction: 'credentials_test',
@@ -342,8 +368,8 @@ class UpdraftPlus_BackupModule_cloudfiles {
 				disableverify: jQuery('#updraft_ssl_disableverify').val()
 			};
 			jQuery.post(ajaxurl, data, function(response) {
-				jQuery('#updraft-cloudfiles-test').html('<?php echo sprintf(__('Test %s Settings','updraftplus'),'Cloud Files');?>');
-				alert('Settings test result: ' + response);
+				jQuery('#updraft-cloudfiles-test').html('<?php echo esc_js(sprintf(__('Test %s Settings','updraftplus'),'Cloud Files'));?>');
+				alert('<?php echo esc_js(sprintf(__('%s settings test result:', 'updraftplus'), 'Cloud Files'));?> ' + response);
 			});
 		});
 		<?php
@@ -396,7 +422,7 @@ class UpdraftPlus_BackupModule_cloudfiles {
 		</tr>
 		<tr class="updraftplusmethod cloudfiles">
 			<th><?php _e('Cloud Files API key','updraftplus');?>:</th>
-			<td><input type="text" autocomplete="off" style="width: 252px" id="updraft_cloudfiles_apikey" name="updraft_cloudfiles_apikey" value="<?php echo htmlspecialchars(UpdraftPlus_Options::get_updraft_option('updraft_cloudfiles_apikey')); ?>" /></td>
+			<td><input type="<?php echo apply_filters('updraftplus_admin_secret_field_type', 'text'); ?>" autocomplete="off" style="width: 252px" id="updraft_cloudfiles_apikey" name="updraft_cloudfiles_apikey" value="<?php echo htmlspecialchars(UpdraftPlus_Options::get_updraft_option('updraft_cloudfiles_apikey')); ?>" /></td>
 		</tr>
 		<tr class="updraftplusmethod cloudfiles">
 			<th><?php echo apply_filters('updraftplus_cloudfiles_location_description',__('Cloud Files container','updraftplus'));?>:</th>
@@ -422,7 +448,7 @@ class UpdraftPlus_BackupModule_cloudfiles {
 			return;
 		}
 
-		$key = $_POST['apikey'];
+		$key = stripslashes($_POST['apikey']);
 		$user = $_POST['user'];
 		$path = $_POST['path'];
 		$authurl = $_POST['authurl'];

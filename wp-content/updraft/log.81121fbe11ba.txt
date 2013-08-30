@@ -1,0 +1,8 @@
+0000.000 () Opened log file at time: Wed, 21 Aug 2013 23:12:28 +0000
+0000.015 () UpdraftPlus: 1.6.46 WP: 3.6 PHP: 5.3.2-1ubuntu4.19 (Linux pod-1700 3.0.18 #2 SMP Sun Jan 29 15:38:02 UTC 2012 i686) MySQL: 5.5.31-30.3-log Server: Apache safe_mode: 0 max_execution_time: 900 memory_limit: 512M ZipArchive::addFile : Y
+0000.030 () Free space on disk containing Updraft's temporary directory: 0 Mb
+0000.045 () Your free disk space is very low - only 0 Mb remain
+0000.060 () Tasks: Backup files:  (schedule: daily) Backup DB: 1 (schedule: daily)
+0000.075 () Processed schedules. Tasks now: Backup files:  Backup DB: 
+0000.088 () No email will be sent - this backup set was empty.
+0000.100 () The backup apparently succeeded (with warnings) and is now complete

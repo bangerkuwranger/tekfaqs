@@ -212,7 +212,7 @@ add_action('nrelate_admin_page','nrelate_load_admin_scripts');
  * @since 0.47.3
  */
 function nrelate_load_admin_styles() {
-	wp_enqueue_style( 'nrelate-admin', NRELATE_ADMIN_URL . '/nrelate-admin.css', array(),NRELATE_LATEST_ADMIN_VERSION );
+	wp_enqueue_style( 'nrelate-admin', NRELATE_ADMIN_URL . '/nrelate-admin.css', array(),NRELATE_PLUGIN_VERSION );
 	wp_enqueue_style( 'qtip-style', NRELATE_ADMIN_URL . '/qtip/jquery.qtip.min.css');
 	wp_enqueue_style('thickbox');
 }
@@ -436,7 +436,7 @@ add_action('contextual_help', 'nrelate_dashboard_help', 10, 2);
  * @credits http://wordpress.org/extend/plugins/wphelpcenter/
  */
 function nrelate_site_inventory(){
-	$theme = get_theme(get_current_theme());
+	$theme = function_exists('wp_get_theme') ? wp_get_theme() : get_theme( get_current_theme() );
 	$themename = $theme['Name'];
 	$themeversion = $theme['Version'];
 	$themeauthor = strip_tags($theme['Author']);

@@ -10,7 +10,7 @@ class UpdraftPlus_BackupModule_sftp {
 		$addon_exists = apply_filters('updraft_sftp_exists', 'no');
 		if ($addon_exists !== 'yes') {
 			$updraftplus->log('You do not have the UpdraftPlus SFTP add-on installed - get it from http://updraftplus.com/shop/');
-			$updraftplus->error(sprintf(__('You do not have the UpdraftPlus %s add-on installed - get it from %s','updraftplus'),'SFTP','http://updraftplus.com/shop/'));
+			$updraftplus->log(sprintf(__('You do not have the UpdraftPlus %s add-on installed - get it from %s','updraftplus'),'SFTP','http://updraftplus.com/shop/'), 'error');
 			return false;
 		}
 
@@ -23,19 +23,19 @@ class UpdraftPlus_BackupModule_sftp {
 
 	}
 
-	// delete method: takes a file name (base name), and removes it from the cloud storage
-	function delete($file, $method_obj) {
+	// delete method: takes a file name (base name) (or array thereof), and removes it from the cloud storage
+	function delete($files, $method_obj = false) {
 
 		global $updraftplus;
 
 		$addon_exists = apply_filters('updraft_sftp_exists', 'no');
 		if ($addon_exists !== 'yes') {
 			$updraftplus->log('You do not have the UpdraftPlus SFTP add-on installed - get it from http://updraftplus.com/shop/');
-			$updraftplus->error(sprintf(__('You do not have the UpdraftPlus %s add-on installed - get it from %s','updraftplus'),'SFTP','http://updraftplus.com/shop/'));
+			$updraftplus->log(sprintf(__('You do not have the UpdraftPlus %s add-on installed - get it from %s','updraftplus'),'SFTP','http://updraftplus.com/shop/'), 'error');
 			return false;
 		}
 
-		do_action('updraft_sftp_delete_file', $file, $method_obj);
+		do_action('updraft_sftp_delete_files', $files, $method_obj);
 
 	}
 
@@ -47,7 +47,7 @@ class UpdraftPlus_BackupModule_sftp {
 		$addon_exists = apply_filters('updraft_sftp_exists', 'no');
 		if ($addon_exists !== 'yes') {
 			$updraftplus->log('You do not have the UpdraftPlus SFTP add-on installed - get it from http://updraftplus.com/shop/');
-			$updraftplus->error(sprintf(__('You do not have the UpdraftPlus %s add-on installed - get it from %s','updraftplus'),'SFTP','http://updraftplus.com/shop/'));
+			$updraftplus->log(sprintf(__('You do not have the UpdraftPlus %s add-on installed - get it from %s','updraftplus'),'SFTP','http://updraftplus.com/shop/'), 'error');
 			return false;
 		}
 

@@ -5,8 +5,8 @@ $cmf = get_post_meta($id, 'awqsf-cmf', true);
 $options = get_post_meta($id, 'awqsf-relbool', true);
 echo '<div id="aqsfformid">';
 if($formtitle){
-echo '<span class="form_title">'.get_the_title($id).'</span>';}
-echo '<div class="row-fluid">';
+echo '<span id="advTitle" class="form_title" onclick="showHideAdvSearch();" style="cursor: pointer;">'.get_the_title($id).'</span><img onclick="showHideAdvSearch();" id="expandArrow" class="" cursor: pointer;" src="http://3civ7q19xq3z4d2wi812e1iujkj.wpengine.netdna-cdn.com/wp-content/themes/knowledgepress_1.4_tekfaq/assets/img/leftorgarrow.png" />';}
+echo '<div id="advSearch" class="row-fluid" style="display: none;">';
 echo '<form method="get" name="advSearchForm" onsubmit="return useKeywordKthx();" id="awqsf_search_form_'.$id.'" action="'.home_url( '/' ).'">';
 echo '<input type="hidden" name="s" value="'.$nonce.'" /><input type="hidden" name="formid" value="'.$id.'">';
 if(!empty($taxo)){

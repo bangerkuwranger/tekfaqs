@@ -14,7 +14,7 @@ a.thumbnail, a.thumbnail:hover {border: none;box-shadow: none;}
 .label {padding-top: 3px; background: #f36f37; color: white;}
 input[type="text"]:focus, textarea:focus {border: solid 1px #777;box-shadow:none;}
 pre {line-height: 1em;}
-p { font-size: 16px; line-height: 1.5em; font-family: 'Helvetica Neue LT Com', Oswald, Helvetica Neue, Helvetica, sans-serif; color: #004a72; margin: 0 0 1em; font-weight: 300;}
+
 
 .widget input.search-query {
   padding-left: 6px;
@@ -39,41 +39,45 @@ p { font-size: 16px; line-height: 1.5em; font-family: 'Helvetica Neue LT Com', O
    Base
    ========================================================================== */
 @font-face {
-  font-family: 'Helvetica LT Std Condensed';
+  font-family: 'Tekvetica';
   font-style: normal;
   font-weight: bold;
-  src: local('Helvetica LT Std Bold Condensed'), local('HelveticaLTStd-BoldCond'), url('../fonts/HelveticaSTD/HelveticaLTStd-BoldCond.otf');
+  src: local('Tekvetica-Bold'), url('../fonts/Tekvetica-Bold.eot?') format('eot'), url('../fonts/Tekvetica-Bold.woff') format('woff'), url('../fonts/Tekvetica-Bold.ttf') format('truetype');
 }
 @font-face {
-  font-family: 'Helvetica LT Std Condensed';
-  font-style: normal;
-  font-weight: normal;
-  src: local('Helvetica LT Std Condensed'), local('HelveticaLTStd-Cond'), url('../fonts/HelveticaSTD/HelveticaLTStd-Cond.otf');
-}@font-face {
-  font-family: 'Helvetica Neue LT Com';
-  font-style: normal;
+  font-family: 'Tekvetica';
+  font-style: italic;
   font-weight: bold;
-  src: local('Helvetica Neue LT Com 75 Bold'), local('HelveticaNeueLTCom-Bd'), url('../fonts/HelveticaSTD/HelveticaNeueLTCom-Bd.ttf');
+  src: local('Tekvetica-BoldItal'), url('../fonts/Tekvetica-BoldItal.eot?') format('eot'), url('../fonts/Tekvetica-BoldItal.woff') format('woff'), url('../fonts/Tekvetica-BoldItal.ttf') format('truetype');
 }@font-face {
-  font-family: 'Helvetica Neue LT Com';
+  font-family: 'Tekvetica';
   font-style: normal;
-  font-weight: 800;
-  font-stretch: condensed;
-  src: local('Helvetica Neue LT Com 87 Heavy Condensed'), local('HelveticaNeueLTCom-HvCn'), url('../fonts/HelveticaSTD/HelveticaNeueLTCom-HvCn.ttf');
+  font-weight: 900;
+  src: local('Tekvetica-Heavy'), url('../fonts/Tekvetica-Heavy.eot?') format('eot'), url('../fonts/Tekvetica-Heavy.woff') format('woff'), url('../fonts/Tekvetica-Heavy.ttf') format('truetype');
 }@font-face {
-  font-family: 'Helvetica Neue LT Com';
-  font-style: normal;
-  font-weight: normal;
-  src: local('Helvetica Neue LT Com 65 Medium'), local('HelveticaNeueLTCom-Md'), url('../fonts/HelveticaSTD/HelveticaNeueLTCom-Md.ttf');
-}@font-face {
-  font-family: 'Helvetica Neue LT Com';
+  font-family: 'Tekvetica';
   font-style: italic;
   font-weight: normal;
-  src: local('Helvetica Neue LT Com 66 Medium Italic'), local('HelveticaNeueLTCom-MdIt'), url('../fonts/HelveticaSTD/HelveticaNeueLTCom-MdIt.ttf');
+  src: local('Tekvetica-Italic'), url('../fonts/Tekvetica-Italic.eot?') format('eot'), url('../fonts/Tekvetica-Italic.woff') format('woff'), url('../fonts/Tekvetica-Italic.ttf') format('truetype');
+}@font-face {
+  font-family: 'Tekvetica';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Tekvetica-Regular'), url('../fonts/Tekvetica-Regular.eot?') format('eot'), url('../fonts/Tekvetica-Regular.woff') format('woff'), url('../fonts/Tekvetica-Regular.ttf') format('truetype');
+}@font-face {
+  font-family: 'Tekvetica';
+  font-style: normal;
+  font-weight: 200;
+  src: local('Tekvetica-Thin'), url('../fonts/Tekvetica-Thin.eot?') format('eot'), url('../fonts/Tekvetica-Thin.woff') format('woff'), url('../fonts/Tekvetica-Thin.ttf') format('truetype');
+}@font-face {
+  font-family: 'Tekvetica';
+  font-style: italic;
+  font-weight: 200;
+  src: local('Tekvetica-ThinItalic'), url('../fonts/Tekvetica-ThinItalic.eot?') format('eot'), url('../fonts/Tekvetica-ThinItalic.woff') format('woff'), url('../fonts/Tekvetica-ThinItalic.ttf') format('truetype');
 }
    
-
-body { }
+p { font-size: 16px; line-height: 1.5em; font-family: 'Tekvetica', Helvetica Neue, Helvetica, sans-serif; color: #004a72; margin: 0 0 1em; font-weight: 300;}
+body { font-family: 'Tekvetica', Helvetica Neue LT Com, Helvetica Neue, Helvetica, sans-serif; }
 h1, h2, h3, h4, h5, h6 {color: #004d72;}
 h1 { font-size: 36px;}
 h2 { font-size: 28px;}
@@ -140,7 +144,7 @@ body.admin-bar .navbar-fixed-top { top: 28px; }
 /* page header */
 #page-header-container { background-color: #171717;margin-bottom: 30px;}
 .page-header {}
-.page-header h1 { color: #fff;margin: 10px 0 0; padding-bottom:5px;font-size: 36px;text-shadow: 1px 1px 2px rgba(0, 0, 0, .4); }
+.page-header h1 { color: #fff;margin: 10px 0 0; padding-bottom:5px;font-size: 36px;text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);font-weight:900; }
 .page-header p.tagline {font-size: 14px; position: relative; top: -3px; padding:0;margin-bottom: 5px; color: #eee;text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);}
 #searchform .search-query { float: right; margin: 24px 0;}
 .page-title h1 {margin: 13px 0 22px 20px; max-width: 250px; z-index: 2; text-shadow: 1px 1px 2px rgba(255, 255, 255, .4);}
@@ -188,7 +192,7 @@ ul#menu, #menu ul {margin: 0;}
 #menu .active a, #menu li a:hover, #menu ul a:hover, #menu .current-menu-item a, #menu .current-menu-parent>a {}
 #menu .active>a, #menu .current-menu-item a, #menu .current-menu-parent>a {background-color: transparent; text-shadow:none; }
 
-#menu > li > a { color:#f36f37;text-transform: uppercase; font-family: 'Helvetica Neue LT Com', Oswald, Helvetica Neue, sans-serif; font-weight: bold; }
+#menu > li > a { color:#f36f37;text-transform: uppercase; font-family: 'Tekvetica', 'Helvetica Neue LT Com', Helvetica Neue, sans-serif; font-weight: bold; }
 #menu ul a { color:#40A8C9;}
 #menu > li > a:hover { color:#40A8C9;}
 
@@ -372,7 +376,7 @@ form#searchform {margin: 0;}
 @media (min-width: 1200px){
 	.logo img {max-width: 100%;}
 	#menu {padding: 56px 0 0;}
-	.box-title h2 a{font-size: 38px;}
+	.box-title h2 a{font-size: 32px;}
 	#hero-image {
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -493,6 +497,7 @@ width:100%;
 }
 ol.commentlist .comment-text p {
 margin-bottom: 10px;
+padding-right: 20px;
 }
 /* post comments */
 cite.fn { font-size:18px; font-weight:bold;}
@@ -797,7 +802,7 @@ width: 300px;
 height: 300px;
 text-align: center;
 color: #004d72;
-font-family: 'Helvetica Neue LT Com', Oswald, Helvetica Neue, Helvetica, sans-serif;
+font-family: 'Tekvetica', 'Helvetica Neue LT Com', Helvetica Neue, Helvetica, sans-serif;
 background: url('../img/leftorgarrow.png') no-repeat right;
 margin-bottom: 75px;
 padding-right: 15px;
@@ -891,7 +896,7 @@ ul.category-posts li {line-height: 1.6em;}
 #section-container {padding: 0 0 63px;}
 #hero {height: 390px;width: 100%;}
 .hero-title {text-align: right; padding: 90px 0 50px;}
-.hero-title h1 {font-size: 90px;text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);color: #004d72;}
+.hero-title h1 {font-size: 90px;text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);color: #004d72;font-weight:900;}
 .hero-search {text-align: center; }
 .hero-search .search-query {width: 60%; max-width: 800px; float: none!important;}
 .hero-search .btn-black {
@@ -1142,7 +1147,7 @@ text-decoration: none;
 .devicenav li { margin-bottom: 1em;
 font-size: 2em;
 font-weight: bold;
-font-family: 'Helvetica Neue LT Com', Oswald, Helvetica Neue, Helvetica, sans-serif;
+font-family: 'Tekvetica', 'Helvetica Neue LT Com', Helvetica Neue, Helvetica, sans-serif;
 line-height: 1.1em;
 list-style: none;
 color: #004d72;
@@ -1184,7 +1189,7 @@ width: 275px;
 #sidebar .widget li a {
 text-decoration: none;
 font-weight: 800;
-font-family: Helvetica Neue LT Com;
+font-family: Tekvetica;
 font-size: 20px;
 }
 
@@ -1213,7 +1218,7 @@ font-size: 20px;
 	font-size: 125%;
 	line-height: 150%;
 	display: block;
-	font-family: 'Helvetica Neue LT Com', Oswald, 'Helvetica Neue', Helvetica, sans-serif;
+	font-family: 'Tekvetica', 'Helvetica Neue LT Com', 'Helvetica Neue', Helvetica, sans-serif;
 	margin-bottom: 1em;
 }
 .nrelate .nr_excerpt {
@@ -1242,7 +1247,7 @@ font-size: 20px;
 	font-weight: bold;
 	line-height: 110%;
 	height: 100% !important;
-	font-family: 'Helvetica Neue LT Com', Oswald, 'Helvetica Neue', Helvetica, sans-serif;
+	font-family: 'Tekvetica', 'Helvetica Neue LT Com', 'Helvetica Neue', Helvetica, sans-serif;
 }
 	.nrelate ul li a:hover {
 		color: #40a8c9 !important;
@@ -1276,7 +1281,7 @@ vertical-align: -8px;
 color: #f36f37;
 text-transform: uppercase;
 text-shadow: 1px 1px 2px #444;
-font-family: 'Helvetica Neue LT Com', Oswald, Helvetica Neue, sans-serif;
+font-family: 'Tekvetica', 'Helvetica Neue LT Com', Helvetica Neue, sans-serif;
 font-size: 10px;
 display: inline;
 }
@@ -1335,7 +1340,7 @@ and (orientation : landscape) {
 @media only screen
 and (max-device-width: 1024px)
 {
-aside { position:relative; right:50px; }
+/* aside { position:relative; right:50px; } */
 }
 @media only screen 
 and (min-device-width : 768px) 
@@ -1350,4 +1355,16 @@ and (orientation : portrait) {
 .hero-title {padding: 0!important;}
 #hero {height:300px;}
 .recent-title h2 { font-size: 24px; }
+#sidebar { margin-left: 80px; }
+}
+@media screen and (max-device-width: 480px) and (orientation: portrait){
+#sidebar { margin-left: 60px; }
+.nav-tile span { margin-left:20px; }
+}
+#compatibilityChart tr {
+padding: 5px;
+border-bottom: 1px solid #eee;
+}
+#compatibilityChart td {
+padding: 10px;
 }

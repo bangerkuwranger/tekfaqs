@@ -229,7 +229,7 @@ function guerillaframework_options() {
 	$typography_options_headers = array(
 		'faces' => $typography_mixed_fonts,
 		'styles' => false, 
-		'color'	=> false,
+		'color'	=> true,
 		'sizes' => false, 
 	);
 	
@@ -237,7 +237,7 @@ function guerillaframework_options() {
 	$typography_options_navigation = array(
 		'faces' => $typography_mixed_fonts,
 		'styles' => false,
-		'color'	=> false,
+		'color'	=> true,
 		'sizes' => array( '10','11','12','13','14','15','16','17','18','19','20') 
 	);
 
@@ -251,21 +251,21 @@ function guerillaframework_options() {
 	$options[] = array( 'name' => __('Main Body Text', 'guerilla'),
 						'desc' => __('Used in P tags.', 'guerilla'),
 						'id' => 'main_body_typography',
-						'std' => array('face' => '"Helvetica Neue LT Com", Oswald, Helvetica Neue, sans-serif','size' => '15px','color' => '#004a72	'),
+						'std' => array('face' => '"Tekvetica", "Helvetica Neue LT Com", Helvetica Neue, Helvetica, sans-serif','size' => '15px','color' => '#004a72	'),
 						'type' => 'typography',
 						'options' => $typography_options_body );
 						
 	$options[] = array( 'name' => __('Navigation', 'guerilla'),
 						'desc' => __('Main navigation.', 'guerilla'),
 						'id' => 'top_nav_link',
-						'std' => array('face' => '"Helvetica Neue LT Com", Oswald, Helvetica Neue, sans-serif','size' => '16px'),
+						'std' => array('face' => '"Tekvetica", "Helvetica Neue LT Com", Helvetica Neue, Helvetica, sans-serif','size' => '16px'),
 						'type' => 'typography',
 						'options' => $typography_options_navigation );
 						
 	$options[] = array( 'name' => __('Headings', 'guerilla'),
 						'desc' => __('Used in H1, H2, H3, H4, H5 & H6 tags.', 'guerilla'),
 						'id' => 'heading_typography',
-						'std' => array('face' => '"Helvetica Neue LT Com", Oswald, Helvetica Neue, sans-serif'),
+						'std' => array('face' => '"Tekvetica", "Helvetica Neue LT Com", Helvetica Neue, Helvetica, sans-serif'),
 						'type' => 'typography',
 						'options' => $typography_options_headers );
 

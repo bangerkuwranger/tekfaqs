@@ -38,7 +38,8 @@ function options_typography_get_os_fonts() {
 		'Garamond, "Hoefler Text", Times New Roman, Times, serif' => 'Garamond',
 		'Georgia, serif' => 'Georgia',
 		'"Helvetica Neue LT Com", Oswald, Helvetica Neue, sans-serif' => 'Helvetica Neue',
-		'Tahoma, Geneva, sans-serif' => 'Tahoma'
+		'Tahoma, Geneva, sans-serif' => 'Tahoma',
+		'"Tekvetica", "Helvetica Neue LT Com", Helvetica Neue, Helvetica, sans-serif' => 'Tekvetica'
 	);
 	return $os_faces;
 }

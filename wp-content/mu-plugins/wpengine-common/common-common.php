@@ -50,6 +50,52 @@ function wpe_format_bytes($bytes, $precision = 1) {
 } 
 }
 
+// Make versions look the same with same number or parts: 3.5 becomes 3.5.0-0-0 to match 3.5-alpha-11111
+function normalize_version($v)
+{
+    // Split any after dash
+    $the_split = split('-', $v);
+    $front = explode('.',$the_split[0]);
+    // First part has 3 parts
+    // Back part has 2 parts
+    $x = $front[0].".".$front[1].".". (@$front[2] ?: 0) .".". (@$the_split[1] ?: 0) .".". (@$the_split[2] ?: 0);
+    return strtolower($x);
+}
+
+// compares production and staging versions to see if staging version is greater than or equal to production
+function is_staging_gte($b, $a) // is a greater than b?
+{
+    if ( $a === $b ) {
+        return true;
+    }
+
+    $a = normalize_version($a);
+    $b = normalize_version($b);
+
+    $split_a = explode('.', $a);
+    $split_b = explode('.', $b);
+
+    foreach ( $split_a as $i => $part_a ) {
+        $cmp = strcmp($part_a, $split_b[$i]);
+        if ( 0 === $cmp ) {
+            continue;
+        }
+        // Weird thing to do to handle numeric (0,1) considered higher version than alpha, beta, rc.
+        if ( is_numeric($part_a) && !is_numeric($split_b[$i]) ) {
+            return true;
+        }
+        if ( !is_numeric($part_a) && is_numeric($split_b[$i]) ) {
+            return false;
+        }
+        if ( 0 < $cmp ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    return false;
+}
+
 // Capture plug-in logic in a class.
 class WpePlugin_common
 {

@@ -441,7 +441,7 @@ $nrelate_text_styles = array(
 				),
 'none' => array(
 					"name"=>__('none'),
-					"stylesheet" => "nrelated",
+					"stylesheet" => "",
 					"styleclass" => "none",
 					"layout" => "1col",
 					"features"=>__('<ul>
@@ -504,7 +504,7 @@ $nrelate_text_styles_separate = array(
 				),
 'none' => array(
 					"name"=>__('none'),
-					"stylesheet" => "nrelated",
+					"stylesheet" => "",
 					"styleclass" => "none",
 					"layout" => "2row",
 					"features"=>__('<ul>

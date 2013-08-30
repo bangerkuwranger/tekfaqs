@@ -193,3 +193,9 @@ v2.0.41
 	- Fix staging refresh page link to point at staging tab.
 v2.0.42
 	- Updated method of defining WPE_PLUGIN_VERSION constant
+v2.0.43 
+	- Change plugin links to WPE User Portal
+v2.0.44 
+	- Updated staging to production push to prevent update if staging version is older than production version
+v2.0.45
+	- Added torquemag.io and wpengine blog feeds

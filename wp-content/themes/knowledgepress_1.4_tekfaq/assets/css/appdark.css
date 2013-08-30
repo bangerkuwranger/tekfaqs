@@ -73,7 +73,7 @@ p { font-size: 16px; line-height: 1.5em; font-family: 'Helvetica Neue LT Com', O
 }
    
 
-body { }
+body { font-family: Tekvetica, Helvetica Neue LT Com, Helvetica Neue, Oswald, Helvetica, sans-serif; }
 h1, h2, h3, h4, h5, h6 {color: #042E34;}
 h1 { font-size: 36px;}
 h2 { font-size: 28px;}
@@ -314,8 +314,8 @@ nav select{display:none}
   .hero-search input.search-query { font-size: 16px; }
 }
 /* little MacBooks and the like get the big picture*/
-@media(min-width:1025px) and (max-height:900px){body{zoom:.75;}}
-@media(min-width:1025px) and (max-height:767px){body{zoom:.66;}}
+@media(min-width:1025px) and (max-height:900px){body{zoom:.8;}}
+@media(min-width:1025px) and (max-height:767px){body{zoom:.75;}}
 
 
 /* =============================================================================
@@ -962,7 +962,7 @@ top: -50px;
 
 .boxes {margin-top: 0;margin-bottom: 70px;}
 .box-icon {margin-bottom: 10px;text-align: center;}
-.box-icon i {font-size: 100px; color: #ddd;}
+.box-icon i {font-size: 100px; color: #fff;}
 .box-title {text-align: center;padding: 25px 0 6px;}
 .box-title h2 a {color: #042e34;
 -webkit-transition: color .1s linear;
@@ -971,7 +971,7 @@ top: -50px;
 -ms-transition: color .1s linear;
 transition: color .1s linear;
 }
-.box-title h2 a:hover {text-decoration: none;color: #042E34;}
+.box-title h2 a:hover {text-decoration: none;color: #40a8c9;}
 .box-text {text-align: center;color: #fff;}
 .box-text .btn-black {margin-top: 25px;display: inline-block;}  
 .btn-custom:hover {text-decoration: none;background: #40A8C9 url(../img/btn-custom.png);}
@@ -1263,8 +1263,8 @@ margin-top: 2em;
 /* position: fixed; */
 top: 30px;
 right: 30px;
-text-transform: uppercase;
 border: none;
+padding: 0;
 }
 #contrastAndColorImg {
 height: 24px;
@@ -1274,6 +1274,7 @@ padding: 0;
 }
 #contrastAndColor {
 color: #fff;
+text-transform: uppercase;
 text-shadow: 1px 1px 2px #000;
 font-family: 'Helvetica Neue LT Com', Oswald, Helvetica Neue, sans-serif;
 font-size: 10px;
@@ -1306,6 +1307,7 @@ display: none
 .hentry header h2 {max-width: 80%;}
 .nrelate ul li a { font-size: 12px; }
 }
+
 .categoryList {
 display: block;
 font-size: 1.25em;
@@ -1314,23 +1316,26 @@ font-size: 1.25em;
 height: 24px;
 vertical-align: -6px;
 }
-@media (min-width: 769px) and (max-width: 1025) {
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
 .boxes {margin-bottom:0;}
 .box {height: 125px;}
-.box-icon {margin-bottom: -30px;}
+.box-icon {margin-bottom: -30px; height: 102px;}
 .box-text {display:none;}
 #hero {height:240px;}
 .hero-title {padding: 30px 0 50px}
 .hero-title h1 {font-size: 68px;}
-#boxes-container h1 {top: -25px;}
 .hero-search > form { margin: -30px; }
-.hero-search form input {font-size: 14px; padding: 8px;}
+#boxes-container h1 {top: -25px;}
+#searchform .search-query {font-size: 14px; padding: 8px;}
 #searchsubmit {padding: 7px 11px; font-size: 20px; font-weight: bold; height: 40px;}
 }
 @media only screen
 and (max-device-width: 1024px)
 {
-aside { position:relative; right:50px; }
+/* aside { position:relative; right:50px; } */
 }
 @media only screen 
 and (min-device-width : 768px) 
@@ -1345,4 +1350,16 @@ and (orientation : portrait) {
 .hero-title {padding: 0!important;}
 #hero {height:300px;}
 .recent-title h2 { font-size: 24px; }
+#sidebar { margin-left: 80px; }
+}
+@media screen and (max-device-width: 480px) and (orientation: portrait){
+#sidebar { margin-left: 60px; }
+.nav-tile span { margin-left:20px; }
+}
+#compatibilityChart tr {
+padding: 5px;
+border-bottom: 1px solid #eee;
+}
+#compatibilityChart td {
+padding: 10px;
 }

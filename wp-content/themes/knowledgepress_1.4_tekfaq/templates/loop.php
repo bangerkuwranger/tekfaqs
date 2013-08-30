@@ -20,7 +20,7 @@
 // get the category IDs assigned to post
 $categories = wp_get_post_categories( $post->ID, array( 'fields' => 'ids' ) );
 // separator between links
-  	$separator = '  <img style="height: 12px; vertical-align: -1px;" src="../wp-content/themes/knowledgepress_1.4_tekfaq/assets/img/leftorgarrow.png" />  ';
+  	$separator = '  <img style="height: 12px; vertical-align: -1px;" src="http://tekserve.wpengine.com/wp-content/themes/knowledgepress_1.4_tekfaq/assets/img/leftorgarrow.png" />  ';
 	$maclogo = '> <img src="http://tekserve.wpengine.com/wp-content/uploads/2013/06/Mac-Logo.png" alt="Mac" title="Mac" /> <';
 	$ioslogo = '> <img src="http://tekserve.wpengine.com/wp-content/uploads/2013/06/IOS_Logo.png" alt="iOS" title="iOS" /> <';
 if ( $categories ) {

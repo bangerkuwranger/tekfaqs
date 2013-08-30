@@ -27,7 +27,7 @@ Template Name: Home
     <div class="span4">
       <div class="box">
         <div class="box-icon">
-          <i class="icon-<?php echo gt_get_option('box_1_icon'); ?>"></i>
+          <a href="index.php?page_id=<?php echo gt_get_option('box_1_link'); ?>"><i class="icon-<?php echo gt_get_option('box_1_icon'); ?>"></i></a>
         </div>
         <div class="box-title">
           <h2><a href="index.php?page_id=<?php echo gt_get_option('box_1_link'); ?>"><?php echo get_the_title(gt_get_option('box_1_link')); ?></a></h2>
@@ -41,7 +41,7 @@ Template Name: Home
     <div class="span4">
       <div class="box">
         <div class="box-icon">
-          <i class="icon-<?php echo gt_get_option('box_2_icon'); ?>"></i>
+          <a href="index.php?page_id=<?php echo gt_get_option('box_2_link'); ?>"><i class="icon-<?php echo gt_get_option('box_2_icon'); ?>"></i></a>
         </div>
         <div class="box-title">
           <h2><a href="index.php?page_id=<?php echo gt_get_option('box_2_link'); ?>"><?php echo get_the_title(gt_get_option('box_2_link')); ?></a></h2>
@@ -55,7 +55,7 @@ Template Name: Home
     <div class="span4">
       <div class="box">
         <div class="box-icon">
-          <i class="icon-<?php echo gt_get_option('box_3_icon'); ?>"></i>
+          <a href="index.php?page_id=<?php echo gt_get_option('box_3_link'); ?>"><i class="icon-<?php echo gt_get_option('box_3_icon'); ?>"></i></a>
         </div>
         <div class="box-title">
           <h2><a href="index.php?page_id=<?php echo gt_get_option('box_3_link'); ?>"><?php echo get_the_title(gt_get_option('box_3_link')); ?></a></h2>

@@ -1,6 +1,6 @@
 /**
   * HTML Javascript Adder - Wordpress plugin widget functions
-  * v2.2 - Since 3.0
+  * v2.3 - Since 3.0
   * http://www.aakashweb.com/
 **/
 
@@ -30,56 +30,6 @@ $j(document).ready(function() {
 		hjaOpenPopup($j('#' + editId).val());
 	});
 	
-	/*** The post select box START ***/
-	
-	var closeList = true;
-	$j('.hjaGetPosts').live('click focus', function(){
-		pos = $j(this).offset();
-		width = $j('.hjaPostsList').width();
-				
-		$j('.hjaPostsList').animate({
-			"left": (pos.left - width - 25) + "px", 
-			"top": (pos.top - 10) + "px"
-		}).show();
-		
-		$j('.hjaInputId').val($j(this).attr('id'));
-		
-	});
-	
-	$j(document).live('click', function(e){
-		if($j(e.target).is(".hjaPostsList") || $j(e.target).is(".hjaPostsList li")) {
-            closeList = false;
-        }else{
-			closeList = true;
-            if (!$j(e.target).is(".hjaGetPosts")) {
-                $j(".hjaPostsList").hide();
-				$j('.hjaInputId').val('');
-            }
-		}	
-	});
-	
-	$j(".hjaPostsList").mouseover(function(){
-		closeList = false;
-	});
-	
-	$j(".hjaGetPosts").live('blur', function() {
-		if (closeList) {
-			$j(".hjaPostsList").hide();
-			$j('.hjaInputId').val('');
-		}
-    });
-	
-	$j(".hjaPostsList li").click(function(){
-		bxval = $j('.hjaInputId').val();
-		selval = $j(this).attr('data-id');
-		
-		if(bxval !== ''){
-			$j('#' + bxval).val($j('#' + bxval).val() + selval + ', ');
-		}
-	});
-	
-	/*** The post select box END ***/
-	
 	$j('.hjaShare').live('mouseenter', function(){
 		$j(this).find('span').remove();
 		$j(this).prepend('<span>' + social + '</span>');
@@ -94,9 +44,6 @@ $j(document).ready(function() {
 });
 
 function hjaOpenPopup(content){
-	//var ifr = document.getElementById("hjaIframe");
-	//var ifrObj = (ifr.contentWindow || ifr.contentDocument);
-	//if (ifrObj.document) ifrObj = ifrObj.document;
 	
 	hjaIframe.document.open();
 	hjaIframe.document.write(content);

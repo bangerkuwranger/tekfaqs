@@ -3,7 +3,7 @@ Contributors: nrelate, slipfire, sbruner
 Tags: related posts, related content, related, feeds, feed, rss, page, pages, post, posts, thumbnails, nrelate
 Tested up to: 3.6
 Requires at least: 2.9
-Stable tag: 0.52.1
+Stable tag: 0.52.4
 
 The best way to display related content: Thumbnails or Text, on all your pages.
 
@@ -130,6 +130,9 @@ When you activate an nrelate plugin, our Pinghost is automatically added to your
 = My website is not in English, will nrelate work? =
 Our plugin will work on websites in the following languages: Dutch, English, French, German, Indonesian, Italian, Polish, Portuguese, Russian, Spanish, Swedish and Turkish.  If you do not see your language on the list or you think that we could improve the relevancy of our plugin in your language, please <a href="http://nrelate.com/forum/">contact us</a> and we will work with you to configure the plugin accordingly.
 
+= What is nRelates relationship with comScore? =
+As of May 10, 2013, nRelate is working with <a href="http://www.comscore.com">comScore</a>, a leading web measurement firm, to collect and provide network statistics on nRelate's network of sites.  By using or continuing to use nRelate you authorize nRelate to make a call to comScore for measuring your site and traffic.  comScore is used by tens of thousands of publishers, ad networks, and widget providers for analysis and reporting.  It is very likely given their coverage your site already uses a service that partners with them in the same way nRelate is.  For any questions about this, please feel free to contact our support team (support@nrelate.com) and reference our <a href="http://nrelate.com/privacy-policy/">privacy policy</a> as well.
+
 == Screenshots ==
 
 1. nrelate Default style
@@ -144,6 +147,18 @@ Our plugin will work on websites in the following languages: Dutch, English, Fre
 10. Hovering on an advertisement
 
 == Changelog ==
+
+= 0.52.4 =
+* Bug Fixes.
+
+= 0.52.3 =
+* Bug Fixes.
+
+= 0.52.2 =
+* Stylesheets now load locally.
+* comScore added to Javascript.
+* Replaced WP_PLUGIN_DIR constant.
+* Bug Fixes.
 
 = 0.52.1 =
 * Bug fix for installs in subfolders.

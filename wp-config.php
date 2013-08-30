@@ -50,7 +50,7 @@ define('WPE_RO_FILESYSTEM',false);
 
 define('WPE_LARGEFS_BUCKET','largefs.wpengine');
 
-define('WPE_CDN_DISABLE_ALLOWED',true);
+define('WPE_CDN_DISABLE_ALLOWED',false);
 
 define('DISALLOW_FILE_EDIT',FALSE);
 
@@ -82,7 +82,7 @@ $wpe_no_cdn_uris=array ();
 
 $wpe_content_regexs=array ();
 
-$wpe_all_domains=array (  0 => 'tekserve.wpengine.com',);
+$wpe_all_domains=array (  0 => 'faq.tekserve.com',  1 => 'tekserve.wpengine.com',);
 
 $wpe_varnish_servers=array (  0 => 'pod-1700',);
 
@@ -90,7 +90,7 @@ $wpe_ec_servers=array ();
 
 $wpe_largefs=array ();
 
-$wpe_netdna_domains=array (  0 =>   array (    'match' => 'tekserve.wpengine.com',    'zone' => '3civ7q19xq3z4d2wi812e1iujkj',    'enabled' => true,  ),);
+$wpe_netdna_domains=array (  0 =>   array (    'match' => 'tekserve.wpengine.com',    'zone' => '3civ7q19xq3z4d2wi812e1iujkj',    'enabled' => true,  ),  1 =>   array (    'match' => 'faq.tekserve.com',    'zone' => 'n7igo4dfehm26whe51igur5adp',    'enabled' => true,  ),);
 
 $wpe_netdna_push_domains=array ();
 
@@ -98,9 +98,9 @@ $wpe_domain_mappings=array ();
 
 $memcached_servers=array (  'default' =>   array (    0 => 'unix:///tmp/memcached.sock',  ),);
 
-define('WP_SITEURL','http://tekserve.wpengine.com');
+//define('WP_SITEURL','http://faq.tekserve.com');
 
-define('WP_HOME','http://tekserve.wpengine.com');
+//define('WP_HOME','http://faq.tekserve.com');
 define('WPLANG','');
 
 # WP Engine ID

@@ -35,15 +35,17 @@ class UpdraftPlus_BackupModule_template {
 
 	}
 
-	// delete method: takes a file name (base name), and removes it from the cloud storage
-	function delete($file) {
+	// delete method: takes an array of file names (base name) or a single string, and removes them from the cloud storage
+	function delete($files) {
 
 		global $updraftplus;
+
+		if (is_string($files)) $files = array($files);
 
 	}
 
 	// download method: takes a file name (base name), and brings it back from the cloud storage into Updraft's directory
-	// $updraftplus->logging is not available here, but you can register errors with $updraftplus->error("my error message")
+	// You can register errors with $updraftplus->log("my error message", 'error')
 	function download($file) {
 
 		global $updraftplus;

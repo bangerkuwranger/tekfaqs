@@ -316,6 +316,77 @@ class WpeCommon extends WpePlugin_common {
 		return $self;
 	}
 
+    public function torque_rssfeed_dashboard_widget_function() {
+        $this->_rssfeed_dashboard_widget_function('http://torquemag.io/feed/', 3);
+    }
+
+    public function wpeblog_rssfeed_dashboard_widget_function() {
+        $this->_rssfeed_dashboard_widget_function('http://wpengine.com/blog/feed/', 3);
+    }
+
+
+    private function _rssfeed_dashboard_widget_function($feed, $items) {
+        if (!function_exists('feed_cache_short_lifetime')) {
+            // change the default feed cache recreation period to 2 hours
+            function feed_cache_short_lifetime( $seconds ) { return 21600; }
+        }
+        add_filter( 'wp_feed_cache_transient_lifetime' , 'feed_cache_short_lifetime' );
+        $rss = fetch_feed( $feed );
+        remove_filter( 'wp_feed_cache_transient_lifetime' , 'feed_cache_short_lifetime' );
+
+        if ( is_wp_error($rss) ) {
+            if ( is_admin() || current_user_can('manage_options') ) {
+                echo '<p>';
+                printf(__('<strong>RSS Error</strong>: %s'), $rss->get_error_message());
+                echo '</p>';
+            }
+            return;
+        }
+        
+        if ( !$rss->get_item_quantity() ) {
+            echo '<p>Apparently, there are no updates to show!</p>';
+            $rss->__destruct();
+            unset($rss);
+            return;
+        }
+
+        $list = array('<ul>');
+        foreach ( $rss->get_items(0, $items) as $item ) {
+            $publisher = '';
+            $site_link = '';
+            $link = '';
+            $content = '';
+            $date = '';
+            $link = esc_url( strip_tags( $item->get_link() ) );
+            $title = esc_html( $item->get_title() );
+            $content = $item->get_content();
+            $content = wp_html_excerpt($content, 250) . ' ...';
+
+            $list[] = sprintf('<li><a class="rsswidget" href="%s">%s</a><div class="rssSummary">%s</div></li>', $link, $title, $content); 
+        }
+        $list[] = '</ul>';
+        print(implode("\n", $list));
+        $rss->__destruct();
+        unset($rss);
+    }
+
+    public function add_rssfeed_widget() {
+        add_meta_box('torque_rssfeed_dashboard_widget', 'Torque Mag', array($this, 'torque_rssfeed_dashboard_widget_function'), 'dashboard', 'side', 'core');
+        add_meta_box('wpeblog_rssfeed_dashboard_widget', 'WPEngine Blog', array($this, 'wpeblog_rssfeed_dashboard_widget_function'), 'dashboard', 'side', 'core');
+
+        // don't forget the global to get all dashboard widgets
+        global $wp_meta_boxes;
+        $sidebar = $wp_meta_boxes['dashboard']['side']['core'];
+        $my_boxes = array(
+                'dashboard_primary' => $sidebar['dashboard_primary'],
+                'dashboard_secondary' => $sidebar['dashboard_secondary'],
+            );
+        unset($sidebar['dashboard_primary']);
+        unset($sidebar['dashboard_secondary']);
+        $wp_meta_boxes['dashboard']['side']['core'] = $sidebar + $my_boxes;
+    }
+
+
 	// Initialize hooks
 	public function wp_hook_init() {
 		global $current_user;
@@ -373,7 +444,7 @@ class WpeCommon extends WpePlugin_common {
 		
 			//wpe ajax hook
 			add_action( 'wp_ajax_wpe-ajax', array( $this, 'do_ajax' ) );
-
+			add_action( 'activate_plugin', array( $this, 'activate_plugin') );
 		}
 
 		add_action('password_reset', array($this,'password_reset'),0,2);
@@ -413,6 +484,15 @@ class WpeCommon extends WpePlugin_common {
 		}
  	}
 	
+	//Some plugins need a custom site config, so communicate with our API when these are activated.
+	public function activate_plugin( $plugin ) {
+		//look for plugins that WP Engine Api needs to know about
+		include_once(__DIR__.'/class.plugins.php');
+		if( in_array( $plugin, PluginsConfig::$plugins ) ) {
+			PluginsConfig::config($plugin);
+		}	
+	}	
+
 	// Loads footer scripts in the admin
 	// hook: admin_print_footer_scripts
 	public function print_footer_scripts() {
@@ -423,6 +503,9 @@ class WpeCommon extends WpePlugin_common {
 		//if a deployment is in progress load the modal
 		if( 'wpengine-common' == @$_GET['page'] || self::$deployment ) 
 			$this->view('modal');
+
+		if( 'wpengine-common' == @$_GET['page'] ) 
+			$this->view('staging-modal');
 	}
 
 	public function do_ajax() {
@@ -1037,6 +1120,8 @@ class WpeCommon extends WpePlugin_common {
                 $r['is_ready']    = $r['status'] == "Ready!";
             }
             $r['last_update'] = filemtime( $staging_touch_file );
+            $staging_version_file = $staging_dir . "/wp-includes/version.php";
+            $r['version'] = $this->get_wp_version($staging_version_file);
         }
         return $r;
     }
@@ -1481,7 +1566,6 @@ class WpeCommon extends WpePlugin_common {
             "db-cache-reloaded/db-module.php", // cache we don't use
             "db-cache-reloaded/db-cache-reloaded.php", // cache we don't use
             "no-revisions/norevisions.php", // unneeded; we do this via wp-config.php
-            "wp-smushit/wp-smushit.php", // blacklisted
             "wp-phpmyadmin/wp-phpmyadmin.php", // blacklisted for security issues
             "wpengine-common/plugin.php", // moved to a must-use plugin.
         );
@@ -1523,6 +1607,10 @@ class WpeCommon extends WpePlugin_common {
         }
 
         deactivate_plugins( $plugins );
+	
+	//look for plugins that WP Engine Api needs to know about
+	include_once(__DIR__.'/class.plugins.php');
+	PluginsConfig::sniff();
 
         // Activate all the plugins we require.  If already activated this won't do anything.
         if ( el( $config, 'profiler' ) )
@@ -1602,13 +1690,9 @@ class WpeCommon extends WpePlugin_common {
         $cmd = wpe_param( 'wp-cmd' );
         if ( ! $cmd )
             return;    // without a command, it's not an internal request
-	// TODO C1: this is cluster 1 legacy.
         if ( $_SERVER['REMOTE_ADDR'] != '127.0.0.1' &&
                 substr( $_SERVER['REMOTE_ADDR'], 0, 9 ) != '127.0.0.1' &&
                 substr( $_SERVER['REMOTE_ADDR'], 0, 11 ) != '67.210.230.' &&
-                substr( $_SERVER['REMOTE_ADDR'], 0, 11 ) != '199.47.222.' &&
-                substr( $_SERVER['REMOTE_ADDR'], 0, 12 ) != '199.204.137.' &&
-                substr( $_SERVER['REMOTE_ADDR'], 0, 11 ) != '199.47.222.' && // cluster-2
                 substr( $_SERVER['REMOTE_ADDR'], 0, 3 ) != '10.' && // private subnet always OK (e.g. Amazon)
                 substr( $_SERVER['REMOTE_ADDR'], 0, 12 ) != '216.151.212.' && // serverbeach external net
                 substr( $_SERVER['REMOTE_ADDR'], 0, 7 ) != '172.16.' && // serverbeach internal net
@@ -1925,6 +2009,20 @@ class WpeCommon extends WpePlugin_common {
         return $path;
     }
 
+    public function get_wp_version($version_file) {
+        // Checking the current site version
+        if ( ! file_exists( $version_file ) ) {
+            // couldn't find version file
+            return false;
+        }
+
+	    //parse version file for version information
+        $version = preg_find( "#\\\$wp_version\\s*=\\s*['\"]([^'\"]+)['\"];#ms", file_get_contents($version_file) );
+
+        return $version;
+    }
+
+
 }
 
 /**
@@ -2061,3 +2159,17 @@ if(defined('WPE_DB_DEBUG') AND @WPE_DB_DEBUG != false) {
 if( is_wpe_snapshot() ) {
     add_action( 'pre_option_blog_public', '__return_zero' );
 }  
+
+// Finds the first occurrance of the given pattern in the subject and returns the match.
+// If there is a grouping element, returns just the content of the group, otherwise returns
+// the entire match.
+// If the pattern doesn't match, returns FALSE.
+function preg_find( $pattern, $subject )
+{
+    if ( ! preg_match( $pattern, $subject, $match ) )
+        return FALSE;
+    if ( count($match) == 1 )       // no group; return the entire match
+        return $match[0];
+    return $match[1];       // return first group
+}
+

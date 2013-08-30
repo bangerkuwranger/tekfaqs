@@ -26,7 +26,7 @@ class UpdraftPlus_BackupModule_ftp {
 
 	function backup($backup_array) {
 
-		global $updraftplus;
+		global $updraftplus, $updraftplus_backup;
 
 		$server = UpdraftPlus_Options::get_updraft_option('updraft_server_address');
 		$user = UpdraftPlus_Options::get_updraft_option('updraft_ftp_login');
@@ -41,7 +41,7 @@ class UpdraftPlus_BackupModule_ftp {
 
 		if (!$ftp->connect()) {
 			$updraftplus->log("FTP Failure: we did not successfully log in with those credentials.");
-			$updraftplus->error(__("FTP login failure",'updraftplus'));
+			$updraftplus->log(sprintf(__("%s login failure",'updraftplus'), 'FTP'), 'error');
 			return false;
 		}
 
@@ -60,22 +60,53 @@ class UpdraftPlus_BackupModule_ftp {
 				$updraftplus->uploaded_file($file);
 			} else {
 				$updraftplus->log("ERROR: FTP upload failed" );
-				$updraftplus->error(__("FTP upload failed",'updraftplus'));
+				$updraftplus->log(sprintf(__("%s upload failed",'updraftplus'), 'FTP'), 'error');
 			}
 		}
 
-		$updraftplus->prune_retained_backups("ftp", $this, array('ftp_object' => $ftp, 'ftp_remote_path' => $ftp_remote_path));
+		$updraftplus_backup->prune_retained_backups("ftp", $this, array('ftp_object' => $ftp, 'ftp_remote_path' => $ftp_remote_path));
 	}
 
-	function delete($file, $ftparr) {
+	function delete($files, $ftparr = array()) {
+
 		global $updraftplus;
-		$ftp = $ftparr['ftp_object'];
-		$ftp_remote_path = $ftparr['ftp_remote_path'];
-		if (@$ftp->delete($ftp_remote_path.$file)) {
-			$updraftplus->log("FTP delete: succeeded (${ftp_remote_path}${file})");
+		if (is_string($files)) $files=array($files);
+
+		if (isset($ftparr['ftp_object'])) {
+			$ftp = $ftparr['ftp_object'];
 		} else {
-			$updraftplus->log("FTP delete: failed (${ftp_remote_path}${file})");
+
+			$server = UpdraftPlus_Options::get_updraft_option('updraft_server_address');
+			$user = UpdraftPlus_Options::get_updraft_option('updraft_ftp_login');
+
+			$ftp = $this->getFTP(
+				$server,
+				$user,
+				UpdraftPlus_Options::get_updraft_option('updraft_ftp_pass'), UpdraftPlus_Options::get_updraft_option('updraft_ssl_nossl'),
+				UpdraftPlus_Options::get_updraft_option('updraft_ssl_disableverify'),
+				UpdraftPlus_Options::get_updraft_option('updraft_ssl_useservercerts')
+			);
+
+			if (!$ftp->connect()) {
+				$updraftplus->log("FTP Failure: we did not successfully log in with those credentials.");
+				return false;
+			}
+
 		}
+
+		$ftp_remote_path = isset($ftparr['ftp_remote_path']) ? $ftparr['ftp_remote_path'] : trailingslashit(UpdraftPlus_Options::get_updraft_option('updraft_ftp_remote_path'));
+
+		$ret = true;
+		foreach ($files as $file) {
+			if (@$ftp->delete($ftp_remote_path.$file)) {
+				$updraftplus->log("FTP delete: succeeded (${ftp_remote_path}${file})");
+			} else {
+				$updraftplus->log("FTP delete: failed (${ftp_remote_path}${file})");
+				$ret = false;
+			}
+		}
+		return $ret;
+
 	}
 
 	function download($file) {
@@ -93,7 +124,7 @@ class UpdraftPlus_BackupModule_ftp {
 
 		if (!$ftp->connect()) {
 			$updraftplus->log("FTP Failure: we did not successfully log in with those credentials.");
-			$updraftplus->error(__("FTP login failure",'updraftplus'));
+			$updraftplus->log(sprintf(__("%s login failure",'updraftplus'), 'FTP'), 'error');
 			return false;
 		}
 
@@ -114,7 +145,8 @@ class UpdraftPlus_BackupModule_ftp {
 	public static function config_print_javascript_onready() {
 		?>
 		jQuery('#updraft-ftp-test').click(function(){
-			var data = {
+			jQuery('#updraft-ftp-test').html('<?php echo esc_js(sprintf(__('Testing %s Settings...', 'updraftplus'),'FTP')); ?>');
+				var data = {
 				action: 'updraft_ajax',
 				subaction: 'credentials_test',
 				method: 'ftp',
@@ -128,7 +160,9 @@ class UpdraftPlus_BackupModule_ftp {
 				nossl: (jQuery('#updraft_ssl_nossl').is(':checked')) ? 1 : 0,
 			};
 			jQuery.post(ajaxurl, data, function(response) {
-				alert('<?php _e('Settings test result','updraftplus');?>: ' + response);
+				jQuery('#updraft-ftp-test').html('<?php echo esc_js(sprintf(__('Test %s Settings', 'updraftplus'),'FTP')); ?>');
+				alert('<?php echo esc_js(sprintf(__('%s settings test result:', 'updraftplus'), 'FTP'));?> ' + response);
+
 			});
 		});
 		<?php
@@ -157,7 +191,7 @@ class UpdraftPlus_BackupModule_ftp {
 		</tr>
 		<tr class="updraftplusmethod ftp">
 			<th><?php _e('FTP Password','updraftplus');?>:</th>
-			<td><input type="text" size="40" id="updraft_ftp_pass" name="updraft_ftp_pass" value="<?php echo htmlspecialchars(UpdraftPlus_Options::get_updraft_option('updraft_ftp_pass')); ?>" /></td>
+			<td><input type="<?php echo apply_filters('updraftplus_admin_secret_field_type', 'text'); ?>" size="40" id="updraft_ftp_pass" name="updraft_ftp_pass" value="<?php echo htmlspecialchars(UpdraftPlus_Options::get_updraft_option('updraft_ftp_pass')); ?>" /></td>
 		</tr>
 		<tr class="updraftplusmethod ftp">
 			<th><?php _e('Remote Path','updraftplus');?>:</th>
@@ -173,8 +207,8 @@ class UpdraftPlus_BackupModule_ftp {
 	public static function credentials_test() {
 
 		$server = $_POST['server'];
-		$login = $_POST['login'];
-		$pass = $_POST['pass'];
+		$login = stripslashes($_POST['login']);
+		$pass = stripslashes($_POST['pass']);
 		$path = $_POST['path'];
 		$nossl = $_POST['nossl'];
 
