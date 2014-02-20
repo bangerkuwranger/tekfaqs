@@ -1,13 +1,9 @@
 <?php
 class WPHubspotAnalytics {
 
-    function WPHubspotAnalytics() {
-        // Analytics Hook
-        if(is_admin()){
-            //
-        } else {
-            add_action('wp_footer', array(&$this, 'hs_analytics_insert'));
-        }
+    function WPHubspotAnalytics() 
+    {
+        add_action('wp_footer', array(&$this, 'hs_analytics_insert'));
     }
 
     //=============================================
@@ -15,19 +11,30 @@ class WPHubspotAnalytics {
     //=============================================
     function hs_analytics_insert() {
         global $current_user;
+        wp_reset_query();
+
         get_currentuserinfo();
         $hs_settings = array();
         $hs_settings = get_option('hs_settings');
-        if ( $hs_settings["hs_portal"] != "" ) {
+
+        if ( $hs_settings["hs_portal"] != "" ) 
+        {
             echo "\n".'<!-- Start of Async HubSpot Analytics Code for WordPress v'.HUBSPOT_PLUGIN_VERSION.' -->'."\n";
             echo '<script type="text/javascript">'."\n";
             echo 'var _hsq = _hsq || [];'."\n";
-
             // Pass along the correct content-type
-            if (is_page() || is_front_page()) {
-                echo '_hsq.push(["setContentType", "standard-page"]);'."\n";
-            } else {
-                echo '_hsq.push(["setContentType", "blog-post"]);'."\n";
+            if ( is_single () ) 
+            {
+                echo '_hsq.push(["setContentType", "blog-post"]);' . "\n";  
+            } 
+            else if ( is_archive () || is_search() )
+            {
+               
+                echo '_hsq.push(["setContentType", "listing-page"]);' . "\n";
+            } 
+            else 
+            {
+                echo '_hsq.push(["setContentType", "standard-page"]);' . "\n";
             }
 
             // Identify the current user if logged in
@@ -54,7 +61,7 @@ class WPHubspotAnalytics {
             echo "\t".'(function(d,s,i,r) {'."\n";
             echo "\t".'if (d.getElementById(i)){return;}'."\n";
             echo "\t".'var n = d.createElement(s),e = document.getElementsByTagName(s)[0];'."\n";
-            echo "\t".'n.id=i;n.src = \'//js.hubspot.com/analytics/\'+(Math.ceil(new Date()/r)*r)+\'/'.trim($hs_settings["hs_portal"]).'.js\';'."\n";
+            echo "\t".'n.id=i;n.src = \'//js.hs-analytics.net/analytics/\'+(Math.ceil(new Date()/r)*r)+\'/'.trim($hs_settings["hs_portal"]).'.js\';'."\n";
             echo "\t".'e.parentNode.insertBefore(n, e);'."\n";
             echo "\t".'})(document, "script", "hs-analytics",300000);'."\n";
             echo '</script>'."\n";

@@ -9,8 +9,8 @@ jQuery(document).ready(function($) {
 		check = $('button[name="snapshot"]').attr( 'data-confirm' );
 		if( check  === "true" ) {
 			e.preventDefault();
-			$('#stagingModal').modal().addClass('in');
-			$('button#staging-submit').live( 'click' ,function() {
+			$('#stagingModal').modal().addClass('in').removeClass('hide');
+			$(document).on( 'click','button#staging-submit',function() {
 				$('form#staging').append("<input type='hidden' name='snapshot' value='true' />").submit();
 			});
 		}
@@ -47,7 +47,7 @@ jQuery(document).ready(function($) {
 				$(this).attr('onclick','wpe_upgrade_link("'+$(this).attr('href')+'");');
 		});
 		
-		$('input[type="submit"]').live('click',function(e) {
+		$(document).on('click','input[type="submit"]',function(e) {
 			if( $(this).attr('name') != 'plugin-search-input' ) { 
 				e.preventDefault();
 				$(this).parent().attr('id','form-to-submit'); 
@@ -103,22 +103,43 @@ jQuery(document).ready(function($) {
 			 * @note this will run until a "Deploy Complete" status is received.
 			 */
 			function update() {
-				$.get('/wpe-deploy-status-'+wpe.account, function(resp) {
-					$.deployStarted = 1;
-					$.wpeDeploy.max = 238;	
-					$.wpeDeploy.current = $('#status pre').text();
-					$.wpeDeploy.data = resp.split("\n");
-					$.wpeDeploy.currIndex = 0;
-					
-					//loop over the status file
-					while( $.wpeDeploy.currIndex < $.wpeDeploy.data.length ) {
-						setProgress($.wpeDeploy.data[$.wpeDeploy.currIndex]);
-						$.wpeDeploy.currIndex++;
+				$.ajax({url:'/wpe-deploy-status-'+wpe.account})
+                                .done( function(resp) {
+					try{
+						resp = $.parseJSON( resp );
+					} catch(error){
+						setTimeout( function() { update() } , 500);
 					}
+
+					// if we don't have a valid object, bail.
+					if ( typeof(resp) !== 'object' ) return;
+
+					var last_status;
+					$.each( resp, function( i, obj ) {
+						if (undefined == last_status || obj.timestamp > last_status.timestamp){
+							last_status = obj;
+						}
+					});
+
+					// check that this isn't an old status
+					if (undefined !== last_status ){
+						var now = new Date();
+						if (last_status.timestamp < (now.getTime()/1000 - 60)){
+							last_status = undefined;
+						}
+					} 
+	
+					if ( undefined !== last_status){
+						$.deployStarted = 1;
+						$.wpeDeploy.data = last_status.text.split("\n");
 					
-					if( $.wpeDeploy.current.indexOf("Deploy Completed") !== -1 ) { 
-						$('.modal-body #progress').progressbar('option','value', 100);	
-						setTimeout( function() { $('#myModal,.modal-backdrop').removeClass('in',1000).remove() }, 5000);
+						setProgress(last_status);
+						if( last_status.text.indexOf("Deploy Completed") !== -1 ) { 
+							$('.modal-body #progress').progressbar('option','value', 100);	
+							setTimeout( function() { $('#myModal,.modal-backdrop').removeClass('in',1000).remove() }, 5000);
+						} else {
+							setTimeout( function() { update() } , 500);
+						}	
 					} else {
 						setTimeout( function() { update() } , 500);
 					}
@@ -130,13 +151,11 @@ jQuery(document).ready(function($) {
 			}
 
 			function setProgress(data) {
-				if( data !== "Beginning Deploy ..." && data !== "" && $.wpeDeploy.current.length > 1 && $.wpeDeploy.current.indexOf( data ) === -1 ) {	
-					$('#status pre').append( data + "\n");
-					value = ($('#status pre').text().length / $.wpeDeploy.max) * 100;
-					$('.progress-label').text(data);
-					$('.modal-body #progress').progressbar('option','value', value);
-					$('.progress-label').html(data);
-				} 
+					$('#status pre').text( data.text + "\n");
+					var one_line = $.wpeDeploy.data[$.wpeDeploy.data.length -1];
+					$('.progress-label').text(one_line);
+					$('.modal-body #progress').progressbar('option','value', data.progress);
+					$('.progress-label').html(one_line);
 			}
 		}
 })(jQuery);
@@ -278,7 +297,7 @@ function apprise(string, args, callback) {
 	$('.appriseInner').append(string);
 	$('.appriseOuter').css("left", ( $(window).width() - $('.appriseOuter').width() ) / 2+$(window).scrollLeft() + "px");
 	//add a cancel button
-    	$('.closeit a').live('click', function(e) { e.preventDefault(); $('.appriseOverlay,.appriseOuter').remove(); });
+    	$(document).on('click','.closeit a', function(e) { e.preventDefault(); $('.appriseOverlay,.appriseOuter').remove(); });
  	if(args) {
 		if( args['cancelable'] ) {
 			$('.appriseOuter').prepend('<div class="closeit"><a href="#">cancel</a></div>');

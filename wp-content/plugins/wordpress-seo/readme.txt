@@ -1,18 +1,21 @@
 === WordPress SEO by Yoast ===
-Contributors: joostdevalk
+Contributors: joostdevalk, barrykooij
 Donate link: http://yoast.com/
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: seo, SEO, google, meta, meta description, search engine optimization, xml sitemap, xml sitemaps, google sitemap, sitemap, sitemaps, robots meta, rss, rss footer, yahoo, bing, news sitemaps, XML News Sitemaps, WordPress SEO, WordPress SEO by Yoast, yoast, multisite, canonical, nofollow, noindex, keywords, meta keywords, description, webmaster tools, google webmaster tools, seo pack
-Requires at least: 3.3
-Tested up to: 3.6
-Stable tag: 1.4.15
+Requires at least: 3.5
+Tested up to: 3.8
+Stable tag: 1.4.24
 
 Improve your WordPress SEO: Write better content and have a fully optimized WordPress site using the WordPress SEO plugin by Yoast.
 
 == Description ==
 
-WordPress out of the box is already technically quite a good platform for SEO, this was true when I wrote my original [WordPress SEO](http://yoast.com/articles/wordpress-seo/) article in 2008 and it's still true today, but that doesn't mean you can't improve it further! This plugin is written from the ground up by [WordPress SEO consultant](http://yoast.com/hire-me/wordpress-seo-consultant/) and [WordPress developer](http://yoast.com/hire-me/wordpress-developer/) Joost de Valk to improve your site's SEO on *all* needed aspects. While this [WordPress SEO plugin](http://yoast.com/wordpress/seo/) goes the extra mile to take care of all the technical optimization, more on that below, it first and foremost helps you write better content.  WordPress SEO forces you to choose a focus keyword when you're writing your articles, and then makes sure you use that focus keyword everywhere.
+WordPress out of the box is already technically quite a good platform for SEO, this was true when I wrote my original [WordPress SEO](http://yoast.com/articles/wordpress-seo/) article in 2008 (and updated every few months) and it's still true today, but that doesn't mean you can't improve it further! This plugin is written from the ground up by Joost de Valk and his team at [Yoast](http://yoast.com/) to improve your site's SEO on *all* needed aspects. While this [WordPress SEO plugin](http://yoast.com/wordpress/seo/) goes the extra mile to take care of all the technical optimization, more on that below, it first and foremost helps you write better content.  WordPress SEO forces you to choose a focus keyword when you're writing your articles, and then makes sure you use that focus keyword everywhere.
+
+= Premium Support =
+The Yoast team does not provide support for the WordPress SEO plugin on the WordPress.org forums. One on one email support is available to people who bought the [Premium WordPress SEO plugin](http://yoast.com/wordpress/seo-premium/) only. You should also check out the [Local SEO](http://yoast.com/wordpress/local-seo/) and [Video SEO](http://yoast.com/wordpress/video-seo/) extensions to WordPress SEO, these of course come with support too.
 
 = Write better content with WordPress SEO =
 Using the snippet preview you can see a rendering of what your post or page will look like in the search results, whether your title is too long or too short and your meta description makes sense in the context of a search result. This way the plugin will help you not only increase rankings but also increase the click through for organic search results.
@@ -102,6 +105,137 @@ You'll find the [FAQ on Yoast.com](http://yoast.com/wordpress/seo/faq/).
 7. The advanced section of the WordPress SEO meta box.
 
 == Changelog ==
+
+= 1.4.24 =
+
+* Bugfixes
+	* Removed screen_icon() calls.
+	* Fixed a bug in robots meta tag on singular items.
+	* Fix double robots header, WP native settings will be respected - props [Jrf](http://profiles.wordpress.org/jrf).
+	* When post published data is newer than last modified date, use that in XML sitemap, props [mindingdata](https://github.com/mindingdata).
+	* Check if tab hash is correct after being redirected from Facebook API, props [dannyvankooten](https://github.com/dannyvankooten).
+	* Fix 404 in category rewrites when `pagination_base` was changed, props [raugfer](https://github.com/raugfer).
+	* Make the metabox tabs jQuery only work for WPSEO tabs, props [imageinabox](https://github.com/imageinabox).
+	* Sitemap shortcode sql had hard-coded table name which could easily cause the shortcode display to fail. Fixed. - props [Jrf](http://profiles.wordpress.org/jrf).
+	* Fix issue with user capability authorisation check as reported by [scienceandpoetry](https://github.com/scienceandpoetry) in issue [#492](https://github.com/Yoast/wordpress-seo/issues/492) - props [Jrf](http://profiles.wordpress.org/jrf).
+	* Fixed canonical rel links was causing an error when given an invalid taxonomy, issue [#306](https://github.com/Yoast/wordpress-seo/issues/306) - props [Jrf](http://profiles.wordpress.org/jrf).	
+	* Removed add_meta_box() function duplication  - props [Jrf](http://profiles.wordpress.org/jrf).
+	* Fix issue "Flesch Reading Ease should only be a positive number". This also fixes the message being unclear. Thanks [eugenmihailescu](https://github.com/eugenmihailescu) for reporting - props [Jrf](http://profiles.wordpress.org/jrf).
+	* Fixed issue with page analysis not taking feature image into account - props [darrarski](https://github.com/darrarski).
+	
+* Enhancement
+	* Shortcode now also available to ajax requests - props [Jrf](http://profiles.wordpress.org/jrf).
+	* Added gitignores to prevent incorrect commits (Cross platform collab) - props [cfoellmann](https://github.com/cfoellmann).
+	* Adding filters to individual sitemap url entries - props [mboynes](https://github.com/mboynes).
+
+* i18n
+	*
+
+= 1.4.23 =
+
+* Bugfixes
+	* Fix for serious sitemap issue which caused all pages of a split sitemap to be the same (show the first 1000 urls) - props [Jrf](http://profiles.wordpress.org/jrf).
+	* Fixed a bug in the WPSEO tour in WP Network installs
+	* clean_permalink 301 redirect issue when using https - props [pirategaspard](https://github.com/pirategaspard)
+
+* i18n
+	* Updated cs_CZ, fa_IR, fr_FR, hu, hu_HU, pl_PL, ru_RU & zh_CN
+
+	
+= 1.4.22 =
+
+* Bugfixes
+	* Reverted change to XML sitemaps stylesheet URL as that was giving issues on multisite installs.
+	* Reverted change to XML sitemap loading as we were no longer exposing some variables that other plugins relied upon.
+	* Fix bug with author sitemap showing for everyone.
+
+* Enhancement
+	* No longer save empty meta post variables, issue [#463](https://github.com/Yoast/wordpress-seo/issues/463). Clean up of DB is coming in future release, if you want to clean your DB now, see that issue for SQL queries.
+
+= 1.4.21 =
+
+* Bugfixes
+	* Fix notice for `ICL_LANGUAGE_CODE` not being defined.
+	* Fix missing function in install by adding a require.
+
+= 1.4.20 =
+
+* Bugfixes
+	* Fixed bug where posts set to _always_ index would not end up in XML sitemap.
+	* Fix _Invalid argument supplied for foreach()_ notice for WPML as reported by [pbearne](https://github.com/pbearne) - props [Jrf](http://profiles.wordpress.org/jrf).
+	* Yoast tracking cron job will now unschedule on disallowing of tracking, on deactivation and on uninstall, inspired by [Bluebird Blvd.](http://wordpress.org/support/topic/found-active-tracking-device-after-deleting-wp-seo-months-ago) - props [Jrf](http://profiles.wordpress.org/jrf).
+	* Fix issue [#453](https://github.com/Yoast/wordpress-seo/issues/435): setting shop as homepage caused a notice and wrong title with WooCommerce.
+	* Fixed a bug [#449](https://github.com/Yoast/wordpress-seo/issues/449) where a canonical, when manually set for a category, tag or term, could get pagination added to it on paginated pages, when it shouldn't.
+	* Fixed a bug where manually set canonicals would end up in `rel="next"` and `rel="prev"` tags.
+	* Fixed a bug [#450](https://github.com/Yoast/wordpress-seo/issues/450) where noindexed pages would appear in the HTML sitemap.
+	* Fixed a bug where non-public taxonomies would appear in the HTML sitemap.
+	* Fixed quotes not working in meta title and description for terms, issue [#405](https://github.com/Yoast/wordpress-seo/issues/405).
+	* Make sure author sitemap works when they should.
+	* Fix some notices in author sitemap, issue [#402](https://github.com/Yoast/wordpress-seo/issues/402).
+	* Fix breadcrumbs being broken on empty post type archives, issue [#443](https://github.com/Yoast/wordpress-seo/issues/443).
+	* Fixed a possible caching issue when `title_test` option remained set, issue [#419](https://github.com/Yoast/wordpress-seo/issues/419).
+	* Make sure og:description is shown on homepage when it's left empty in settings, fixes [#441](https://github.com/Yoast/wordpress-seo/issues/441).
+	* Make sure there are no WPML leftovers in our title, issue [#383](https://github.com/Yoast/wordpress-seo/issues/383).
+	* Fix padding on fix it buttons with 3.8 design, issue [#400](https://github.com/Yoast/wordpress-seo/issues/400).
+	* Hide SEO columns in responsive admin ( in 3.8 admin design ), issue [#445](https://github.com/Yoast/wordpress-seo/issues/445).
+
+* Misc
+	* Switch back to MailChimp for newsletter subscribe.
+    * Default to nofollowing links in RSS feed footers.
+
+* i18n
+  * Updated es_ES, pt_BR & ru_RU
+  * Added sk_SK
+
+= 1.4.19 =
+
+* Enhancements
+	* Added the option to upload a separate image for Facebook in the Social tab.
+	* Added published time, last modified time, tags and categories to OpenGraph output, to work with Pinterests new article pin.
+	* Added a filter for post length requirements in the Analysis tab.
+	* If there is a term description, use it in the OpenGraph description for a term archive page.
+	* Applied a number of settings form best practices - props [Jrf](http://profiles.wordpress.org/jrf).
+	* File inclusion best practices applied - props [Jrf](http://profiles.wordpress.org/jrf).
+    * Breadcrumbs for Custom Post Types now take the CPT->label instead of CPT->labels->menu_name as text parameter, as suggested by [katart17](http://wordpress.org/support/profile/katart17) and [Robbert V](http://wordpress.org/support/profile/robbert-v) - props [Jrf](http://profiles.wordpress.org/jrf).
+
+* Bugfixes
+	* Move all rewrite flushing to shutdown, so it doesn't break other plugins who add their rewrites late.
+	* Fixed the wrong naming of the L10n JS object, props [Otto](http://profiles.wordpress.org/otto42).
+	* Improved form support for UTF-8 - props [Jrf](http://profiles.wordpress.org/jrf).
+	* Corrected faulty multisite option registration - props [Jrf](http://profiles.wordpress.org/jrf).
+	* Fixed appropriate use of plugins_url() to avoid breaking hooked in filters - props [Jrf](http://profiles.wordpress.org/jrf).
+	* (Temporary) fix for metabox styling for users using the MP6 plugin - props [Jrf](http://profiles.wordpress.org/jrf).
+	* Minor fix in localization loading - props [Jrf](http://profiles.wordpress.org/jrf).
+	* Fixed [Missing argument 3 for wpseo_upgrader_process_complete](https://github.com/Yoast/wordpress-seo/issues/327) notice for WP 3.7+, thanks [vickyindo](https://github.com/vickyindo), [Wendyhihi](https://github.com/Wendihihi) and [Theressa1](https://github.com/Theressa1) for reporting - props [Jrf](http://profiles.wordpress.org/jrf).
+
+* i18n
+  * Updated ru_RU, tr_TK and Hr
+
+= 1.4.18 =
+
+* Unhooking 'shutdown' (part of the NGG fix in 1.4.16) caused caching plugins to break, fixed while preserving NGG fix.
+* These changes were pushed in later but were deemed not important enough to force an update:
+	* Updated newsletter subscription form to reflect new newsletter system.
+	* Documentation
+		* Updated readme.txt to reflect support changes.
+		* Moved old sections of changelog to external file.
+	* i18n
+    * Updated pt_PT
+
+= 1.4.17 =
+
+* Missed a line in the commit of the option to stop stop words cleaning.
+
+= 1.4.16 =
+
+* Fix for compatibility with NextGen Gallery.
+
+* Enhancements
+	* Add option to enable slug stop word cleaning, find it under SEO -> Permalinks. It's on by default.
+	* Remove tracking variables from the Yoast Tracking that weren't used.
+
+* i18n
+    * Updated de_DE, fa_IR, fi, hu_HU, it_IT, pl_PL, sv_SE and tr_TK
 
 = 1.4.15 =
 
@@ -333,6 +467,81 @@ This release contains tons and tons of bugfixes, thanks in *large* part to [Jrf]
     * Changed design of meta box, moving much of the help text out in favor of clicking on a help icon.
     * Removed Linkdex branding from page analysis functionality.
 
-= Older changelogs =
+= 1.3.4.4 =
 
-Can be found in changelog.txt in the zip.
+* Bug with revisions in XML sitemap for some weird combinations.
+* Improved logic for rel=publisher on frontpage.
+* Allow variables in meta description for post type archive.
+* Improved counting of images for page analysis.
+* updated Turkish (tr_TR)
+* updated Russian (ru_RU)
+* updated Indonesian (id_ID)
+* updated French (fr_FR)
+* updated Czech (cs_CZ)
+* added Japanese (ja)
+
+= 1.3.4.3 =
+
+* Regex annoyances anyone? Sigh. Bug fixed.
+
+= 1.3.4.2 =
+
+* Added missing filter for meta box priority.
+* Fixed bug in JS encoding.
+
+= 1.3.4.1 =
+
+* Bug in page analysis regex.
+
+= 1.3.4 =
+
+* Fix bug in custom field value retrieval for new drafts.
+* Fix bug in meta box value for checkboxes (only used currently in News extension).
+* Remove redirect added in 1.3.3 as it seems to cause loops on some servers, will investigate later.
+* Add option to filter `wpseo_admin_pages` so more pages can use WP SEO admin stylesheets.
+* Prevent notice for images without alt tags.
+* Use mb_string when possible.
+
+= 1.3.3 =
+
+* Properly `$wpdb->prepare` all queries that need preparing.
+* Fix wrong escaping in admin pointers.
+* Make %%currentdate%% and %%currenttime%% variables respect WP date format settings.
+* Add %%currentday%% format.
+* Force remove Jetpack OpenGraph.
+* Fix the weird addition of `noindex, nofollow` on URLs with ?replytocom that was added in 3.5.
+* Force XML sitemap to be displayed on the proper domain URL, so XSLT works.
+
+= 1.3.2 =
+
+* Updated wordpress-seo.pot
+* Updated Turkish (tr_TR) filename.
+* Updated Spanish (es_ES) translation.
+* Fixed bug where non-admin users couldn't save their profile updates.
+* Fixed bug with the same OpenGraph image appearing multiple times.
+* Fixed bug that would prevent import and export of plugin settings.
+* Try to do a redirect back after saving settings.
+* Properly allow for attachment pages in XML sitemaps, default them to off.
+* Fixed annoying bug where checkboxes wouldn't display as "checked" even when the value was set to true.
+* Show post type name and taxonomy name (as opposed to label) next to labels in XML sitemap settings to more easily identify post types and taxonomies.
+* Switch tracking to a daily cronjob instead of an admin process to prevent tracking from slowing down admin interface.
+* Focus keyword detection now properly works for diacritical focus keywords as well.
+* Properly apply filters to meta desc and titles in admin grid.
+* Properly detect new versions of Facebook plugin too.
+* Allow changing of the number of posts per XML sitemap, to prevent memory issues on certain installs.
+
+= 1.3.1.1 =
+
+* Some of that escaping was too aggressive.
+
+= 1.3.1 =
+
+* Fix somewhat too aggressive escaping of content.
+* Added notice text for non-existing .htaccess file / robots.txt file.
+
+= 1.3 =
+
+* Long list of small fixes and improvements to code best practices after Sucuri review. Fixes 3 small security issues.
+* Updated .pot file
+* Updated Danish (da_DK), Indonesian (id_ID), Chinese (zh_CN), Russian (ru_RU), Norwegian (nb_NO), Turkish (tr_TK), Hebrew (he_IL) and Persian (fa_IR).
+* Added Arabic (ar), Catalan (ca) and Romanian (ro_RO).

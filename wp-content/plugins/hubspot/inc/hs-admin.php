@@ -445,6 +445,13 @@ class WPHubspotAdmin {
         $content = '<p>'.__('Please check the <a href="'.HUBSPOT_ADMIN.'admin.php?page=hubspot_help">Help Section</a> first. If you have any problems with this plugin or good ideas for improvements or new features, please use the').' <a href="http://wordpress.org/tags/hubspot">WordPress Plugin Support Forum</a>.</p>';
         return $this->hs_postbox('hubspot-support', 'Need support?', $content);
     }
+
+    function hs_show_leadin_widget() {
+        $content = '<p><a href="http://leadin.com?source=plugin">
+        <img src="' . HUBSPOT_URL . 'images/LeadIn_CTA.png" alt="Not a HubSpot Customer? 
+        Looking for an easy way to help manage your marketing on WordPress? Try LeadIn: http://leadin.com?source=plugin"/></a>'; 
+        return $this->hs_postbox('hubpot-leadin', 'Not a HubSpot customer?', $content);
+    }
     
     //=============================================
     // Display HubSpot feed
@@ -506,7 +513,7 @@ class WPHubspotAdmin {
                             <div class="meta-box-sortables ui-sortable">
                            <?php
                                     echo $this->hs_show_plugin_support();
-                                    //echo $this->hs_show_blogfeed();
+                                    echo $this->hs_show_leadin_widget();
                             ?>
                             </div>
                         </div>

@@ -65,7 +65,7 @@ $wpdb->max_connections = 10;
  * a very tiny margin but lose protection against connections failing slowly.
  * Default: true
  */
-$wpdb->check_tcp_responsiveness = true;
+$wpdb->check_tcp_responsiveness = false;
 
 /** Configuration Functions **/
 

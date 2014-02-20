@@ -277,23 +277,23 @@ class WpeCommon extends WpePlugin_common {
 	if ( ! $this->is_wpengine_admin_bar_enabled() )
 		return;
 
-	if( $this->is_whitelabel() )  
+	if( $this->is_whitelabel() )
 		return;
 
 		$user = wp_get_current_user();
 		//check user access
-		if( ! $this->user_has_access($user, get_option('wpe-adminbar-roles', array() ))) 
+		if( ! $this->user_has_access($user, get_option('wpe-adminbar-roles', array() )))
 			return;
 
 		$wp_admin_bar->add_menu( array( 'id'    => 'wpengine_adminbar', 'title' => 'WP Engine Quick Links' ) );
 		$wp_admin_bar->add_menu( array( 'id'	=> 'wpengine_adminbar_status','parent' => 'wpengine_adminbar', 'title'  => 'Status Blog', 'href'   => 'http://wpengine.wordpress.com' ) );
 		$wp_admin_bar->add_menu( array( 'id'    => 'wpengine_adminbar_faq','parent' => 'wpengine_adminbar', 'title'  => 'Support FAQ', 'href'   => 'http://support.wpengine.com/' ) );
-		$wp_admin_bar->add_menu( array( 'id'    => 'wpengine_adminbar_support','parent' => 'wpengine_adminbar', 'title'  => 'Get Support', 'href'   => 'http://wpengine.zendesk.com' ) );
+		$wp_admin_bar->add_menu( array( 'id'    => 'wpengine_adminbar_support','parent' => 'wpengine_adminbar', 'title'  => 'Get Support', 'href'   => 'https://my.wpengine.com/support' ) );
 
 		// Leave these for admins only by checking for the 'manage_options' capability
 		if ( $user->has_cap( 'manage_options' ) ) {
 		    $wp_admin_bar->add_menu( array( 'id'    => 'wpengine_adminbar_errors','parent' => 'wpengine_adminbar', 'title'  => 'Blog Error Log', 'href'   => $this->get_error_log_url() ) );
-		    $wp_admin_bar->add_menu( array( 'id'    => 'wpengine_adminbar_cache','parent' => 'wpengine_adminbar', 'title'  => 'Empty Caches', 'href'   => $this->get_plugin_admin_url('admin.php?page=wpengine-common&purge-all=1') ));
+		    $wp_admin_bar->add_menu( array( 'id'    => 'wpengine_adminbar_cache','parent' => 'wpengine_adminbar', 'title'  => 'Empty Caches', 'href'   => $this->get_plugin_admin_url('admin.php?page=wpengine-common&purge-all=1&_wpnonce='.wp_create_nonce(PWP_NAME . '-config') )) );
 		}
 	}
 
@@ -306,7 +306,7 @@ class WpeCommon extends WpePlugin_common {
 	}
 
 	// Singleton instance
-	public function instance() {
+	public static function instance() {
 		static $self = false;
 		if ( ! $self ) {
 			$self = new WpeCommon();
@@ -342,7 +342,7 @@ class WpeCommon extends WpePlugin_common {
             }
             return;
         }
-        
+
         if ( !$rss->get_item_quantity() ) {
             echo '<p>Apparently, there are no updates to show!</p>';
             $rss->__destruct();
@@ -362,7 +362,7 @@ class WpeCommon extends WpePlugin_common {
             $content = $item->get_content();
             $content = wp_html_excerpt($content, 250) . ' ...';
 
-            $list[] = sprintf('<li><a class="rsswidget" href="%s">%s</a><div class="rssSummary">%s</div></li>', $link, $title, $content); 
+            $list[] = sprintf('<li><a class="rsswidget" href="%s">%s</a><div class="rssSummary">%s</div></li>', $link, $title, $content);
         }
         $list[] = '</ul>';
         print(implode("\n", $list));
@@ -390,7 +390,7 @@ class WpeCommon extends WpePlugin_common {
 	// Initialize hooks
 	public function wp_hook_init() {
 		global $current_user;
-		
+
 		parent::wp_hook_init();
 		$this->set_wpe_auth_cookie();
 		if ( is_admin() ) {
@@ -398,16 +398,16 @@ class WpeCommon extends WpePlugin_common {
 			add_action( 'admin_head', array( $this, 'remove_upgrade_nags' ) );
 			add_filter( 'site_transient_update_plugins', array( $this, 'disable_indiv_plugin_update_notices' ) );
 			wp_enqueue_style( 'wpe-common', WPE_PLUGIN_URL.'/css/wpe-common.css', array(), WPE_PLUGIN_VERSION );
-			wp_enqueue_script('wpe-common', WPE_PLUGIN_URL.'/js/wpe-common.js',array('jquery','jquery-ui-core'));
-			
+			wp_enqueue_script( 'wpe-common', WPE_PLUGIN_URL . '/js/wpe-common.js', array( 'jquery', 'jquery-ui-core' ), WPE_PLUGIN_VERSION );
+
 			//if a deployment is underway or recently completed, lets do some stuff ... see class.deployment.php for details
 			include_once('class.deployment.php');
 			add_action('admin_init', array('WpeDeployment','instance'));
-	
+
 			add_action( 'admin_print_footer_scripts', array( $this , 'print_footer_scripts') );
-			
+
 			//Some scripts we only want to load on the WPE plugin admin page
-			if( 'wpengine-common' == @$_GET['page'] ) {	
+			if( 'wpengine-common' == @$_GET['page'] ) {
 
 				wp_enqueue_script('wpe-chzn', WPE_PLUGIN_URL.'/js/chosen.jquery.min.js', array('jquery','jquery-ui-core'));
 				wp_enqueue_style('wpe-chzn', WPE_PLUGIN_URL.'/js/chosen.css');
@@ -425,7 +425,7 @@ class WpeCommon extends WpePlugin_common {
 
 			//setup some vars to be user in js/wpe-common.js
 			$popup_disabled = defined( 'WPE_POPUP_DISABLED' ) ? (bool) WPE_POPUP_DISABLED : false;
-			
+
 			//set some vars for usage in the admin
 			wp_localize_script('wpe-common','wpe', array('account'=>PWP_NAME,'popup_disabled'=> $popup_disabled,'user_email'=>$current_user->user_email,'deployment'=>WpeDeployment::warn() ) );
 
@@ -441,7 +441,7 @@ class WpeCommon extends WpePlugin_common {
 			} else {
 				add_action( 'admin_menu', array( $this, 'wp_hook_admin_menu' ) );
 			}
-		
+
 			//wpe ajax hook
 			add_action( 'wp_ajax_wpe-ajax', array( $this, 'do_ajax' ) );
 			add_action( 'activate_plugin', array( $this, 'activate_plugin') );
@@ -452,14 +452,16 @@ class WpeCommon extends WpePlugin_common {
 
 		//serve naked 404's to bots. Check for bp_init is a workaround for buddypress
 		if(function_exists('bp_init'))
-			add_action('bp_init',array($this,'is_404'),100);
+			add_action('bp_init',array($this,'is_404'),99999);
+		elseif(function_exists('bbp_init'))
+			add_action('bbp_init',array($this,'is_404'),99999);
 		else
-			add_action('template_redirect',array($this,'is_404'),100);
+			add_action('template_redirect',array($this,'is_404'),99999);
 
 		add_action( 'admin_bar_menu', array( $this, 'wpe_adminbar' ), 80 );
 		//add_filter( 'site_url', array($this,'wp_hook_site_url') );
 		add_filter( 'use_http_extension_transport', '__return_false' );
-		add_action( 'wp_footer', array( $this, 'wpe_emit_powered_by_html' ) );
+		# add_action( 'wp_footer', array( $this, 'wpe_emit_powered_by_html' ) );
 		remove_action( 'wp_head', 'wp_generator' );
 		if ( ! function_exists( 'httphead' ) ) :
 		    add_filter( 'template_include', array( $this, 'httphead' ) );
@@ -474,44 +476,36 @@ class WpeCommon extends WpePlugin_common {
 
 		// Disable Headway theme gzip -- it blocks us from being able to CDN-replace and isn't necessary anyway.
 		add_filter( 'headway_gzip', '__return_false' );
-		
-		// Emit debug message, maybe
-		if ( isset($_REQUEST['WPE_DEBUG']) ) {
-		    global $wp_object_cache;
-		    if ( isset( $wp_object_cache ) && is_object( $wp_object_cache ) && $wp_object_cache ) {
-			add_action( "wp_footer", array( $wp_object_cache, 'stats' ) );
-		    }
-		}
  	}
-	
+
 	//Some plugins need a custom site config, so communicate with our API when these are activated.
 	public function activate_plugin( $plugin ) {
 		//look for plugins that WP Engine Api needs to know about
 		include_once(__DIR__.'/class.plugins.php');
 		if( in_array( $plugin, PluginsConfig::$plugins ) ) {
 			PluginsConfig::config($plugin);
-		}	
-	}	
+		}
+	}
 
 	// Loads footer scripts in the admin
 	// hook: admin_print_footer_scripts
 	public function print_footer_scripts() {
 		//if we're on the wpengine-admin load those scripts
 		if( isset($_GET['page']) AND 'wpengine-common' == $_GET['page'])
-			$this->view('admin-footer');	
+			$this->view('admin-footer');
 
 		//if a deployment is in progress load the modal
-		if( 'wpengine-common' == @$_GET['page'] || self::$deployment ) 
+		if( 'wpengine-common' == @$_GET['page'] || self::$deployment )
 			$this->view('modal');
 
-		if( 'wpengine-common' == @$_GET['page'] ) 
+		if( 'wpengine-common' == @$_GET['page'] )
 			$this->view('staging-modal');
 	}
 
 	public function do_ajax() {
 		require_once(WPE_PLUGIN_DIR.'/ajax.php');
 		Wpe_Ajax::instance();
-	}	
+	}
 
 	public function wpe_sso() {
 		$secret_file = rtrim(ABSPATH,'/').'/_wpeprivate/'.'wpe-sso-'.sha1('wpe-sso|'.WPE_APIKEY.'|'.PWP_NAME);
@@ -522,7 +516,7 @@ class WpeCommon extends WpePlugin_common {
 		if(empty($secret)) { return false; }
 
 		if( !empty($_REQUEST['wpe_token']) AND $_REQUEST['wpe_token'] == trim($secret) ) {
-			
+
 			if(!$user = wp_cache_get("wpengine_user",'users')) {
 				global $wpdb;
 				$user = $wpdb->get_var("SELECT ID FROM $wpdb->users WHERE user_login = 'wpengine' LIMIT 1");
@@ -575,7 +569,7 @@ class WpeCommon extends WpePlugin_common {
 			die();
 		}
 	}
-	
+
 	// test to see whether this is a whitelabel install
 	public function is_whitelabel() {
 		if( defined("WPE_WHITELABEL") AND WPE_WHITELABEL AND WPE_WHITELABEL != 'wpengine') {
@@ -608,16 +602,16 @@ class WpeCommon extends WpePlugin_common {
             $capability = 'manage_options';
             $position   = 0;
         }
-	
-	if( $wl = $this->is_whitelabel() ) 
+
+	if( $wl = $this->is_whitelabel() )
 	{
 		//Setup menu data
-	
+
 		if( !$menudata = wp_cache_get("$wl-menudata",'wpengine') )
-		{	
+		{
 			$menudata = array(
 				'menu_title'	=> get_option("wpe-install-menu_title","WP Engine"),
-				'menu_icon'	=> get_option("wpe-install-menu_icon",WPE_PLUGIN_URL.'/images/favicon.png'),
+				'menu_icon'	=> get_option("wpe-install-menu_icon",WPE_PLUGIN_URL.'/images/favicon.ico'),
 				'menu_items'	=> get_option("wpe-install-menu_items",false),
 			);
 			wp_cache_set("$wl-menudata",$menudata,'wpengine');
@@ -627,22 +621,22 @@ class WpeCommon extends WpePlugin_common {
 		add_menu_page( $menudata['menu_title'], $menudata['menu_title'], $capability, dirname(__FILE__), array( $this, 'wpe_admin_page'), $menudata['menu_icon'], $position);
 		//Direct link to user portal
 		add_submenu_page('wpengine-common', 'User Portal','User Portal', $capability, 'wpe-user-portal', array( $this, 'redirect_to_user_portal') );
-		if( $menudata['menu_items'] ) 
+		if( $menudata['menu_items'] )
 		{
 			foreach( $menudata['menu_items'] as $mid => $mitem) {
 				add_submenu_page('wpengine-common', $mitem->label, $mitem->label , $capability, "$mid", array( $this, "redirect_menu_page" ) );
 			}
-		}		
+		}
 
 	} else {
 	        // The main page
-        	add_menu_page( 'WP Engine', 'WP Engine', $capability, dirname( __FILE__ ), array( $this, 'wpe_admin_page' ), WPE_PLUGIN_URL . '/images/favicon.png', $position );
+        	add_menu_page( 'WP Engine', 'WP Engine', $capability, dirname( __FILE__ ), array( $this, 'wpe_admin_page' ), WPE_PLUGIN_URL . '/images/favicon.ico', $position );
 
 	        // Direct link to user portal
         	add_submenu_page( 'wpengine-common', 'User Portal', 'User Portal', $capability, 'wpe-user-portal', array( $this, 'redirect_to_user_portal' ) );
 
 	        // Direct link to Zendesk
-        	add_submenu_page( 'wpengine-common', 'Support System', 'Support System', $capability, 'wpe-support-portal', array( $this, 'redirect_to_zendesk' ) );
+        	add_submenu_page( 'wpengine-common', 'Support System', 'Support System', $capability, 'wpe-support-portal', array( $this, 'redirect_to_portal' ) );
 	}
     }
 
@@ -677,7 +671,7 @@ class WpeCommon extends WpePlugin_common {
 	public function redirect_to_user_portal() {
         	if ( empty( $_GET['page'] ) && $_GET['page'] )
 			return false;
-		
+
 		if( $this->is_whitelabel() ) {
 			$link = wp_cache_get('wpe-install-userportal','wpengine');
 			if( !$link ) {
@@ -687,16 +681,24 @@ class WpeCommon extends WpePlugin_common {
 		} else {
 			$link = "http://my.wpengine.com";
 		}
-	
+
 		wp_redirect( $link );
 		exit;
 	}
 
-	public function redirect_to_zendesk() {
+	/**
+	 * Redirect to the Support section of the User Portal.
+	 *
+	 * Mainly this is used for customers who need to submit a ticket. It redirects them to the
+	 * appropriate location in the Customer Portal
+	 *
+	 * @since 2.0.51
+	 */
+	public function redirect_to_portal() {
         	if ( empty( $_GET['page'] ) && $_GET['page'] )
         		return false;
 
-		wp_redirect( 'http://wpengine.zendesk.com' );
+		wp_redirect( 'https://my.wpengine.com/support?from=wp-admin' );
 		exit;
 	}
 
@@ -706,8 +708,8 @@ class WpeCommon extends WpePlugin_common {
 
 		if( $this->is_whitelabel() ) {
 			$wl = WPE_WHITELABEL;
-			$menudata = wp_cache_get("$wl-menudata",'wpengine'); 
-			if( !empty( $menudata['menu_items']->$_GET['page'] ) ) 
+			$menudata = wp_cache_get("$wl-menudata",'wpengine');
+			if( !empty( $menudata['menu_items']->$_GET['page'] ) )
 			{
 				wp_redirect($menudata['menu_items']->$_GET['page']->target);
 			}
@@ -763,7 +765,7 @@ class WpeCommon extends WpePlugin_common {
 
        		if ( get_option( 'stylesheet' ) != 'twentyeleven' && get_option( 'template' ) != 'twentyeleven' )
 			return false;
-		
+
 		if ( !defined('WPE_FOOTER_HTML') OR !WPE_FOOTER_HTML OR $this->already_emitted_powered_by == true )
 			return false;
 
@@ -801,11 +803,12 @@ class WpeCommon extends WpePlugin_common {
 	}
 
 	public function wpe_emit_powered_by_html( $affiliate_code = null ) {
-			if ( ! isset($this->already_emitted_powered_by) || $this->already_emitted_powered_by != true ) {
-				echo($this->get_powered_by_html($affiliate_code));
-			$this->already_emitted_powered_by = true;
+        return; // Disabling this feature for now.
+        if ( ! isset($this->already_emitted_powered_by) || $this->already_emitted_powered_by != true ) {
+            echo($this->get_powered_by_html($affiliate_code));
+            $this->already_emitted_powered_by = true;
 		}
-    	}
+    }
 
 	// Filter on all WordPress SQL queries
 	public function query_filter( $sql ) {
@@ -871,8 +874,9 @@ class WpeCommon extends WpePlugin_common {
 
     // Our own method for filtering the HTML output by WordPress, post-processing everything else on the page.
     public function filter_html_output( $html ) {
-        global $wpe_ssl_admin, $timthumb_script_regex, $wpe_netdna_domains, $wpe_netdna_push_domains, $wpe_no_cdn_uris;
-        global $cdn_on_known_alias, $wp_object_cache, $re_curr_domain, $curr_domains, $curr_domain, $wpe_largefs, $wpe_cdn_uris;
+        global $wpe_ssl_admin, $timthumb_script_regex, $wpe_netdna_domains, $wpe_netdna_domains_secure, $wpe_netdna_push_domains;
+        global $wpe_no_cdn_uris, $cdn_on_known_alias, $wp_object_cache, $re_curr_domain, $curr_domains, $curr_domain, $wpe_largefs;
+        global $wpe_cdn_uris;
 
         $uri       = $_SERVER['REQUEST_URI'];
         $http_host = $_SERVER['HTTP_HOST'];
@@ -930,18 +934,21 @@ class WpeCommon extends WpePlugin_common {
         $native_schema = $is_ssl ? "https" : "http";
 
         // Determine the CDN, if any
-        $cdn_domain = $this->get_cdn_domain( $wpe_netdna_domains, $blog_url );
+        if ($is_ssl) {
+            $domains = $wpe_netdna_domains_secure;
+        } else {
+            $domains = $wpe_netdna_domains;
+        }
+        $cdn_domain = $this->get_cdn_domain( $domains, $blog_url, $is_ssl );
 
         // Should we actually use the CDN?  If it's currently disabled, then no, even if we know
         // better, because this is probably due to a designer wanting to iterate without caching.
-        $cdn_enabled = FALSE;  // until we know otherwise
-        if ( ! $is_ssl ) {
-            $cdn_enabled = $this->is_cdn_enabled();
-        }
+        $cdn_enabled = $this->is_cdn_enabled();  // until we know otherwise
+
 	//error_log("enabled: ".($cdn_enabled?'y':'n')."; domain=$cdn_domain; uri=$uri");
         // If it's an aliased MU domain, it might not appear to be enabled by W3TC, but
         // because it was explicitly listed, it should be enabled, so do that here.
-        if ( ! $is_ssl && $cdn_on_known_alias && $cdn_domain ) {
+        if ( $cdn_on_known_alias && $cdn_domain ) {
             $cdn_enabled = true;
         }
 
@@ -974,39 +981,40 @@ class WpeCommon extends WpePlugin_common {
 
         // Only replace if the CDN is also enabled, unless this is the admin screens in which case we can
         // always use it because it's only for safe, versioned system files.
-        if ( $cdn_domain && $cdn_enabled && ! $is_admin ) {  // XXX: DISABLED FOR ADMINS BECAUSE OF THESITEWHICHWILLNOTBENAMED.COM -- USE OUR OWN CDN TO FIX!
-			$map_domain_cdn = array();
-			foreach( $curr_domains as $domain )
-				$map_domain_cdn[$domain] = $cdn_domain;
-			$rules = array();
-			// Start with site-specific rules
-			ec_add_cdn_replacement_rules_from_cdn_regexs( $rules, $wpe_cdn_uris, $http_host, $cdn_domain );
-			// If any LargeFS paths use 301 behavior, we also might as well just direct those directly
-			// to S3 so we don't have to serve them at all.
-			if ( isset($wpe_largefs) && count($wpe_largefs) > 0 ) {
-				foreach ( $wpe_largefs as $lfs ) {
-					if ( el($lfs,'redirect',false) ) {
-						$rules[] = array (
-							'src_domain' => $http_host,
-							'src_uri' => '#^'.preg_quote($lfs['path']).'#',
-							'dst_domain' => "s3.amazonaws.com",
-							'dst_prefix' => "/" . WPE_LARGEFS_BUCKET . "/" . PWP_NAME,
-						);
-					}
-				}
-			}
-			// If there are CDN push-zones, apply those before general CDN paths
-            if ( isset( $wpe_netdna_push_domains ) ) {
-                foreach ( $wpe_netdna_push_domains as $re => $zone ) {
+	if ( $cdn_domain && $cdn_enabled && ! $is_admin ) {  // XXX: DISABLED FOR ADMINS BECAUSE OF THESITEWHICHWILLNOTBENAMED.COM -- USE OUR OWN CDN TO FIX!
+		$map_domain_cdn = array();
+		foreach( $curr_domains as $domain )
+			$map_domain_cdn[$domain] = $cdn_domain;
+		$rules = array();
+		// Start with site-specific rules
+		ec_add_cdn_replacement_rules_from_cdn_regexs( $rules, $wpe_cdn_uris, $http_host, $cdn_domain );
+		// If any LargeFS paths use 301 behavior, we also might as well just direct those directly
+		// to S3 so we don't have to serve them at all.
+		if ( isset($wpe_largefs) && count($wpe_largefs) > 0 ) {
+			foreach ( $wpe_largefs as $lfs ) {
+				if ( el($lfs,'redirect',false) ) {
 					$rules[] = array (
 						'src_domain' => $http_host,
-						'src_uri' => '#'.$re.'#',
-						'dst_domain' => "${zone}push.wpengine.netdna-cdn.com",
+						'src_uri' => '#^'.preg_quote($lfs['path']).'#',
+						'dst_domain' => "s3.amazonaws.com",
+						'dst_prefix' => "/" . WPE_LARGEFS_BUCKET . "/" . PWP_NAME,
 					);
-                }
+				}
 			}
-			$rules = array_merge($rules,ec_get_cdn_replacement_rules( $map_domain_cdn ));	// standard CDN replacements
-			$html = ec_url_replacements( $html, $rules, $curr_domain );
+		}
+		// If there are CDN push-zones, apply those before general CDN paths. This is not supported
+		// for HTTPS environments.
+		if ( isset( $wpe_netdna_push_domains ) && ! $is_ssl ) {
+			foreach ( $wpe_netdna_push_domains as $re => $zone ) {
+				$rules[] = array (
+					'src_domain' => $http_host,
+					'src_uri' => '#'.$re.'#',
+					'dst_domain' => "${zone}push.wpengine.netdna-cdn.com",
+				);
+			}
+		}
+		$rules = array_merge($rules,ec_get_cdn_replacement_rules( $map_domain_cdn ));	// standard CDN replacements
+		$html = ec_url_replacements( $html, $rules, $curr_domain, $is_ssl );
         }
 
         // Run site-specific content replacements
@@ -1117,6 +1125,22 @@ class WpeCommon extends WpePlugin_common {
                 $r['status']   = "Live and ready";
                 $r['is_ready'] = true;
             } else {
+		$r_json = json_decode($r['status'], true);
+		if (is_array($r_json)){
+			$r['status'] = "";
+			// we have a json status, look for 'non-ready's
+			foreach ($r_json as $key => $value) {
+				if ("Ready!" != $value['text']) {
+					// append any non-readies to the status
+					$r['status'] = $r['status'].' '.$value['text'];
+				}
+			}
+			if ("" == $r['status']){
+				// we never set, so there must be a ready
+				$r['status'] = 'Ready!';
+			}
+
+		}  // else leave r['status'] as it is, it's probably the old 'just text' format
                 $r['is_ready']    = $r['status'] == "Ready!";
             }
             $r['last_update'] = filemtime( $staging_touch_file );
@@ -1137,6 +1161,7 @@ class WpeCommon extends WpePlugin_common {
             $r->lbmaster = $r->is_pod ? "pod-" . $r->cluster . ".wpengine.com" : "lbmaster-" . $r->cluster . ".wpengine.com";
             $r->public_ip = gethostbyname( $r->lbmaster );
             $r->sftp_host = ( $r->is_pod ? $r->name : ( $r->cluster == 1 ? "sftp" : "sftp" . $r->cluster )) . ".wpengine.com";
+            $r->sftp_ip = ( $r->is_pod ? gethostbyname($r->lbmaster) : gethostbyname($r->sftp_host) );
             $r->sftp_port = ( $r->cluster == 1 ? 22000 : 22 );
             $cached_site_info = $r;
         }
@@ -1319,7 +1344,7 @@ class WpeCommon extends WpePlugin_common {
     // If there is no NetDNA config for this client at all, returns null.
     // So: Just to determine whether or not there's a CDN, can treat the return value as boolean, but to distinguish
     // between "actively has no CDN" and "don't have an opinion about CDN config," use the exact return value.
-    public function get_cdn_domain( $netdna_config, $blog_url ) {
+    public function get_cdn_domain( $netdna_config, $blog_url, $is_ssl ) {
         global $wpe_domain_mappings, $cdn_on_known_alias;
 
         // NetDNA CDN configuration.  It's possible we have a CDN configuration and this doesn't
@@ -1333,6 +1358,11 @@ class WpeCommon extends WpePlugin_common {
             $cdn_on_known_alias = true;
             $blog_domain        = $wpe_domain_mappings[$blog_domain];
         }
+	if ($is_ssl) {
+            $zone_base = "-wpengine.netdna-ssl.com";
+        } else {
+            $zone_base = ".wpengine.netdna-cdn.com";
+        }
         foreach ( $netdna_config as $zone => $domain ) {
             // Newer netdna array format
             if ( is_array( $domain ) ) {
@@ -1341,13 +1371,13 @@ class WpeCommon extends WpePlugin_common {
                     if ( isset( $domain['custom'] ) )
                         return $domain['custom'];
                     if ( isset( $domain['zone'] ) )
-                        return $domain['zone'] . ".wpengine.netdna-cdn.com"; // build FQDN from NetDNA zone
+                        return $domain['zone'] . $zone_base; // build FQDN from NetDNA zone
                 }
             } else {
                 if ( strcasecmp( $blog_domain, $domain ) == 0 ) {
                     if ( strpos( $zone, "." ) ) // already is FQDN?
                         return $zone;
-                    return $zone . ".wpengine.netdna-cdn.com"; // build FQDN from NetDNA zone
+                    return $zone . $zone_base; // build FQDN from NetDNA zone
                 }
             }
         }
@@ -1513,7 +1543,7 @@ class WpeCommon extends WpePlugin_common {
         $pgcache_cache_queries = $pgcache_in_memcached;
 
         // NetDNA CDN zone for this site
-        $cdn_domain = $this->get_cdn_domain( el( $config, 'netdna', array( ) ), $blog_url );
+        // $cdn_domain = $this->get_cdn_domain( el( $config, 'netdna', array( ) ), $blog_url );
 
         // Ensure WPEngine standard account.
         echo( "Ensuring the WPEngine account...\n" );
@@ -1607,7 +1637,7 @@ class WpeCommon extends WpePlugin_common {
         }
 
         deactivate_plugins( $plugins );
-	
+
 	//look for plugins that WP Engine Api needs to know about
 	include_once(__DIR__.'/class.plugins.php');
 	PluginsConfig::sniff();
@@ -1685,19 +1715,36 @@ class WpeCommon extends WpePlugin_common {
 
     } // ensure user
 
+    public function from_allowed_ip()
+    {
+        global $wpe_special_ips;
+	// Special IPs are ones found in the wp-config.php that are populated by the WPE application.
+	// Check if the requestor is in the network and allowed to perform the request.
+        if ( is_array($wpe_special_ips) && in_array($_SERVER['REMOTE_ADDR'], $wpe_special_ips) ) {
+                return true;
+        }
+        if ( $_SERVER['REMOTE_ADDR'] == '127.0.0.1' ||
+		substr( $_SERVER['REMOTE_ADDR'], 0, 9 ) == '127.0.0.1' ||
+                substr( $_SERVER['REMOTE_ADDR'], 0, 11 ) == '67.210.230.' ||
+                substr( $_SERVER['REMOTE_ADDR'], 0, 3 ) == '10.' ||			// private subnet always OK (e.g. Amazon)
+                substr( $_SERVER['REMOTE_ADDR'], 0, 12 ) == '216.151.212.' ||		// serverbeach external net
+                substr( $_SERVER['REMOTE_ADDR'], 0, 7 ) == '172.16.' ||			// serverbeach internal net
+                $_SERVER['REMOTE_ADDR'] == $_SERVER['SERVER_ADDR']			// if request originated on same host as this script is run.
+        ) {
+		return true;
+	} else {
+		return false;
+	}
+    }
+
     public function process_internal_command() {
+
         // Ensure this is an internal command; process normally otherwise
         $cmd = wpe_param( 'wp-cmd' );
-        if ( ! $cmd )
+        if ( ! $cmd ) {
             return;    // without a command, it's not an internal request
-        if ( $_SERVER['REMOTE_ADDR'] != '127.0.0.1' &&
-                substr( $_SERVER['REMOTE_ADDR'], 0, 9 ) != '127.0.0.1' &&
-                substr( $_SERVER['REMOTE_ADDR'], 0, 11 ) != '67.210.230.' &&
-                substr( $_SERVER['REMOTE_ADDR'], 0, 3 ) != '10.' && // private subnet always OK (e.g. Amazon)
-                substr( $_SERVER['REMOTE_ADDR'], 0, 12 ) != '216.151.212.' && // serverbeach external net
-                substr( $_SERVER['REMOTE_ADDR'], 0, 7 ) != '172.16.' && // serverbeach internal net
-                $_SERVER['REMOTE_ADDR'] != $_SERVER['SERVER_ADDR']
-        ) {
+	}
+	if ( ! $this->from_allowed_ip() ) {
             print("Ignoring request from non-local host: " . $_SERVER['REMOTE_ADDR'] . " to " . $_SERVER['SERVER_ADDR'] . "\n" );
             exit( 0 );  // local requests only -- security! Meaning our public IP address or localhost
         }
@@ -1766,17 +1813,19 @@ class WpeCommon extends WpePlugin_common {
     }
 
     public static function clear_maxcdn_cache() {
-        global $wpe_netdna_domains;
+        global $wpe_netdna_domains, $wpe_netdna_domains_secure;
 
         if ( WPE_DISABLE_CACHE_PURGING )
             return false;
 
         // Find the set of zones to purge
-        $zones = array( );
-        if ( isset( $wpe_netdna_domains ) )
-            foreach ( $wpe_netdna_domains as $zinfo )
-                if ( isset( $zinfo['zone'] ) && ! empty( $zinfo['zone'] ) )
-                    $zones[] = $zinfo['zone'];
+	$domains = array_merge($wpe_netdna_domains ?: array(), $wpe_netdna_domains_secure ?: array());
+        $zones = array();
+        foreach ( $domains as $zinfo ) {
+            if ( isset( $zinfo['zone'] ) && ! empty( $zinfo['zone'] ) ) {
+                $zones[$zinfo['zone']] = $zinfo['zone'];	// Dedup secure and insecure zones.
+            }
+        }
         if ( ! count( $zones ) )
             return FALSE;
 
@@ -1845,7 +1894,7 @@ class WpeCommon extends WpePlugin_common {
 
             // Always purge the post's own URI, along with anything similar
             $post_parts = parse_url( post_permalink( $post_id ) );
-	    $post_uri   = rtrim($post_parts['path'],'/')."(.*)";            
+	    $post_uri   = rtrim($post_parts['path'],'/')."(.*)";
             if ( ! empty( $post_parts['query'] ) )
                 $post_uri .= "?" . $post_parts['query'];
             $paths[]    = $post_uri;
@@ -1956,7 +2005,7 @@ class WpeCommon extends WpePlugin_common {
     public static function http_request_async( $method, $domain, $port, $hostname, $uri, $extra_headers = array( ), $wait_ms = 100 ) {
 
         //don't do anything is on staging
-	if( is_wpe_snapshot() ) 
+	if( is_wpe_snapshot() )
                return;
 
 	if ( ! $hostname )
@@ -2158,7 +2207,7 @@ if(defined('WPE_DB_DEBUG') AND @WPE_DB_DEBUG != false) {
 // Force the blog to be private when viewing the staging site.
 if( is_wpe_snapshot() ) {
     add_action( 'pre_option_blog_public', '__return_zero' );
-}  
+}
 
 // Finds the first occurrance of the given pattern in the subject and returns the match.
 // If there is a grouping element, returns just the content of the group, otherwise returns
@@ -2172,4 +2221,3 @@ function preg_find( $pattern, $subject )
         return $match[0];
     return $match[1];       // return first group
 }
-

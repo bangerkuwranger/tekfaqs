@@ -1,6 +1,6 @@
 <?php
 
- echo '<div class="awqsf_box taxodrop-'.$c.' span4"><label class="taxo-label-'.$c.'">'.$v['taxlabel'].'</label><br>';
+ echo '<div class="awqsf_box taxodrop-'.$c.'"><label class="taxo-label-'.$c.'">'.$v['taxlabel'].'</label><br>';
  echo '<input  type="hidden" name="taxo['.$c.'][name]" value="'.$v['taxname'].'">';
  echo  '<select id="taxo-'.$c.'" name="taxo['.$c.'][term]"><option selected value="wqsftaxoall">'.$v['taxall'].'</option>'; 
 if ( $count > 0 ){

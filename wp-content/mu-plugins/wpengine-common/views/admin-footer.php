@@ -7,6 +7,6 @@
 						$.post(ajaxurl,{ 'action': 'wpe-ajax','wpe-action':'hide-pointer','pointer':'deploy-staging' });
 					}	
 			}).pointer('open');
-		$('input[name="deploy-from-staging"]').live('click',function() { wpe_deploy_staging(); });
+		$(document).on('click','input[name="deploy-from-staging"]',function() { wpe_deploy_staging(); });
 	}); 
 </script>

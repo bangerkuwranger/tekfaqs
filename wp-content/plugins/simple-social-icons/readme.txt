@@ -1,9 +1,9 @@
 === Plugin Name ===
-Contributors: nathanrice, studiopress
+Contributors: nathanrice, studiopress, bgardner
 Tags: social media, social networking, social profiles
-Requires at least: 3.5
-Tested up to: 3.5.1
-Stable tag: 1.0.2
+Requires at least: 3.7
+Tested up to: 3.7.1
+Stable tag: 1.0.5
 
 This plugin allows you to insert social icons in any widget area.
 
@@ -26,7 +26,7 @@ No, not at this time.
 
 = Which services are included? =
 
-* Dribble
+* Dribbble
 * Email
 * Facebook
 * Flickr
@@ -37,9 +37,12 @@ No, not at this time.
 * Pinterest
 * RSS
 * StumbleUpon
+* Tumblr
 * Twitter
 * Vimeo
 * YouTube
+
+NOTE - The rights to each pictogram in the social extension are either trademarked or copyrighted by the respective company. Icons that are included in the social extension can be identified at http://www.entypo.com/.
 
 == Changelog ==
 
@@ -71,3 +74,12 @@ No, not at this time.
 
 = 1.0.2 =
 * More specific in the CSS to avoid conflicts
+
+= 1.0.3 =
+* Added Tumblr icon
+
+= 1.0.4 =
+* Updated version in enqueue script function
+
+= 1.0.5 =
+* Updated LICENSE.txt file to include social extension

@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Simple Social Icons
-Plugin URI: http://www.studiopress.com/plugins/simple-social-icons
+Plugin URI: http://wordpress.org/plugins/simple-social-icons/
 Description: A simple, CSS and icon font driven social icons widget.
 Author: Nathan Rice
 Author URI: http://www.nathanrice.net/
 
-Version: 1.0.2
+Version: 1.0.5
 
 License: GNU General Public License v2.0 (or later)
 License URI: http://www.opensource.org/licenses/gpl-license.php
@@ -46,29 +46,30 @@ class Simple_Social_Icons_Widget extends WP_Widget {
 		 * Default widget option values.
 		 */
 		$this->defaults = array(
-			'title'					 => '',
-			'new_window'			 => 0,
-			'size'					 => 36,
-			'border_radius'			 => 3,
-			'icon_color'			 => '#ffffff',
-			'icon_color_hover'		 => '#ffffff',
-			'background_color'		 => '#999999',
+			'title'                  => '',
+			'new_window'             => 0,
+			'size'                   => 36,
+			'border_radius'          => 3,
+			'icon_color'             => '#ffffff',
+			'icon_color_hover'       => '#ffffff',
+			'background_color'       => '#999999',
 			'background_color_hover' => '#666666',
-			'alignment'				 => 'alignleft',
-			'dribbble'				 => '',
-			'email'					 => '',
-			'facebook'				 => '',
-			'flickr'				 => '',
-			'github'				 => '',
-			'gplus'					 => '',
-			'instagram'				 => '',
-			'linkedin'				 => '',
-			'pinterest'				 => '',
-			'rss'					 => '',
-			'stumbleupon'			 => '',
-			'twitter'				 => '',
-			'vimeo'					 => '',
-			'youtube'				 => '',
+			'alignment'              => 'alignleft',
+			'dribbble'               => '',
+			'email'                  => '',
+			'facebook'               => '',
+			'flickr'                 => '',
+			'github'                 => '',
+			'gplus'                  => '',
+			'instagram'              => '',
+			'linkedin'               => '',
+			'pinterest'              => '',
+			'rss'                    => '',
+			'stumbleupon'            => '',
+			'tumblr'                 => '',
+			'twitter'                => '',
+			'vimeo'                  => '',
+			'youtube'                => '',
 		);
 
 		/**
@@ -76,65 +77,69 @@ class Simple_Social_Icons_Widget extends WP_Widget {
 		 */
 		$this->profiles = array(
 			'dribbble' => array(
-				'label'		  => __( 'Dribbble URI', 'ssiw' ),
-				'pattern'	  => '<li class="social-dribbble"><a href="%s" %s>&#xf31b;</a></li>',
+				'label'   => __( 'Dribbble URI', 'ssiw' ),
+				'pattern' => '<li class="social-dribbble"><a href="%s" %s>&#xe800;</a></li>',
 			),
 			'email' => array(
-				'label'		  => __( 'Email URI', 'ssiw' ),
-				'pattern'	  => '<li class="social-email"><a href="%s" %s>&#x2709;</a></li>',
+				'label'   => __( 'Email URI', 'ssiw' ),
+				'pattern' => '<li class="social-email"><a href="%s" %s>&#xe80b;</a></li>',
 			),
 			'facebook' => array(
-				'label'		  => __( 'Facebook URI', 'ssiw' ),
-				'pattern'	  => '<li class="social-facebook"><a href="%s" %s>&#xf30c;</a></li>',
+				'label'   => __( 'Facebook URI', 'ssiw' ),
+				'pattern' => '<li class="social-facebook"><a href="%s" %s>&#xe802;</a></li>',
 			),
 			'flickr' => array(
-				'label'		  => __( 'Flickr URI', 'ssiw' ),
-				'pattern'	  => '<li class="social-flickr"><a href="%s" %s>&#xf303;</a></li>',
+				'label'   => __( 'Flickr URI', 'ssiw' ),
+				'pattern' => '<li class="social-flickr"><a href="%s" %s>&#xe80a;</a></li>',
 			),
 			'github' => array(
-				'label'		  => __( 'GitHub URI', 'ssiw' ),
-				'pattern'	  => '<li class="social-github"><a href="%s" %s>&#xf300;</a></li>',
+				'label'   => __( 'GitHub URI', 'ssiw' ),
+				'pattern' => '<li class="social-github"><a href="%s" %s>&#xe80c;</a></li>',
 			),
 			'gplus' => array(
-				'label'		  => __( 'Google+ URI', 'ssiw' ),
-				'pattern'	  => '<li class="social-gplus"><a href="%s" %s>&#xf30f;</a></li>',
+				'label'   => __( 'Google+ URI', 'ssiw' ),
+				'pattern' => '<li class="social-gplus"><a href="%s" %s>&#xe801;</a></li>',
 			),
 			'instagram' => array(
-				'label'		  => __( 'Instagram URI', 'ssiw' ),
-				'pattern'	  => '<li class="social-instagram"><a href="%s" %s>&#xf32d;</a></li>',
+				'label'   => __( 'Instagram URI', 'ssiw' ),
+				'pattern' => '<li class="social-instagram"><a href="%s" %s>&#xe809;</a></li>',
 			),
 			'linkedin' => array(
-				'label'		  => __( 'Linkedin URI', 'ssiw' ),
-				'pattern'	  => '<li class="social-linkedin"><a href="%s" %s>&#xf318;</a></li>',
+				'label'   => __( 'Linkedin URI', 'ssiw' ),
+				'pattern' => '<li class="social-linkedin"><a href="%s" %s>&#xe806;</a></li>',
 			),
 			'pinterest' => array(
-				'label'		  => __( 'Pinterest URI', 'ssiw' ),
-				'pattern'	  => '<li class="social-pinterest"><a href="%s" %s>&#xf312;</a></li>',
+				'label'   => __( 'Pinterest URI', 'ssiw' ),
+				'pattern' => '<li class="social-pinterest"><a href="%s" %s>&#xe803;</a></li>',
 			),
 			'rss' => array(
-				'label'		  => __( 'RSS URI', 'ssiw' ),
-				'pattern'	  => '<li class="social-rss"><a href="%s" %s>&#xe73a;</a></li>',
+				'label'   => __( 'RSS URI', 'ssiw' ),
+				'pattern' => '<li class="social-rss"><a href="%s" %s>&#xe805;</a></li>',
 			),
 			'stumbleupon' => array(
-				'label'		  => __( 'StumbleUpon URI', 'ssiw' ),
-				'pattern'	  => '<li class="social-stumbleupon"><a href="%s" %s>&#xf31e;</a></li>',
+				'label'   => __( 'StumbleUpon URI', 'ssiw' ),
+				'pattern' => '<li class="social-stumbleupon"><a href="%s" %s>&#xe808;</a></li>',
+			),
+			'tumblr' => array(
+				'label'   => __( 'Tumblr URI', 'ssiw' ),
+				'pattern' => '<li class="social-tumblr"><a href="%s" %s>&#xe807;</a></li>',
 			),
 			'twitter' => array(
-				'label'		  => __( 'Twitter URI', 'ssiw' ),
-				'pattern'	  => '<li class="social-twitter"><a href="%s" %s>&#xf309;</a></li>',
+				'label'   => __( 'Twitter URI', 'ssiw' ),
+				'pattern' => '<li class="social-twitter"><a href="%s" %s>&#xe80d;</a></li>',
 			),
 			'vimeo' => array(
-				'label'		  => __( 'Vimeo URI', 'ssiw' ),
-				'pattern'	  => '<li class="social-vimeo"><a href="%s" %s>&#xf306;</a></li>',
+				'label'   => __( 'Vimeo URI', 'ssiw' ),
+				'pattern' => '<li class="social-vimeo"><a href="%s" %s>&#xe80e;</a></li>',
 			),
 			'youtube' => array(
-				'label'		  => __( 'YouTube URI', 'ssiw' ),
-				'pattern'	  => '<li class="social-youtube"><a href="%s" %s>&#xf313;</a></li>',
+				'label'   => __( 'YouTube URI', 'ssiw' ),
+				'pattern' => '<li class="social-youtube"><a href="%s" %s>&#xe804;</a></li>',
 			),
 		);
 
 		$widget_ops = array(
-			'classname'	  => 'simple-social-icons',
+			'classname'   => 'simple-social-icons',
 			'description' => __( 'Displays select social icons.', 'ssiw' ),
 		);
 
@@ -260,8 +265,15 @@ class Simple_Social_Icons_Widget extends WP_Widget {
 			$profiles = (array) $this->profiles;
 
 			foreach ( $profiles as $profile => $data ) {
-				if ( ! empty( $instance[$profile] ) )
+
+				if ( empty( $instance[ $profile ] ) )
+					continue;
+
+				if ( is_email( $instance[ $profile ] ) )
+					$output .= sprintf( $data['pattern'], 'mailto:' . esc_attr( $instance[$profile] ), $new_window );
+				else
 					$output .= sprintf( $data['pattern'], esc_url( $instance[$profile] ), $new_window );
+
 			}
 
 			if ( $output )
@@ -272,7 +284,7 @@ class Simple_Social_Icons_Widget extends WP_Widget {
 	}
 
 	function enqueue_css() {
-		wp_enqueue_style( 'simple-social-icons-font', plugin_dir_url( __FILE__ ) . 'css/style.css', array(), '1.0.0' );
+		wp_enqueue_style( 'simple-social-icons-font', plugin_dir_url( __FILE__ ) . 'css/style.css', array(), '1.0.5' );
 	}
 
 	/**
@@ -294,8 +306,6 @@ class Simple_Social_Icons_Widget extends WP_Widget {
 		.simple-social-icons ul li a,
 		.simple-social-icons ul li a:hover {
 			background-color: ' . $instance['background_color'] . ' !important;
-			-moz-border-radius: ' . $instance['border_radius'] . 'px
-			-webkit-border-radius: ' . $instance['border_radius'] . 'px;
 			border-radius: ' . $instance['border_radius'] . 'px;
 			color: ' . $instance['icon_color'] . ' !important;
 			font-size: ' . $font_size . 'px;

@@ -17,9 +17,27 @@ class UpdraftPlus_BackupModule_s3 {
 	function getS3($key, $secret, $useservercerts, $disableverify, $nossl) {
 		global $updraftplus;
 
-		if (!class_exists('S3')) require_once(UPDRAFTPLUS_DIR.'/includes/S3.php');
+		if (!class_exists('UpdraftPlus_S3')) require_once(UPDRAFTPLUS_DIR.'/includes/S3.php');
 
-		$s3 = new S3($key, $secret);
+		if (!class_exists('WP_HTTP_Proxy')) require_once(ABSPATH.'wp-includes/class-http.php');
+		$proxy = new WP_HTTP_Proxy();
+		$s3 = new UpdraftPlus_S3($key, $secret);
+
+		if ( $proxy->is_enabled()) {
+			# WP_HTTP_Proxy returns empty strings where we want nulls
+			$user = $proxy->username();
+			if (empty($user)) {
+				$user = null;
+				$pass = null;
+			} else {
+				$pass = $proxy->password();
+				if (empty($pass)) $pass = null;
+			}
+			$port = (int)$proxy->port();
+			if (empty($port)) $port = 8080;
+			$s3->setProxy($proxy->host(), $user, $pass, CURLPROXY_HTTP, $port); 
+		}
+
 		if (!$nossl) {
 			$curl_version = (function_exists('curl_version')) ? curl_version() : array('features' => null);
 			$curl_ssl_supported= ($curl_version['features'] & CURL_VERSION_SSL);
@@ -75,7 +93,7 @@ class UpdraftPlus_BackupModule_s3 {
 		$config = $this->get_config();
 		$whoweare = $config['whoweare'];
 		$whoweare_key = $config['key'];
-		$whoweare_keys = substr($whoweare_key, 0, 1);
+		$whoweare_keys = substr($whoweare_key, 0, 3);
 
 		$s3 = $this->getS3(
 			$config['login'],
@@ -97,12 +115,12 @@ class UpdraftPlus_BackupModule_s3 {
 		$region = ($config['key'] == 's3') ? @$s3->getBucketLocation($bucket_name) : 'n/a';
 
 		// See if we can detect the region (which implies the bucket exists and is ours), or if not create it
-		if (!empty($region) || @$s3->putBucket($bucket_name, S3::ACL_PRIVATE)) {
+		if (!empty($region) || @$s3->putBucket($bucket_name, UpdraftPlus_S3::ACL_PRIVATE)) {
 
 			if (empty($region) && $config['key'] == 's3') $region = $s3->getBucketLocation($bucket_name);
 			$this->set_endpoint($s3, $region);
 
-			$updraft_dir = $updraftplus->backups_dir_location().'/';
+			$updraft_dir = trailingslashit($updraftplus->backups_dir_location());
 
 			foreach($backup_array as $key => $file) {
 
@@ -119,7 +137,7 @@ class UpdraftPlus_BackupModule_s3 {
 
 				$filepath = $bucket_path.$file;
 
-				// This is extra code for the 1-chunk case, but less overhead (no bothering with transient data)
+				// This is extra code for the 1-chunk case, but less overhead (no bothering with job data)
 				if ($chunks < 2) {
 					$s3->setExceptions(true);
 					try {
@@ -202,7 +220,7 @@ class UpdraftPlus_BackupModule_s3 {
 							}
 						} catch (Exception $e) {
 							$updraftplus->log("$whoweare re-assembly error ($key): ".$e->getMessage().' (line: '.$e->getLine().', file: '.$e->getFile().')');
-							$updraftplus->log($e->getMessage().": ".sprint(__('%s re-assembly error (%s): (see log file for more)','updraftplus'),$whoweare, $e->getMessage()), 'error');
+							$updraftplus->log($e->getMessage().": ".sprintf(__('%s re-assembly error (%s): (see log file for more)','updraftplus'),$whoweare, $e->getMessage()), 'error');
 						}
 						// Remember to unset, as the deletion code later reuses the object
 						$s3->setExceptions(false);
@@ -211,7 +229,7 @@ class UpdraftPlus_BackupModule_s3 {
 					}
 				}
 			}
-			$updraftplus_backup->prune_retained_backups($config['key'], $this, array('s3_object' => $s3, 's3_orig_bucket_name' => $orig_bucket_name));
+			return array('s3_object' => $s3, 's3_orig_bucket_name' => $orig_bucket_name);
 		} else {
 			$updraftplus->log("$whoweare Error: Failed to create bucket $bucket_name.");
 			$updraftplus->log(sprintf(__('%s Error: Failed to create bucket %s. Check your permissions and credentials.','updraftplus'),$whoweare, $bucket_name), 'error');
@@ -315,11 +333,14 @@ class UpdraftPlus_BackupModule_s3 {
 			if (!$s3->getObject($bucket_name, $bucket_path.$file, $fullpath, true)) {
 				$updraftplus->log("$whoweare Error: Failed to download $file. Check your permissions and credentials.");
 				$updraftplus->log(sprintf(__('%s Error: Failed to download %s. Check your permissions and credentials.','updraftplus'),$whoweare, $file), 'error');
+				return false;
 			}
 		} else {
 			$updraftplus->log("$whoweare Error: Failed to access bucket $bucket_name. Check your permissions and credentials.");
 			$updraftplus->log(sprintf(__('%s Error: Failed to access bucket %s. Check your permissions and credentials.','updraftplus'),$whoweare, $bucket_name), 'error');
+			return false;
 		}
+		return true;
 
 	}
 
@@ -354,7 +375,8 @@ class UpdraftPlus_BackupModule_s3 {
 
 	public static function config_print() {
 	
-		self::config_print_engine('s3', 'S3', 'Amazon S3', 'AWS', 'http://aws.amazon.com/console/', '<img src="https://d36cz9buwru1tt.cloudfront.net/Powered-by-Amazon-Web-Services.jpg" alt="Amazon Web Services">');
+		# White: https://d36cz9buwru1tt.cloudfront.net/Powered-by-Amazon-Web-Services.jpg
+		self::config_print_engine('s3', 'S3', 'Amazon S3', 'AWS', 'http://aws.amazon.com/console/', '<img src="http://awsmedia.s3.amazonaws.com/AWS_logo_poweredby_black_127px.png" alt="Amazon Web Services">');
 		
 	}
 
@@ -480,8 +502,8 @@ class UpdraftPlus_BackupModule_s3 {
 		if (!isset($bucket_exists)) {
 			$s3->setExceptions(true);
 			try {
-				$try_to_create_bucket = @$s3->putBucket($bucket, S3::ACL_PRIVATE);
-			} catch (S3Exception $e) {
+				$try_to_create_bucket = @$s3->putBucket($bucket, UpdraftPlus_S3::ACL_PRIVATE);
+			} catch (UpdraftPlus_S3Exception $e) {
 				$try_to_create_bucket = false;
 				$s3_error = $e->getMessage();
 			}

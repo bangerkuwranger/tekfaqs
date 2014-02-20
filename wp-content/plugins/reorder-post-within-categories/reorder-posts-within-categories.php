@@ -3,7 +3,7 @@
 Plugin Name: ReOrder Post Within Categories
 Plugin URI:   http://www.deefuse.fr/wordpress/nouveau-plugin-reorder-post-within-categories
 Description: Arrange Post and Custom Post Type through drag & drop interface of selected category (or custom taxonomies).
-Version: 1.1.4
+Version: 1.1.5
 Author: Aurélien Chappard
 Author URI: http://www.deefuse.fr/
 License: GPLv2

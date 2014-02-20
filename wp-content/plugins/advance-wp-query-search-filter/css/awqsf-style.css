@@ -11,7 +11,7 @@ Simply refer to this to styling your form
 #aqsfformid{border:1px solid #ccc}
 #awqsf_search_form{padding:5px;border:1px #ccc solid;}
 /*form title*/
-span.form_title{font-weight:bold; color: #f36f37;}
+span.form_title{font-weight:bold}
 /*each input div*/
 .awqsf_box {margin-bottom:10px;}
 /*dropdown box width*/
@@ -30,8 +30,3 @@ label.taxcheckbox, label.cmfcheckbox{float:left;width:100%;}
 label.taxradio, label.cmfradio{float:left;width:100%;}
 /*text search field*/
 label.awqsf-label-keyword{}
-#expandArrow {position: relative; height: 14px; cursor: pointer; top: -2px;}
-.rotated {-webkit-transform:rotate(90deg);-ms-transform:rotate(90deg);-o-transform:rotate(90deg);-moz-transform:rotate(90deg);transform:rotate(90deg); top: 0;}
-#expandArrow {-webkit-transition: all 0.5s ease; -moz-transition: all 0.5s ease; -o-transition: all 0.5s ease; transition: all 0.5s ease;}
-#advTitle{color:#f36f37;}
-#advTitle:hover{color:#40a8c9;}

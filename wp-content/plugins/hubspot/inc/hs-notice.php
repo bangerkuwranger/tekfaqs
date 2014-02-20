@@ -20,11 +20,11 @@ class WPHubspotNotice {
         if(!WPHubspot::hs_is_customer($hs_settings['hs_portal'], $hs_settings['hs_appdomain'])){
             if(!$hs_settings['hs_config_notice']){
                 if(!(isset($_GET['page']) && $_GET['page'] == 'hubspot_settings')){
-                    $this->admin_notice('configuration-warning',10);
+                    $this->admin_notice('configuration-warning');
                 }
             }
         } elseif (!empty($hs_settings['hs_portal']) and !WPHubspotOauth::getAccessToken() and !$hs_settings['hs_config_notice']) {
-            $this->admin_notice('configuration-warning',10);
+            $this->admin_notice('configuration-warning');
         } 
 
         // Check SSL Connection
@@ -66,9 +66,7 @@ class WPHubspotNotice {
                 $notice_text = "Your server is not configured to make SSL calls. Please visit <a target='_blank' href='http://help.hubspot.com/articles/How_To_Doc/how-to-troubleshoot-the-wordpress-plugin'>How To Troubleshoot the Wordpress Plugin</a> to learn more.";
                 break;
             case 'configuration-warning':
-                $notice_text = "Please go to the <a href='".HUBSPOT_ADMIN."admin.php?page=hubspot_settings'>HubSpot settings page</a> to insert your Hub ID and authenticate with HubSpot to begin collecting website statistics or to hide this warning.
-                                    <br /><br />
-                                    Not using HubSpot marketing software yet? <a href='http://bit.ly/HSWPTrial'>Try it for free.</a>.";
+                $notice_text = "Please go to the <a href='".HUBSPOT_ADMIN."admin.php?page=hubspot_settings'>HubSpot settings page</a> to insert your Hub ID and authenticate with HubSpot to begin collecting website statistics or to hide this warning.";
                 break;
             case 'authorize-fail':
                 $notice_text = "HubSpot authorization failed. Please go to the <a href='".HUBSPOT_ADMIN."admin.php?page=hubspot_settings'>HubSpot settings page</a> and authorize with HubSpot";

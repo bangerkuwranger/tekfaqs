@@ -3,7 +3,7 @@
 Plugin Name: HubSpot for WordPress
 Description: The HubSpot for WordPress plugin integrates the power of HubSpot with your WordPress site
 Author: HubSpot
-Version: 1.8.3
+Version: 1.8.7
 Requires at least: 3.0
 Author URI: http://www.hubspot.com
 License: GPL
@@ -62,7 +62,7 @@ if ( ! defined( 'HUBSPOT_POSTS_PER_BATCH' ) ){
 }
 
 if ( !defined( 'HUBSPOT_PLUGIN_VERSION' ) ){
-    define('HUBSPOT_PLUGIN_VERSION', '1.8.2');
+    define('HUBSPOT_PLUGIN_VERSION', '1.8.7');
 }
 
 //=============================================
@@ -93,6 +93,7 @@ class WPHubspot {
     //=============================================
     function WPHubspot(){
         global $myhubspotwp_admin, $myhubspotwp_analytics, $myhubspotwp_contact, $myhubspotwp_leads, $myhubspotwp_social, $myhubspotwp_team, $myhubspotwp_action, $myhubspotwp_notice, $myhubspotusage, $myhubspotwp_tracking;
+        global $post;
 
         //OAuth
         WPHubspotOauth::$clientId = HUBSPOT_CLIENT_ID;

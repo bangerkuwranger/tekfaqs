@@ -1,16 +1,18 @@
 === HubSpot for WordPress ===
-Contributors: hubspot, JonBishop, dcancel, bwhalley, andypitre, tjoconnr
+Contributors: dcancel, andypitre, aacook
 Tags: analytics, hubspot, tracking code, feedburner, action, call to action, team, about, contact, form, leads, api, shortcode, widget, dashboard, post, admin, sidebar, twitter, page, inbound, business, marketing, google map, call to action, cta, ad manager
 Requires at least: 3.0
 Tested up to: 3.5
-Stable tag: 1.8.3
-
+Stable tag: 1.8.7
 
 Integrate your WordPress blog or website with HubSpot
 
 == Description ==
 
-The HubSpot for WordPress plugin allows WordPress users to integrate their existing WordPress blogs and websites with HubSpot.
+The HubSpot for WordPress plugin allows existing HubSpot customers  to integrate their existing WordPress blogs and websites with HubSpot. 
+
+= Not a HubSpot Customer? =
+Looking for an easy way to manage your marketing on WordPress? [Try LeadIn](http://leadin.com).
 
 = Features =
 
@@ -142,6 +144,18 @@ HubSpot collects usage information about this plugin, so that we can better serv
 2. Setting up the Hubspot plugin
 
 == Changelog ==
+= 1.8.7 =
+* Updated the HubSpot tracking code to point to a new domain. The previous tracking code will continue to work, but we recommend updating to the latest version.
+
+= 1.8.6 =
+* Updated the HubSpot tracking code to point to a new domain. The previous tracking code will continue to work, but we recommend updating to the latest version.
+
+= 1.8.5 =
+* Fixed bug that was sending wrong page / content types for HubSpot analytics
+
+= 1.8.4 =
+* Do not use this version :) Accidental commit including debug code.
+
 = 1.8.2 =
 * New error logging, disabled by default
 

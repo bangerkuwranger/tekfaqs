@@ -1,6 +1,6 @@
 <?php
 # Database Configuration
-define('DB_NAME','wp_tekserve');
+define('DB_NAME','snapshot_tekserve');
 define('DB_USER','tekserve');
 define('DB_PASSWORD','hCQ1kO5ixoVUBxionCLS');
 define('DB_HOST','127.0.0.1');
@@ -38,7 +38,7 @@ define('WPE_APIKEY','8d08bbbf7b8627bf2addd0229d854521217867fe');
 
 define('WPE_FOOTER_HTML',"");
 
-define('WPE_CLUSTER_ID','1700');
+define('WPE_CLUSTER_ID','2027');
 
 define('WPE_CLUSTER_TYPE','pod');
 
@@ -84,13 +84,13 @@ $wpe_content_regexs=array ();
 
 $wpe_all_domains=array (  0 => 'faq.tekserve.com',  1 => 'tekserve.wpengine.com',);
 
-$wpe_varnish_servers=array (  0 => 'pod-1700',);
+$wpe_varnish_servers=array (  0 => 'pod-2027',);
 
 $wpe_ec_servers=array ();
 
 $wpe_largefs=array ();
 
-$wpe_netdna_domains=array (  0 =>   array (    'match' => 'tekserve.wpengine.com',    'zone' => '3civ7q19xq3z4d2wi812e1iujkj',    'enabled' => true,  ),  1 =>   array (    'match' => 'faq.tekserve.com',    'zone' => 'n7igo4dfehm26whe51igur5adp',    'enabled' => true,  ),);
+$wpe_netdna_domains=array (  0 =>   array (    'match' => 'tekserve.wpengine.com',    'zone' => '3civ7q19xq3z4d2wi812e1iujkj',  ),  1 =>   array (    'match' => 'faq.tekserve.com',    'zone' => 'n7igo4dfehm26whe51igur5adp',  ),);
 
 $wpe_netdna_push_domains=array ();
 
@@ -98,9 +98,15 @@ $wpe_domain_mappings=array ();
 
 $memcached_servers=array (  'default' =>   array (    0 => 'unix:///tmp/memcached.sock',  ),);
 
-//define('WP_SITEURL','http://faq.tekserve.com');
+//define('WP_SITEURL','http://tekserve.staging.wpengine.com');
 
-//define('WP_HOME','http://faq.tekserve.com');
+//define('WP_HOME','http://tekserve.staging.wpengine.com');
+
+define('WP_AUTO_UPDATE_CORE',false);
+
+$wpe_special_ips=array ();
+
+$wpe_netdna_domains_secure=array ();
 define('WPLANG','');
 
 # WP Engine ID

@@ -5,10 +5,10 @@ $cmf = get_post_meta($id, 'awqsf-cmf', true);
 $options = get_post_meta($id, 'awqsf-relbool', true);
 echo '<div id="aqsfformid">';
 if($formtitle){
-echo '<span id="advTitle" class="form_title" onclick="showHideAdvSearch();" style="cursor: pointer;">'.get_the_title($id).'</span><img onclick="showHideAdvSearch();" id="expandArrow" class="" cursor: pointer;" src="http://3civ7q19xq3z4d2wi812e1iujkj.wpengine.netdna-cdn.com/wp-content/themes/knowledgepress_1.4_tekfaq/assets/img/leftorgarrow.png" />';}
-echo '<div id="advSearch" class="row-fluid" style="display: none;">';
-echo '<form method="get" name="advSearchForm" onsubmit="return useKeywordKthx();" id="awqsf_search_form_'.$id.'" action="'.home_url( '/' ).'">';
+echo '<span class="form_title">'.get_the_title($id).'</span>';}
+echo '<form method="get"  id="awqsf_search_form_'.$id.'" action="'.home_url( '/' ).'">';
 echo '<input type="hidden" name="s" value="'.$nonce.'" /><input type="hidden" name="formid" value="'.$id.'">';
+do_action('awqsf_fhead', $id);
 if(!empty($taxo)){
  $c = 0;
  foreach($taxo as $k => $v){
@@ -28,6 +28,10 @@ if(!empty($taxo)){
 	      if(empty($v['type'])){include "taxdropdown.php";}
 	$c++;			
   }
+	$newtaxo ='';
+	$newtaxo = apply_filters('awpqsf_addextra_taxo', $newtaxo, $c,$id);
+  	echo $newtaxo;
+
 }
 
 if(!empty($cmf)){  
@@ -48,27 +52,23 @@ if(!empty($cmf)){
      }else{include "cmfdropdown.php";}
      $i++;
    }	
+      $newcmf ='';
+      $newcmf = apply_filters('awpqsf_addextra_cmf', $newcmf, $i,$id);
+      echo $newcmf;	
+
 }
 
 if(isset($options[0]['strchk']) && ($options[0]['strchk'] == '1') ){
-		echo '<div id="awqsf_keyword_box" class="awqsf_box span3"><center><label class="awqsf-label-keyword">'.$options[0]['strlabel'].'<span style="color: #f36f37; line-height: 0em; font-size: 2em;">*</span></center></label>';
+		echo '<div class="awqsf_box"><center><label class="awqsf-label-keyword">'.$options[0]['strlabel'].'</center></label>';
 		echo '<input id="awqsf_keyword" type="text" name="skeyword" value="" />';
                 echo '<br></div>';
 }
-echo '<div class="awqsf_box span3"><p class="awqsf-button"><input type="submit" id="awqsf_submit" value="'.$options[0]['button'].'" alt="[Submit]" name="wqsfsubmit" title="Search" /></p></div>';
-echo ' </div>';				
+do_action('awqsf_fbottom',$id);
+echo '<div class="awqsf_box"><p class="awqsf-button"><input type="submit" id="awqsf_submit" value="'.$options[0]['button'].'" alt="[Submit]" name="wqsfsubmit" title="Search" /></p></div>';
+				
 echo '</form>';
 
 
 echo '</div>';
-echo '<script type="text/javascript">function useKeywordKthx()
-{
-var x=document.forms["advSearchForm"]["skeyword"].value;
-if (x==null || x=="")
-  {
-  alert("Too many results; please enter a keyword.");
-  return false;
-  }
-}</script>'
 
 ?>

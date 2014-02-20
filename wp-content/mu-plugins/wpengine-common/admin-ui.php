@@ -145,7 +145,8 @@ if ( wpe_param( 'advanced' ) ) {
 
 // Fix file permissions
 if ( wpe_param( 'file-perms' ) ) {
-        $url = "https://api.wpengine.com/1.2/?method=file-permissions&account_name=" . PWP_NAME . "&wpe_apikey=" . WPE_APIKEY;
+	check_admin_referer( PWP_NAME . '-config' );
+	$url = "https://api.wpengine.com/1.2/?method=file-permissions&account_name=" . PWP_NAME . "&wpe_apikey=" . WPE_APIKEY;
 	$http = new WP_Http;
 	$msg  = $http->get( $url );
         if ( is_a( $msg, 'WP_Error' ) )
@@ -158,6 +159,7 @@ if ( wpe_param( 'file-perms' ) ) {
 
 // Process purging all caches
 if ( wpe_param( 'purge-all' ) ) {
+    check_admin_referer( PWP_NAME . '-config' );
     // check_admin_referer(PWP_NAME.'-config');		DO NOT CHECK because it's OK to just hit it from anywhere, and in fact we do.
     WpeCommon::purge_memcached();
     WpeCommon::clear_maxcdn_cache();
@@ -198,7 +200,7 @@ if ( is_wpe_snapshot() ) {
 		<div class="span-30">
 			<p><b>You should <a href="http://eepurl.com/i3HPf" target="_blank">subscribe to our customer announcement list</a></b> to get updates on new features, system developments, and account and billing information.  You can of course unsubscribe at any time, and we use it only for infrequent but important announcements.</p>
 			<p>Your DNS should either be set to CNAME to <code><?= $site_info->name ?>.wpengine.com</code> or an A record to <code><?= $site_info->public_ip ?></code>.</p>
-			<p>Your SFTP access (<i>not FTP!</i>) is at hostname <code><?= $site_info->sftp_host ?></code> on port <code><?= $site_info->sftp_port ?></code>. Username and password starts out the same as you specified when you signed up for your blog (which was <code><?= $site_info->name ?></code>), but can be <a href="<?php echo get_option('wpe-install-userportal','https://my.wpengine.com'); ?>" target="_blank">changed here</a>.</p>
+			<p>Your SFTP access (<i>not FTP!</i>) is at hostname <code><?= $site_info->sftp_host ?></code> or IP at <code><?= $site_info->sftp_ip ?></code> on port <code><?= $site_info->sftp_port ?></code>. Username and password starts out the same as you specified when you signed up for your blog (which was <code><?= $site_info->name ?></code>), but can be <a href="<?php echo get_option('wpe-install-userportal','https://my.wpengine.com'); ?>" target="_blank">changed here</a>.</p>
 		</div><!--.span-30-->
       		<br class="clear"/>
         
@@ -299,7 +301,7 @@ if ( is_wpe_snapshot() ) {
 					<td>
 				            <p>
 				                Right now, the following domains are configured for use with a CDN.  If you see something missing or extra,
-				                <a href="http://wpengine.zendesk.com">contact tech support</a>.
+				                <a href="https://my.wpengine.com/support">contact tech support</a>.
 				            </p>
 				            <ul><?php
 				        foreach ( $wpe_netdna_domains as $zinfo ) {
@@ -333,7 +335,7 @@ if ( is_wpe_snapshot() ) {
     <? } else { ?>
             <p>
                 Right now <b>no domains are configured</b> for use with a CDN.  If you're ready to enable CDN support,
-                <a href="http://wpengine.zendesk.com">contact tech support</a> and we'll set you up.
+                <a href="https://my.wpengine.com/support">contact tech support</a> and we'll set you up.
             </p>
     <? } ?>
 
@@ -406,7 +408,7 @@ if ( is_wpe_snapshot() ) {
         <h2>Advanced Configuration</h2>
 		<p>
 			<b>With great power comes great responsibility!</b>  These tools can greatly enhance... or completely break... your
-			website, so exercise caution and don't be shy about <a href="http://wpengine.zendesk.com">contacting support</a>
+			website, so exercise caution and don't be shy about <a href="https://my.wpengine.com/support">contacting support</a>
 			if you have questions.
 			<br>
 			<i>Hint:</i> To test regular expressions, check out <a href="http://regexpal.com/">Regexpal</a>, a free online tool.
@@ -547,7 +549,7 @@ $can_push_staging = is_staging_gte($production_version, $staging_status['version
 <?php } /* is_wpe_snapshot() */ ?>
 </div><!--.wrap-->
 <hr/>
-<p>WP Engine Plugin v<?= WPE_PLUGIN_VERSION ?> | <a href="http://wpengine.zendesk.com" target="_blank">Support</a></p>
+<p>WP Engine Plugin v<?= WPE_PLUGIN_VERSION ?> | <a href="https://my.wpengine.com/support" target="_blank">Support</a></p>
 
 
 

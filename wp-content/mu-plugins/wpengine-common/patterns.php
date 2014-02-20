@@ -1,7 +1,7 @@
 <?php
 
 // Case-insensitive regex for whether a path is a static file
-$regex_path_static_suffix = "\\.(?:jpe?g|gif|png|css|js|ico|zip|7z|tgz|gz|rar|bz2|doc|xls|exe|pdf|ppt|txt|tar|midi?|wav|bmp|rtf|avi|mp\\d|mpg|iso|mov|djvu|dmg|flac|r70|mdf|chm|sisx|sis|flv|thm|bin|swf|cert|otf|ttf|eot|svgx?|woff|jar|class)";
+$regex_path_static_suffix = "\\.(?:jpe?g|gif|png|css|js|ico|zip|7z|tgz|gz|rar|bz2|do[ct][mx]?|xl[ast][bmx]?|exe|pdf|p[op][ast][mx]?|sld[xm]?|thmx?|txt|tar|midi?|wav|bmp|rtf|avi|mp\\d|mpg|iso|mov|djvu|dmg|flac|r70|mdf|chm|sisx|sis|flv|thm|bin|swf|cert|otf|ttf|eot|svgx?|woff|jar|class)";
 
 // Case-insensitive regex for whether a user-agent is a bot
 $regex_is_user_agent_bot = 'bot|facebook|crawler|feed|flipboard|slurp|re(?:e|a)der|spider|scoutjet|ssowl|site24|google|news|pubsub|^expo9|^tzogeoagent|jakarta';
@@ -18,14 +18,17 @@ $regex_is_user_agent_mobile_group = "android|iphone|ipod|itouch";
 // Case-insensitive regex for whether a user-agent is in our "iPad" caching group
 $regex_is_user_agent_ipad_group = '\bipad\b';
 
+// Case insensitive regex for whether a user-agent is VaultPress
+$regex_is_user_agent_vaultpress = 'vaultpress';
+
 // Case-insensitive regex for user agents which we should automatically 403 on
 $regex_is_user_agent_403 = "^\W|^Mozilla(?: |/2|/4\.0\+?\\()|^(?:LWP|MSIE|Nut|Omniexpl|Opera/9\.64|pussycat|python|super happy|trackback/|user|website-|winnie)|[\\r\\n]|psyche|adwords|\bemail|autoemailspider|core-project|diamond|digger|ecollector|forum|^java[/ ]\\d\\.|Microsoft URL|Missigua|Movable Type|grub|httpproxy|Internet Explorer|isc systems|blogsearch|cherrypicker|maxpoint|casper|boston|feedfinder|mj12bot|cmsworldmap|diavol|dotbot|flicky|ia_archiver|kmccrew|libwww|planetwork|pycurl|skygrid|; Widows|a href|DTS agent|user-agent:|hanzoweb|indy lib|murzillo|\.NET CLR 1\)|POE-Component-Client|turing mach|Ubuntu/9\.25|unspecified\\.mail|webaltbot|wise(?:nut)?bot|Windows NT [45]\.[01];\)|Windows XP 5|WordPress/4\.01|discobot|xedant|\\\\\\\\";
 
 // Case-insensitive regex for paths which we should automatically 403 on
-$regex_is_path_403 = "/\.(?:htaccess|svn|cvs|git|smushit-status|largefs)|\\.(?:as.x)\$|r\\d+shell|/wp-content/mysql\\.sql|/uploads/(?:temp|backupbuddy)_|/wp-content/plugins/tweet-blender/|^/sd_nginx_status|^/_wpeprivate|/php-?(?:my)?-?admin|/pma/?$|^/readme.htm";
+$regex_is_path_403 = "/\.(?:htaccess|svn|cvs|git|smushit-status|largefs)|\\.(?:as.x)\$|r\\d+shell|/wp-content/mysql\\.sql|/uploads/(?:temp|backupbuddy)_|/wp-content/plugins/tweet-blender/|^/sd_nginx_status|^/_wpeprivate|/php-?(?:my)?-?admin|/pma/?$|^/readme.htm|\\bgoogle\\.com/humans\\.txt";
 
 // Case-insensitive regex for query-strings which we should automatically 403 on
-$regex_is_qstr_403 = "(?:\\<|%3c).*script.*(?:\\>|%3e)|\\b(?:GLOBALS|_REQUEST|_GET|_POST|_COOKIE)(?:=|\[|\%[0-9A-Z]{0,2})";
+$regex_is_qstr_403 = "(?:\\<|%3c).*script.*(?:\\>|%3e)|\\b(?:GLOBALS|_REQUEST|_GET|_POST|_COOKIE)(?:=|\[|\%[0-9A-Z]{0,2})|\\bgoogle\\.com/humans\\.txt";
 
 // Case-insensitive regex for paths which we should automatically 403 on, but ONLY IF the connection is NOT TRUSTED
 $regex_is_path_403_for_untrusted = ".*?/uploadify.*(?<!\.js|\.css)\$";
@@ -104,6 +107,7 @@ $static_no_backend_regexs = array (
 	"/crossdomain\\.xml\$",				// not generated and often 404s
 	"^/PointRollAds\\.htm",				// ad service which has query string but is in fact static HTML
 	"^/doubleclick/DARTIframe\\.html",	// ad service which has query string but is in fact static HTML
+	"^/Tagcade/def\\.html",         	// ad service which has query string but is in fact static HTML
 //	"^/wp-(?:admin|includes)/(?:css|js|images)/.*\\.(?:jpe?g|gif|png|ico|bmp|css|js)",	// statics from core
 	"^/wp-includes/wlwmanifest\\.xml",
 	"$static_dirs_nginx_regex.*$static_suffix_regex",		// statics from uploads
@@ -118,6 +122,11 @@ $known_statics_args_regex = "(?:mcsf_action=main_css|ak_action=aktt_(?:css|js)|s
 
 $known_short_cache_args_regex = "(?:\\bnggpage=)";
 
+$comped_uri_regex = "(?:robots\\.txt|favicon\\.ico)\$";
+
+$vulnerability_scan_header_regexes = array (
+	'http_acunetix_product' => 'acunetix'
+);
 
 /*
 	Test strings for Fancybox regex:
@@ -128,7 +137,7 @@ $known_short_cache_args_regex = "(?:\\bnggpage=)";
 /2011/02/my-posts-are-awesome/fancybox/border.top.png
 
 */
-$known_404_regex = "^/nas/wp\\b|^/nginx_status|/undefined/?\$|/plugins/wp-postviews/wp-postviews\\.php|^/cgi-bin|/autodiscover\\.xml";
+$known_404_regex = "^/nas/wp\\b|^/nginx_status|/undefined/?\$|/plugins/wp-postviews/wp-postviews\\.php|^/cgi-bin|/autodiscover\\.xml|^/www\\.youtube\\.com/";
 
 class Patterns
 {
@@ -194,12 +203,12 @@ function ec_modify_timthumb_src_urls( $html, $domain, $add_domain )
 
 	if ( $add_domain ) {
         $html = preg_replace(
-                "#\\b(src=[\"']http://[^\"']+$timthumb_script_regex\\?src=)(?!http)/?#i", "\$1http://$domain/", $html
+                "#\\b(src=[\"'](https?)://[^\"']+$timthumb_script_regex\\?src=)(?!http)/?#i", "\$1\$2://$domain/", $html
         );
 	} else {
 		$re_domain = preg_quote($domain);
         $html = preg_replace(
-                "#\\b(src=[\"']http://[^\"']+$timthumb_script_regex\\?src=)http://{$re_domain}/#i", "\$1/", $html
+                "#\\b(src=[\"']https?://[^\"']+$timthumb_script_regex\\?src=)https?://{$re_domain}/#i", "\$1/", $html
         );
 	}
 	return $html;
@@ -252,17 +261,16 @@ function ec_add_cdn_replacement_rules_from_cdn_regexs( &$rules, $cdn_regexs, $sr
 // @param $rules array of replacement rules as a 'src_domain' of domain to find, 'src_uri' to match the absolute path portion, 'dst_domain' to specify the
 //			new domain to replace with, 'dst_prefix' as an optional path prefix to pre-pend to the path.
 // @param $default_domain if non-null, any absolute paths should be considered this domain for the purposes of rule-application.
-function ec_url_replacements( $html, $rules, $default_domain = null )
+function ec_url_replacements( $html, $rules, $default_domain = null, $is_ssl = false )
 {
 	global $regex_charlist_ends_uri, $regex_uri_segment;
-
 	// Trivial cases
 	if ( ! $html || strlen($html) < 5 ) return $html;
 	if ( empty($rules) ) return $html;
 
 	// Find all the things which are URLs at all
 	$re_start = "\\b(?:(?:src|href|value|data)\\s*=|\\burl\\s*)[\\('\"\\s]+";
-	if ( ! preg_match_all( "#${re_start}((?:http:)?/?/)([^/${regex_charlist_ends_uri}]+)(${regex_uri_segment})#i", $html, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE ) )
+	if ( ! preg_match_all( "#${re_start}((?:https?:)?/?/)([^/${regex_charlist_ends_uri}]+)(${regex_uri_segment})#i", $html, $matches, PREG_SET_ORDER | PREG_OFFSET_CAPTURE ) )
 		return $html;
 //print_r($matches);
 
@@ -289,13 +297,25 @@ function ec_url_replacements( $html, $rules, $default_domain = null )
 				continue;
 		}
 //print("[$protocol][$domain][$path]\n");
+		// Protocol could be missing or just / or // at this point.
+		if (strlen($protocol) < 6) {
+			$protocol = $is_ssl ? 'https://' : 'http://';
+		}
+		
+		// If the linked resource is https, but the page is not, don't CDN. Doing so would result in
+		// the resource being served unsecured (or broken: https://help.wpengine.com/tickets/174180).
+		// This is somewhat suboptimal, but it is safe. We are not handling the case where an insecure
+		// page has a secure resource *and* the site has secure CDN enabled.
+		if ((! $is_ssl) && ('https://' == $protocol)) {
+			continue;
+		}
 
 		// Run rules to find a replacement, if any
 		$replacement = null;
 		foreach ( $rules as &$r ) {
 			if ( strcasecmp($r['src_domain'],$domain) == 0 && ( !isset($r['src_uri']) || preg_match($r['src_uri'],$path) ) ) {
 				// Rule matches!
-				$replacement = "http://" . $r['dst_domain'] . (isset($r['dst_prefix']) ? $r['dst_prefix'] : "") . $path;
+				$replacement = "$protocol" . $r['dst_domain'] . (isset($r['dst_prefix']) ? $r['dst_prefix'] : "") . $path;
 				break;
 			}
 		}
@@ -328,9 +348,13 @@ function ec_get_non_core_backtrace( $backtrace = null )
 {
 	// Make sure we have a backtrace of some kind
 	if ( ! $backtrace ) {
-		$backtrace = debug_backtrace();
+	    // Save lots of memory by not populating the function arguments.
+	    // We did see large (>500k) memory consumption by this function on site "edd."
+	    // Protected against values not being defined, because some are added in later versions of PHP.
+	    $backtrace_options = defined('DEBUG_BACKTRACE_IGNORE_ARGS') ? DEBUG_BACKTRACE_IGNORE_ARGS : 0;
+		$backtrace = debug_backtrace( $backtrace_options );
 	}
-
+    
 	// Scan for things not in core and not in our own plugin
 	for( $k=0 ; $k<count($backtrace) ; $k++ ) {
 		if ( ! isset($backtrace[$k]["file"]) ) continue;

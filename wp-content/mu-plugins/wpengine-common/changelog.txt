@@ -199,3 +199,25 @@ v2.0.44
 	- Updated staging to production push to prevent update if staging version is older than production version
 v2.0.45
 	- Added torquemag.io and wpengine blog feeds
+v2.0.46
+	- Added showing IP of SFTP host in WPE plugin page
+v2.0.47
+	- Added multiple status capability for staging status
+v2.0.48
+	- fixed status display during deploy staging to production
+v2.0.49
+	- Disable core updates and nag emails in WordPress 3.7.x branch.
+	- Removed unused object-cache debugging functionality
+v2.1
+	- Make WP Engine icon in admin area match wpengine.com
+	- remove colors from the "go take a snapshot" modal suggestion
+v2.1.1
+	- direct customers to the Customer Portal to create a ticket instead of sending them directly to Zendesk
+	- Eliminate CSRF potential on cache purge and fix file permissions buttons
+v2.1.2
+	- Add wpe_special_ips verification
+v2.1.3
+	- Disable automatic translation updates in core.
+v2.1.4
+	- Remove the "hide" class from the Staging dialog as it fades in
+	- Add version number to wpe-common.js file enqueueing

@@ -40,40 +40,59 @@ pre {line-height: 1em;}
    ========================================================================== */
 @font-face {
   font-family: 'Tekvetica';
-  font-style: normal;
-  font-weight: bold;
-  src: local('Tekvetica-Bold'), url('../fonts/Tekvetica-Bold.eot?') format('eot'), url('../fonts/Tekvetica-Bold.woff') format('woff'), url('../fonts/Tekvetica-Bold.ttf') format('truetype');
+/*	src: local('Tekvetica-Bold');  */
+	src: url('../fonts/Tekvetica/Tekvetica-Bold.eot?') format('eot');
+	src: url('../fonts/Tekvetica/Tekvetica-Bold.woff') format('woff'), url('../fonts/Tekvetica/Tekvetica-Bold.ttf') format('truetype');
+	font-style: normal;
+	font-weight: bold;
 }
 @font-face {
-  font-family: 'Tekvetica';
-  font-style: italic;
-  font-weight: bold;
-  src: local('Tekvetica-BoldItal'), url('../fonts/Tekvetica-BoldItal.eot?') format('eot'), url('../fonts/Tekvetica-BoldItal.woff') format('woff'), url('../fonts/Tekvetica-BoldItal.ttf') format('truetype');
-}@font-face {
-  font-family: 'Tekvetica';
-  font-style: normal;
-  font-weight: 900;
-  src: local('Tekvetica-Heavy'), url('../fonts/Tekvetica-Heavy.eot?') format('eot'), url('../fonts/Tekvetica-Heavy.woff') format('woff'), url('../fonts/Tekvetica-Heavy.ttf') format('truetype');
-}@font-face {
-  font-family: 'Tekvetica';
-  font-style: italic;
-  font-weight: normal;
-  src: local('Tekvetica-Italic'), url('../fonts/Tekvetica-Italic.eot?') format('eot'), url('../fonts/Tekvetica-Italic.woff') format('woff'), url('../fonts/Tekvetica-Italic.ttf') format('truetype');
-}@font-face {
-  font-family: 'Tekvetica';
-  font-style: normal;
-  font-weight: normal;
-  src: local('Tekvetica-Regular'), url('../fonts/Tekvetica-Regular.eot?') format('eot'), url('../fonts/Tekvetica-Regular.woff') format('woff'), url('../fonts/Tekvetica-Regular.ttf') format('truetype');
-}@font-face {
-  font-family: 'Tekvetica';
-  font-style: normal;
-  font-weight: 200;
-  src: local('Tekvetica-Thin'), url('../fonts/Tekvetica-Thin.eot?') format('eot'), url('../fonts/Tekvetica-Thin.woff') format('woff'), url('../fonts/Tekvetica-Thin.ttf') format('truetype');
-}@font-face {
-  font-family: 'Tekvetica';
-  font-style: italic;
-  font-weight: 200;
-  src: local('Tekvetica-ThinItalic'), url('../fonts/Tekvetica-ThinItalic.eot?') format('eot'), url('../fonts/Tekvetica-ThinItalic.woff') format('woff'), url('../fonts/Tekvetica-ThinItalic.ttf') format('truetype');
+/* 	src: local('Tekvetica-BoldItal'); */
+	src: url('../fonts/Tekvetica/Tekvetica-BoldItal.eot?') format('eot');
+	src: url('../fonts/Tekvetica/Tekvetica-BoldItal.woff') format('woff'), url('../fonts/Tekvetica/Tekvetica-BoldItal.ttf') format('truetype');
+	font-family: 'Tekvetica';
+	font-style: italic;
+	font-weight: bold;
+}
+@font-face {
+	font-family: 'Tekvetica';
+/* 	src: local('Tekvetica-Heavy'); */
+	src: url('../fonts/Tekvetica/Tekvetica-Heavy.eot?') format('eot');
+	src: url('../fonts/Tekvetica/Tekvetica-Heavy.woff') format('woff'), url('../fonts/Tekvetica/Tekvetica-Heavy.ttf') format('truetype');
+	font-style: normal;
+	font-weight: 900;
+}
+@font-face {
+	font-family: 'Tekvetica';
+/* 	src: local('Tekvetica-Italic'); */
+	src: url('../fonts/Tekvetica/Tekvetica-Italic.eot?') format('eot');
+	src: url('../fonts/Tekvetica/Tekvetica-Italic.woff') format('woff'), url('../fonts/Tekvetica/Tekvetica-Italic.ttf') format('truetype');
+	font-style: italic;
+	font-weight: normal;
+}
+@font-face {
+	font-family: 'Tekvetica';
+/* 	src: local('Tekvetica-Regular'); */
+	src: url('../fonts/Tekvetica/Tekvetica-Regular.eot?') format('eot');
+	src: url('../fonts/Tekvetica/Tekvetica-Regular.woff') format('woff'), url('../fonts/Tekvetica/Tekvetica-Regular.ttf') format('truetype');
+	font-style: normal;
+	font-weight: normal;
+}
+@font-face {
+	font-family: 'Tekvetica';
+/* 	src: local('Tekvetica-Thin'); */
+	src: url('../fonts/Tekvetica/Tekvetica-Thin.eot?') format('eot');
+	src: url('../fonts/Tekvetica/Tekvetica-Thin.woff') format('woff'), url('../fonts/Tekvetica/Tekvetica-Thin.ttf') format('truetype');
+	font-style: normal;
+	font-weight: 200;
+}
+@font-face {
+/* 	font-family: 'Tekvetica'; */
+	src: local('Tekvetica-ThinItalic');
+	src: url('../fonts/Tekvetica/Tekvetica-ThinItalic.eot?') format('eot');
+	src: url('../fonts/Tekvetica/Tekvetica-ThinItalic.woff') format('woff'), url('../fonts/Tekvetica/Tekvetica-ThinItalic.ttf') format('truetype');
+	font-style: italic;
+	font-weight: 200;
 }
    
 p { font-size: 16px; line-height: 1.5em; font-family: 'Tekvetica', Helvetica Neue, Helvetica, sans-serif; color: #004a72; margin: 0 0 1em; font-weight: 300;}
@@ -798,12 +817,13 @@ ol.linenums li {
 }
 .nav-tile {
 font-size: 1.6em;
-width: 300px;
-height: 300px;
+width: 100%;
+height: 350px;
 text-align: center;
+margin: 0 auto;
 color: #004d72;
 font-family: 'Tekvetica', 'Helvetica Neue LT Com', Helvetica Neue, Helvetica, sans-serif;
-background: url('../img/leftorgarrow.png') no-repeat right;
+/* background: url('../img/leftorgarrow.png') no-repeat right; */
 margin-bottom: 75px;
 padding-right: 15px;
 }
@@ -812,12 +832,19 @@ height: 250px;
 width: 250px;
 margin: 0 25px 16px;
 }
-.nav-tile a {
-color: #004d72;
+.nav-tile a span {
+color: #fff;
 text-decoration: none;
+background: #40a8c9;
+border-radius: 12px 0 12px;
+padding: 10px 20px;
+text-transform: uppercase;
+font-weight: 900;
+line-height: 1.5em;
+display: inline-block;
 }
-.nav-tile a:hover {
-color: #40A8C9;
+.nav-tile a span:hover {
+background: #f36f37;
 }
 .ghosty {
 opacity: 0.5;
@@ -826,7 +853,7 @@ background: none;
 div.page-main > .span3 { position: relative; left: -65px; }
 @media (max-width: 767px){ div.page-main > .span3 { position: relative; left: -20px; } }
 @media (max-width: 979px) and (min-width: 768px) { div.page-main > .span3 { position: relative; left: -45px; } }
-@media (max-width: 481px) { .nav-tile { position: relative; left: -55px; } }
+@media (max-width: 481px) { .nav-tile { position: relative; left: -55px; } .span8 { margin-left:30px; } }
 
 /* ==========================================================================
    Widgets
@@ -992,7 +1019,7 @@ border-radius: 4px;
 .recent-posts p {font-size: 0.9em;}
 .recent-posts h4 {margin-bottom: 20px;text-align: left; }
 .recent-posts .fitvids {margin-bottom: 1.5em; }
-.recent-title h2 {font-size: 34px;padding: 20px 0;margin: 20px 0 15px; text-align: center;text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);}
+.recent-title h2 {font-size: 34px;padding: 20px 0;margin: -85px 0 15px; text-align: center;text-shadow: 1px 1px 2px rgba(0, 0, 0, .4); color:white;}
 .video-title h2 {font-size: 34px;padding: 20px 0;margin: 20px 0 20px; text-align: center;text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);}
 .label-popular {position:relative;bottom:6px;}
 .video-bg {background-color:#eeeeee;border-top: solid 1px #e8e8e8;}
@@ -1022,6 +1049,7 @@ background-size: cover;
 background-repeat: no-repeat;
 background-position: center top;
  */
+border-bottom: 85px solid #40a8c9;
 }
 
 
@@ -1133,8 +1161,10 @@ Browse by Device
 */
 .listing-item {
 margin-bottom: 20px;
+/* 
 padding-left: 25px;
 background: url('../img/leftorgarrow.png') no-repeat top left;
+ */
 list-style: none;
 }
 .listing-item a {
@@ -1144,26 +1174,49 @@ color: #004d72;
 color: #40A8C9;
 text-decoration: none;
 }
-.devicenav li { margin-bottom: 1em;
+.listing-item a:before {
+content: "";
+margin: 0 1em;
+font-family: 'fontawesome';
+font-size: .75em;
+}
+.devicenav li a { 
+margin-bottom: 1em;
 font-size: 2em;
-font-weight: bold;
+font-weight: normal;
 font-family: 'Tekvetica', 'Helvetica Neue LT Com', Helvetica Neue, Helvetica, sans-serif;
-line-height: 1.1em;
-list-style: none;
+line-height: 1.25em;
 color: #004d72;
+font-size: 2em;
 }
 
-a.inactiveFilter {
+.devicenav li {
+list-style: none;
+}
+
+.devicenav li a:after {
+content: "";
+margin: 0 .5em;
+font-family: 'fontawesome';
+color: #40a8c9;
+font-size: .75em;
+}
+
+li.inactiveFilter a {
 color: #004d72;
 text-decoration: none;
 }
 
-a.inactiveFilter:hover {
+li.inactiveFilter a:hover {
 color: #40A8C9;
 text-decoration: none;
 }
-a.activeFilter {
+li.activeFilter a {
 color: #f36f37;
+}
+li.activeFilter a:hover {
+color: #40A8C9;
+text-decoration: none;
 }
 div.currentContent {
 display: block;
@@ -1349,22 +1402,29 @@ and (orientation : portrait) {
 .box-text {display: none;}
 .box-title h2 a {font-size: .8em}
 }
-@media only screen and (max-device-width: 480px) {
+@media screen and (max-width: 680px) {
 .box-text {display: none;}
 .box-title h2 a {font-size: 30px;}
 .hero-title {padding: 0!important;}
 #hero {height:300px;}
 .recent-title h2 { font-size: 24px; }
 #sidebar { margin-left: 80px; }
+.devicenav { width: 380px; padding: 5px 0; min-height: 1.1em; border: solid 1px #aaa; background: #fff border-radius: 5px; box-shadow: 0 1px 2px rgba(0,0,0,.3); z-index: 5; }
+.devicenav .inactiveFilter { display: none; /* hide all <li> items */ margin: 0; }
+.devicenav .activeFilter li { display: block; /* show only current <li> item */ }
+.devicenav .activeFilter { background: none; color: #f36f37; display: block; margin-left: 50px; }
+.devicenav .activeFilter:before { content: ""; margin: 0 1em; font-family: 'fontawesome'; font-size: .75em; }
+/* on nav hover */
+.devicenav:hover { background-image: none; padding-top: 10px; padding-left: 28px; }
+.devicenav:hover li { display: block; margin: 0 0;/*  5px; */ }
+.devicenav:hover .activeFilter:before { content: ""; margin: 0 1em; font-family: 'fontawesome'; font-size: .75em; }
+.devicenav:hover .activeFilter { margin-left: 0px; }
+.devicenav { width: auto; box-shadow: none; background: none; }
+.devicenav li a { font-size: 1em; }
 }
-@media screen and (max-device-width: 480px) and (orientation: portrait){
+@media screen and (max-device-width: 480px) and (orientation: portrait) {
 #sidebar { margin-left: 60px; }
 .nav-tile span { margin-left:20px; }
-}
-#compatibilityChart tr {
-padding: 5px;
-border-bottom: 1px solid #eee;
-}
-#compatibilityChart td {
-padding: 10px;
+#compatibilityChart tr { padding: 5px; border-bottom: 1px solid #eee; }
+#compatibilityChart td { padding: 10px; }
 }

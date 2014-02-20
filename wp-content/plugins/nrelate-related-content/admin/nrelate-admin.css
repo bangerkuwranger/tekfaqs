@@ -163,6 +163,7 @@ h2.nrelate-title a {
 	float: left;
 	position: relative;
 	width: 220px;
+	padding-left: 10px;
 	}
 .nrelate-settings .form-table td {
 	float: left;
