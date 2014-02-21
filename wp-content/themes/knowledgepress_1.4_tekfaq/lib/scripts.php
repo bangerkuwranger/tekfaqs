@@ -13,6 +13,7 @@
  * 2. jquery-1.8.1.min.js via Google CDN              (in head.php)
  * 3. /theme/assets/js/plugins.js
  * 4. /theme/assets/js/main.js
+ * 5. /theme/assets/js/tekserveui.js
  */
 
 function roots_scripts() {
@@ -32,8 +33,10 @@ function roots_scripts() {
 
   wp_register_script('roots_plugins', get_template_directory_uri() . '/assets/js/plugins.js', false, null, false);
   wp_register_script('roots_main', get_template_directory_uri() . '/assets/js/main.js', false, null, false);
+  wp_register_script('tekserveui', get_template_directory_uri().'/assets/js/tekserveui.js');
   wp_enqueue_script('roots_plugins');
   wp_enqueue_script('roots_main');
+  wp_enqueue_script('tekserveui');
   
   // Custom Scripts
   wp_register_script('superfish', get_template_directory_uri().'/assets/js/vendor/jquery.superfish.js');

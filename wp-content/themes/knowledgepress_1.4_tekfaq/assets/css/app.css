@@ -1,7 +1,7 @@
 /* ==========================================================================
    Reset Bootstrap
    ========================================================================== */
-body {color:#004d72;background-color: White;}
+body {color:#004d72;background-color: White; font-size: 16px; font-family: Tekvetica, Helvetica Neue, Helvetica, Arial, sans-serif;}
 a {color:#f36f37;text-decoration: none;}
 a:hover {color:#40a8c9;text-decoration: none;}
 #map_canvas img{max-width:none}
@@ -98,12 +98,12 @@ pre {line-height: 1em;}
 p { font-size: 16px; line-height: 1.5em; font-family: 'Tekvetica', Helvetica Neue, Helvetica, sans-serif; color: #004a72; margin: 0 0 1em; font-weight: 300;}
 body { font-family: 'Tekvetica', Helvetica Neue LT Com, Helvetica Neue, Helvetica, sans-serif; }
 h1, h2, h3, h4, h5, h6 {color: #004d72;}
-h1 { font-size: 36px;}
-h2 { font-size: 28px;}
-h3 { font-size: 24px;}
-h4 { font-size: 20px;}
-h5 { font-size: 16px;}
-h6 { font-size: 8px; }
+h1 { font-size: 42px; font-weight: 900; text-transform: uppercase;}
+h2 { font-size: 36px; font-weight: 900;}
+h3 { font-size: 24px; font-weight: bold;}
+h4 { font-size: 20px; font-weight: bold;}
+h5 { font-size: 14px;}
+h6 { font-size: 12px; }
 
 hr.light {
 border-top: 1px solid rgba(255, 255, 255, 0.1);
@@ -174,7 +174,7 @@ body.admin-bar .navbar-fixed-top { top: 28px; }
 /* page header */
 #page-header-container { background-color: #171717;margin-bottom: 30px;}
 .page-header {}
-.page-header h1 { color: #fff;margin: 10px 0 0; padding-bottom:5px;font-size: 36px;text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);font-weight:900; }
+.page-header h1 { color: #fff;margin: 10px 0 0; padding-bottom:5px;font-size: 42px;text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);font-weight:900; }
 .page-header p.tagline {font-size: 14px; position: relative; top: -3px; padding:0;margin-bottom: 5px; color: #eee;text-shadow: 1px 1px 2px rgba(0, 0, 0, .4);}
 #searchform .search-query { float: right; margin: 24px 0;}
 .page-title h1 {margin: 13px 0 22px 20px; max-width: 250px; z-index: 2; text-shadow: 1px 1px 2px rgba(255, 255, 255, .4);}
@@ -392,6 +392,10 @@ ul#menu, #menu ul {
 	margin-bottom: 15px;
 }
 
+#nav #menu li:last-child {
+	border: 0;
+}
+
 #nav #menu > li > a {
 	color: #fff;
 	display: block;
@@ -403,6 +407,10 @@ ul#menu, #menu ul {
 	font-weight: 200;
 }
 
+#nav #menu > li > a:hover {
+	color: #004d72;
+}
+
 #title-area {
 	float: left;
 	margin: 0;
@@ -412,6 +420,7 @@ ul#menu, #menu ul {
 	background-position: center !important;
 	background-repeat: no-repeat !important;
 	min-height: 120px;
+	cursor: pointer;
 }
 
 #title {
@@ -543,7 +552,7 @@ nav select{display:inline-block;width:100%!important}
 nav{position:relative;right:auto;top:auto;width:100%}
 .box-title h2 a{font-size: 1.25em;}
 }
-@media(min-width:767px) and (max-width:980px){#menu a{padding:6px 8px!important; font-size: 16px !important;}
+@media(min-width:767px) and (max-width:980px){#menu a{padding:15px 20px!important; font-size: 16px !important;}
 #menu ul a{padding:8px;width:100px}
 #menu ul ul{left:130px}
 .box-title h2 a{font-size: .9em;}
@@ -630,6 +639,7 @@ border-radius: 4px;
    Posts
    ========================================================================== */
 
+h1.entry-title {font-size: 1.5em; text-transform: none;}
 .hentry header h2 {margin-bottom: 15px; max-width: 90%;}
 .hentry time { }
 .hentry p.byline { }
