@@ -7,7 +7,6 @@
 </div>
 <div id="footer-sub">
   <footer class="container" role="contentinfo">
-    <?php social_icons() ?>
   	<?php copyright_text_function(); ?>
   </footer>
   <?php wp_footer(); ?>
@@ -24,5 +23,14 @@ piCId = '1096';
 	}
 	if(window.attachEvent) { window.attachEvent('onload', async_load); }
 	else { window.addEventListener('load', async_load, false); }
+})();
+</script>
+<script type="text/javascript">
+var fby = fby || [];
+fby.push(['showTab', {id: '6779', position: 'left', color: '#40A8C9'}]);
+(function () {
+    var f = document.createElement('script'); f.type = 'text/javascript'; f.async = true;
+    f.src = '//cdn.feedbackify.com/f.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(f, s);
 })();
 </script>
