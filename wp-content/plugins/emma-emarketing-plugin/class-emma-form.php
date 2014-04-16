@@ -81,7 +81,7 @@ class Emma_Form {
                 //
                 if ( $handled_response->status == 'member_not_added' ) {
 
-                    $this->status_txt = 'Member Not Added, Member may have already been added. Please Try Again.';
+                    $this->status_txt = 'You Are Already Subscribed!';
 
 //                    print_r($handled_response);
                 }

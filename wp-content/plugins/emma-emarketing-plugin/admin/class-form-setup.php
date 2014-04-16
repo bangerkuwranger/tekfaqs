@@ -37,7 +37,7 @@ class Form_Setup {
             'confirmation_msg' => 'Thanks for subscribing! you should receive a confirmation email shortly. Please check your spam folder, as occasionally this email may be perceived as spam',
             'powered_by' => 'no',
             'send_confirmation_email' => '1',
-            'confirmation_email_subject' => 'You&apos;re recent subscription to Emma',
+            'confirmation_email_subject' => 'Your recent subscription to our Newsletter',
             'confirmation_email_msg' => 'Thanks for subscribing! This email confirms that you now have an active subscription to our newsletter!',
         );
         return $defaults;
