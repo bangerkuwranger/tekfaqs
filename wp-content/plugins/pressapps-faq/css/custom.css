@@ -1,0 +1,38 @@
+/* =============================================================================
+   Accordion Template
+   ========================================================================== */
+
+.faq .entry-title {
+    cursor      : pointer;
+    
+}
+
+.question-detail-list {
+  margin-bottom: 60px;
+}
+.faq-section-heading {
+	margin-bottom: 30px;
+}
+article.faq h3 {
+  font-size: 22px;
+  padding: 4px 0;
+}
+.faq-content {
+  padding: 0 0 15px 43px;
+}
+.faq .faq-open span{
+  background  : url(../images/minus.png) no-repeat center center;
+}
+.faq .faq-close span{
+  background  : url(../images/plus.png) no-repeat center center;
+}
+.faq .faq-close span, .faq .faq-open span {
+  background-color: #222;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  position: relative;
+  left: 0;
+  top: 7px;
+  margin-right: 12px;
+}

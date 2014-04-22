@@ -1,9 +1,9 @@
 === nrelate Related Content ===
 Contributors: nrelate, slipfire, sbruner
 Tags: related posts, related content, related, feeds, feed, rss, page, pages, post, posts, thumbnails, nrelate
-Tested up to: 3.8
+Tested up to: 3.9
 Requires at least: 3.0
-Stable tag: 0.52.7
+Stable tag: 1.0.3
 
 The best way to display related content: Thumbnails or Text, on all your pages.
 
@@ -147,6 +147,15 @@ As of May 10, 2013, nRelate is working with <a href="http://www.comscore.com">co
 10. Hovering on an advertisement
 
 == Changelog ==
+
+= 1.0.3 =
+* Javascript update.
+
+= 1.0.2 =
+* Fixed issue with Engadget style.
+
+= 1.0.1 =
+* Responsive Admin.
 
 = 0.52.7 =
 * Slight layout fix for WP 3.8 admin pages.

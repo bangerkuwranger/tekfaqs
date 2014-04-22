@@ -1,0 +1,41 @@
+
+/* =============================================================================
+   Deafault Template
+   ========================================================================== */
+
+/* faq table of content */
+.faq-category-list, .question-list, .faq-single-list {
+	list-style: none;
+	padding-left: 0;
+}
+.faq-category-list {
+  margin-bottom: 70px;
+}
+.faq-category-list > li {
+  margin-bottom: 40px;
+}
+.faq-single-list {
+  margin-bottom: 80px;
+}
+.faq-single-list li {
+  margin-bottom: 22px;
+}
+.faq-category-list .faq-section-heading {
+  margin-bottom: 18px;
+}
+
+.question-list a , .question-list a:hover {
+  color: #222;
+  line-height: 1.5em;
+}
+
+/* faq posts */
+.question-detail-list .faq-section-heading {
+  margin-top: 60px;
+}
+article.faq {
+  margin-top: 40px;
+}
+article.faq h3 {
+  margin-bottom: 20px;
+}

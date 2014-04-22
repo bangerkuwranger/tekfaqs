@@ -123,7 +123,7 @@ function nrelate_related_ads_do_page() {
 		//<![CDATA[
 		var nr_plugin_settings_url = '<?php echo NRELATE_RELATED_SETTINGS_URL; ?>';
 		var nr_plugin_domain = '<?php echo NRELATE_BLOG_ROOT ?>';
-		var nr_plugin_version = '<?php echo NRELATE_RELATED_PLUGIN_VERSION ?>';
+		var nr_plugin_version = '<?php echo NRELATE_RELATED_API_VERSION ?>';
 		//]]>
     </script>
 		<form name="settings" action="options.php" method="post" enctype="multipart/form-action">
@@ -184,7 +184,7 @@ function update_nrelate_data_rc_adv(){
 		'VERSION'=>NRELATE_RELATED_PLUGIN_VERSION,
 		'KEY'=>get_option('nrelate_key')
 	);
-	$url = 'http://api.nrelate.com/rcw_wp/'.NRELATE_RELATED_PLUGIN_VERSION.'/processWPrelated_ad.php';
+	$url = 'http://api.nrelate.com/rcw_wp/'.NRELATE_RELATED_API_VERSION.'/processWPrelated_ad.php';
 	
 	$result = wp_remote_post($url, array('body'=>$body,'blocking'=>false, 'timeout'=>15));
 }

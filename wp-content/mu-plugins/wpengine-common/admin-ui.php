@@ -8,7 +8,7 @@ $form_url = add_query_arg(array('page'=>'wpengine-common','tab'=>$active_tab),$f
 if ( ! current_user_can( 'manage_options' ) )
     return false;
 
-if ( MULTISITE && ! is_super_admin() ) {
+if ( is_multisite() && ! is_super_admin() ) {
     //echo 'You do not have permission';
     ?>
     <div class="wrap">
@@ -52,11 +52,11 @@ if ( isset( $_POST['displayoptions'] ) && isset( $_POST['displayoptions'] ) ) {
     	if ( empty( $error ) ) {
         	$message = __( "Settings have been successfully updated", PWP_NAME );
     	}
-	
-	//update the user access role	
+
+	//update the user access role
 	if(!empty($_POST['wpe-adminbar-roles']))
 		$plugin->set_option('wpe-adminbar-roles', $_POST['wpe-adminbar-roles']);
-	else 
+	else
 		delete_option('wpe-adminbar-roles');
 }
 
@@ -191,10 +191,10 @@ if ( is_wpe_snapshot() ) {
 
     <?php if ( ! is_wpe_snapshot() ) { ?>
 	<h2 class="nav-tab-wrapper">
-		<a class="nav-tab <?php if($active_tab=='general') { echo 'nav-tab-active'; } ?>" href="<?php echo add_query_arg(array('tab'=>'general')); ?>">General Settings</a> 
+		<a class="nav-tab <?php if($active_tab=='general') { echo 'nav-tab-active'; } ?>" href="<?php echo add_query_arg(array('tab'=>'general')); ?>">General Settings</a>
 		<a class="nav-tab <?php if($active_tab=='staging') { echo 'nav-tab-active'; } ?>" href="<?php echo add_query_arg(array('tab'=>'staging')); ?>">Staging</a>
 	</h2>
-	
+
 	<div class="wpe-content-wrapper">
 	<?php if( $active_tab == 'general'): ?>
 		<div class="span-30">
@@ -203,7 +203,7 @@ if ( is_wpe_snapshot() ) {
 			<p>Your SFTP access (<i>not FTP!</i>) is at hostname <code><?= $site_info->sftp_host ?></code> or IP at <code><?= $site_info->sftp_ip ?></code> on port <code><?= $site_info->sftp_port ?></code>. Username and password starts out the same as you specified when you signed up for your blog (which was <code><?= $site_info->name ?></code>), but can be <a href="<?php echo get_option('wpe-install-userportal','https://my.wpengine.com'); ?>" target="_blank">changed here</a>.</p>
 		</div><!--.span-30-->
       		<br class="clear"/>
-        
+
 
         <h2>Dynamic Page &amp; Database Cache Control</h2>
         <p>
@@ -334,8 +334,9 @@ if ( is_wpe_snapshot() ) {
             </form>
     <? } else { ?>
             <p>
-                Right now <b>no domains are configured</b> for use with a CDN.  If you're ready to enable CDN support,
-                <a href="https://my.wpengine.com/support">contact tech support</a> and we'll set you up.
+                Right now <b>no domains are configured</b> for use with a CDN. If you're ready to enable CDN support,
+                visit the user portal at <a href="https://my.wpengine.com/installs/<?= $site_info->name ?>/cdn" target="_blank">https://my.wpengine.com/installs/<?= $site_info->name ?>/cdn</a>
+                for more information.
             </p>
     <? } ?>
 
@@ -456,7 +457,7 @@ if ( is_wpe_snapshot() ) {
 			</tr>
 		</table>
            </form>
-	<?php elseif($active_tab == 'staging'): ?>	
+	<?php elseif($active_tab == 'staging'): ?>
 		<form id="staging" method="post" name="options" action="<?php echo esc_url($form_url); ?>">
 
 
@@ -472,7 +473,7 @@ if ( is_wpe_snapshot() ) {
 			    	</p>
 			</div>
 		<? } ?>
-			
+
 		<h2><i class="wpe-icon-hdd icon-large icon-hdd"></i> What is a Staging Area?</h2>
 		<p>
 			This takes a snapshot of your blog and copies it to a "staging area" where you can test out changes without affecting your live site. There's only one staging area, so every time you click this button the old staging area is lost forever, replaced with a snapshot of your live blog.
@@ -502,7 +503,7 @@ if ( is_wpe_snapshot() ) {
 			?>
 			<p>
 			<label>Database Mode</label>
-			<select name="db_mode" class="chzn-select" style="width:300px;"> 
+			<select name="db_mode" class="chzn-select" style="width:300px;">
 				<option value="none">Move No Tables</option>
 				<option value="default">Move All Tables</option>
 				<option value="tables">Select Tables to Move</option>
@@ -513,10 +514,10 @@ if ( is_wpe_snapshot() ) {
 			<select name="tables[]" style="width:300px;" class="chzn chzn-select" multiple data-placeholder="(start typing to see a list)" >
 			<?php foreach($tables as $table) : ?>
 				<option value="<?php echo $table; ?>" <?php if('wp_options' == $table) echo 'selected'; ?>><?php echo $table; ?></option>
-			<?php endforeach; ?>	
+			<?php endforeach; ?>
 			</select>
 			</p>
-			<p class="clear">	
+			<p class="clear">
 				<label>Email to Notify</label>
 				<input type="text" class="text email" name="email" placeholder="<?php echo get_option('admin_email'); ?>" value="<?php echo get_option('admin_email'); ?>"/>
 			</p>
@@ -535,14 +536,14 @@ $can_push_staging = is_staging_gte($production_version, $staging_status['version
 			<div class='alert-message alert-error'>
 				<br><blockquote>
 				<h3>Your Staging Site is Running an Old Version of WordPress (<?php echo $staging_status['version']; ?>)</h3>
-				<p>Your staging site is running an old version of WordPress, WordPress <?php echo $staging_status['version']; ?>. 
-                    Before you can deploy your staging site to your production site, you need to 
-                    <a target="_blank" href="<?php echo $staging_status['staging_url']; ?>/wp-admin/update-core.php">update WordPress</a> 
-                    to match your production version, <?php echo $production_version; ?>. Please follow the steps to update WordPress. 
+				<p>Your staging site is running an old version of WordPress, WordPress <?php echo $staging_status['version']; ?>.
+                    Before you can deploy your staging site to your production site, you need to
+                    <a target="_blank" href="<?php echo $staging_status['staging_url']; ?>/wp-admin/update-core.php">update WordPress</a>
+                    to match your production version, <?php echo $production_version; ?>. Please follow the steps to update WordPress.
                     We recommend you also create a <a href="https://my.wpengine.com/installs/<?php echo PWP_NAME;?>/backup_points">backup point</a> before updating.</p>
 				</blockquote><br>
 			</div>
-		<?php endif; ?>						
+		<?php endif; ?>
 		</form>
 	<?php endif; ?>
 	</div><!--.wpe-content-wrapper-->

@@ -2,8 +2,8 @@
 Contributors: Backup with UpdraftPlus, DavidAnderson
 Tags: backup, backups, restore, database, rackspace, amazon, s3, amazon s3, s3 compatible, dropbox, google drive, rackspace cloud files, rackspace, cloud files, dreamhost, dreamobjects, ftp, ftp backup, webdav, google cloud storage, cloudian, cloudn, connectria, constant cloud, eucalyptus, nifty, nimbula, back up, multisite, restoration, sftp, ftps, scp, migrate, duplicate, copy, updraft, schedule, mysql backup, database backup, db backup, website backup, wordpress backup, full backup
 Requires at least: 3.2
-Tested up to: 3.8.1
-Stable tag: 1.8.8
+Tested up to: 3.9
+Stable tag: 1.9.0
 Author URI: http://updraftplus.com
 Donate link: http://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
@@ -14,14 +14,15 @@ Easy and complete backups + restoration. Manual or automated backups (backup to 
 
 <a href="http://updraftplus.com">UpdraftPlus</a> simplifies backups (and restoration). Backup into the cloud (Amazon S3 (or compatible), Dropbox, Google Drive, Rackspace Cloud, DreamObjects, FTP, SFTP, SCP, WebDAV and email) and restore with a single click. Backups of files and database can have separate schedules.
 
-<strong>Top-quality:</strong> UpdraftPlus is the <a href="http://rankwp.com/plugins/updraftplus">highest-ranking backup plugin on rankwp.com</a> (ranks in the top 50 out of 28,000 WordPress plugins for quality on rankwp.com - last checked 8th January 2014).
+<strong>Top-quality:</strong> UpdraftPlus is the <a href="http://rankwp.com/plugins/updraftplus">highest-ranking backup plugin on rankwp.com</a> (ranks in the top 50 out of 30,000 WordPress plugins for quality on rankwp.com - last checked 8th January 2014).
 
-<strong>Tens of thousands of users:</strong> widely tested and reliable (over 510,000 downloads). Ranks in the top 100 most used of all WordPress plugins on rankwp.com. Millions of backups completed!
+<strong>Tens of thousands of users:</strong> widely tested and reliable (over 700,000 downloads). Ranks in the top 100 most used of all WordPress plugins on rankwp.com. Millions of backups completed!
 
-* Supports WordPress backups to Amazon S3 (or compatible), Dropbox, Rackspace Cloud Files, Google Drive, Google Cloud Storage, DreamHost DreamObjects, FTP and email. Also (via an add-on) FTP over SSL, SFTP, SCP and WebDAV. (Note: Microsoft forbid OneDrive/SkyDrive to be used by backup software). Some examples of S3-compatible providers: Cloudian, Connectria, Constant, Eucalyptus, Nifty, Nimbula, Cloudn.
+* Supports WordPress backups to Amazon S3 (or compatible), Dropbox, Rackspace Cloud Files, Google Drive, Google Cloud Storage, DreamHost DreamObjects, FTP and email. Also (via an add-on) FTP over SSL, SFTP, SCP and WebDAV (and compatible services, e.g. Yandex). (Note: Microsoft forbid OneDrive/SkyDrive to be used by backup software). Some examples of S3-compatible providers: Cloudian, Connectria, Constant, Eucalyptus, Nifty, Nimbula, Cloudn.
 * Quick restore (both file and database backups)
 * Backup automatically on a repeating schedule
 * Site duplicator/migrator: can copy sites, and (with add-on) move them to new locations
+* Restores backup sets from other backup plugins (Premium) (currently supported: BackupWordPress, Simple Backup)
 * Files and database backups can have separate schedules
 * Failed uploads are automatically resumed/retried
 * Large sites can be split into multiple archives
@@ -46,7 +47,7 @@ If you need WordPress multisite compatibility (you'll know if you do), <a href="
 
 = Professional / Enterprise support agreements available =
 
-UpdraftPlus is written by professional WordPress developers. If your site needs guaranteed support, then we are available. Just  <a href="http://updraftplus.com/shop/">go to our shop.</a>
+UpdraftPlus backup/restore is written by professional WordPress developers. If your site needs guaranteed support, then we are available. Just  <a href="http://updraftplus.com/shop/">go to our shop.</a>
 
 = More premium plugins =
 
@@ -58,6 +59,7 @@ Are you able to translate UpdraftPlus into another language? Are you ready to he
 
 Many thanks to the existing translators:
 
+* Arabic (ar): Omar Amassine (me at omar.ma), Ahmed Fahmy and Riyadh Altayib
 * Português / Portuguese (Brazilian) (pt_BR): Lucien Raven (lucienraven at yahoo.com.br) and Tom Fonseca (tomfonseca at gmail.com)
 * русский / Russian (ru_RU): Илья Худолей (Ilya Khudoley) - ironman_c at icloud.com and Igor Ocheretny (http://wpsells.com) - also see Igor's free training videos at: http://goodbackup.wpsells.com/
 * Ελληνική  / Greek translation (el): Κώστας Θερμογιάννης (Kostas Thermoyiannis) - http://tovivlio.net
@@ -67,12 +69,13 @@ Many thanks to the existing translators:
 * Chinese (zh_CN): K L Wang - http://klwang.info
 * Italiano / Italian (it_IT): Francesco Carpana - f.carpana at gmail.com
 * Deutsch / German (de_DE): Marcel Herrguth - mherrguth at mrgeneration.de
+* Español / Spanish (es_ES): Pablo Laguna - laguna.sanchez at gmail.com and Fernando Villasmil - villasmil.fernando at gmail.com
+* Nederlands / Dutch (nl_NL):  Dennis Hunink - dennishunink at me.com and Hans van der Vlist - hansvandervlist at gmail.com
 
 And to these (need updating or new translators; now less than 50% translated):
 
-* Español / Spanish (es_ES): Fernando Villasmil - villasmil.fernando at gmail.com
 * Magyar / Hungarian (hu_HU): Szépe Viktor - http://www.szepe.net
-* Nederlands / Dutch (nl_NL): Hans van der Vlist - hansvandervlist at gmail.com
+* Turk / Turkish (tr_TR): Various translators - not yet complete
 
 = Other support =
 
@@ -94,7 +97,7 @@ Check out <a href="http://updraftplus.com/updraftplus-full-feature-list/">our fu
 
 Note - this FAQ is for users of the free plugin. If you're a paying customer, then you should go here: http://updraftplus.com/support/ - please don't ask question in the WordPress.Org forum about purchases, as that's against their rules.
 
-Next, please make sure you read this FAQ through to the end - it may already have the answer you need. If it does, then please consider a donation (e.g. buy our "No Adverts" add-on - http://updraftplus.com/shop/); it takes time to develop this plugin and FAQ.
+Next, please make sure you read this FAQ through to the end - it may already have the answer you need. If it does, then please consider a donation (e.g. buy our "No Adverts" add-on - <a href="http://updraftplus.com/shop/">http://updraftplus.com/shop/</a>); it takes time to develop this plugin and FAQ.
 
 If it does not, then contact me (<a href="http://wordpress.org/support/plugin/updraftplus">the forum is the best way</a>)! This is a complex backup plugin and the only way I can ensure it's robust is to get bug reports and fix the problems that crop up. Please make sure you are using the latest version of the plugin, and that you include the version in your bug report - if you are not using the latest, then the first thing you will be asked to do is upgrade.
 
@@ -139,6 +142,50 @@ Thanks for asking - yes, I have. Check out my profile page - http://profiles.wor
 
 The <a href="http://updraftplus.com/news/">UpdraftPlus backup blog</a> is the best place to learn in more detail about any important changes.
 
+= 1.9.0 - 2014/03/26 =
+
+* COMPATIBILITY: Tested on and updated for forthcoming WordPress 3.9
+* FIX: Prevent SQL errors on restore if SQL command was over-sized and split awkwardly (very hard to trigger)
+* FIX: Fix subtle race condition that prevented uploads of large archives on Amazon S3 in some very limited situations
+* FEATURE: Ability to restore and migrate from backups produced by other backup plugins (Premium) (supported: BackUpWordPress and Simple Backups (zip-based; though, if you have a tar-backup, you can re-pack it easily))
+* FEATURE: Feature to re-scan remote storage (allows detection of existing backups after a restore to an earlier site version, and allows quicker moving of data from site to site when migrating)
+* FEATURE: SFTP add-on (http://updraftplus.com/shop/sftp/) now supports key-based logins (as well as password-based)
+* TWEAK: Add a warning message and link to helpful page for people whose WP schedulers don't seem to be working (at least 4 overdue jobs in the queue)
+* TWEAK: Introduce a filter allowing users to add a bespoke scheduling option (e.g. every 2 days)
+* TWEAK: When backup is sent by email attachment, the email now indicates the originating site more clearly
+* TWEAK: Display a dashboard warning if you are using a version of UpdraftPlus that has not been tested on your current WordPress version
+* TWEAK: Add work-around for bad hard-coded data in Elegant Themes Theme Builder when restoring
+* TWEAK: Log a message when Dropbox authentication completes (prevent user confusion if the most recent message is pre-success)
+* TRANSLATIONS: New Arabic translation (thanks to Omar Amassine - me at omar.ma, Ahmed Fahmy and Riyadh Altayib)
+* TRANSLATIONS: Updated Spanish translation (thanks to Pablo Laguna - laguna.sanchez at gmail.com)
+* TRANSLATIONS: Updated Nederlands / Dutch translation (thanks to Dennis Hunink - dennishunink at me.com)
+* TRANSLATIONS: New Turkish translation (various translators - not yet complete)
+
+= 1.8.13 - 2014/03/07 =
+
+* FIX: Fix bug that prevented changes to your schedule being saved on network (WPMU) installs (Multisite add-on)
+
+= 1.8.12 - 2014/02/27 =
+
+* FIX: Prevent spurious warning message showing when authenticating new Dropbox connections (introduced in 1.8.11)
+* TWEAK: Add support for Amazon S3's China + government zones
+
+= 1.8.11 - 2014/02/27 =
+
+* FIX: Deal with some unlikely multisite migration combinations
+* FEATURE: Allow the 'exclude' options (for omitting files/directories from the backup) to go to any level (i.e. can now exclude entities which are deep in the directory tree)
+* FEATURE: "More Files" add-on (and hence Premium) now allows adding as many non-WP directories as you like
+* FEATURE: Allow use of Amazon S3's Reduced Redundancy Storage (via add-on/Premium)
+* FEATURE: Allow all messages to be centrally logged in syslog/Event Log (via add-on/Premium)
+* RELIABILITY: Allow skipping of data from tables whose data is explicitly known to be inessential if at least 2 attempts to backup the data fail (e.g. lack of resources on low-budget hosts with huge tables, e.g. StatPress data) - as an alternative to total backup failure.
+* TWEAK: Prevent spurious warning message if the site (uploads) is empty and using /usr/bin/zip
+* TWEAK: Work-around for quirky FTP server for which PHP loses the communication if SIZE is called for a non-existent file
+* TWEAK: Show table prefix in debugging information, and add quick links to install useful debugging plugins
+* TWEAK: Limit amount of to-database logging when backing up uploads if the user is not using dated directories (speed-up)
+* TWEAK: Split zip earlier if progress made in the past but not recently (should help with some ultra-low-resource hosts, e.g. one.com)
+* TWEAK: "Custom Content Type Manager" plugin has bad hard-coded cache data; detect + fix this on restore
+* TRANSLATIONS: Updated translations for Russian, Dutch, German and Portuguese (Brazilian)
+
 = 1.8.8 - 2014/01/27 =
 
 * FIX: Correctly detect table prefix on some WPMU installs that had been upgraded from an earlier version than 3.0 (i.e. very old)
@@ -154,6 +201,7 @@ The <a href="http://updraftplus.com/news/">UpdraftPlus backup blog</a> is the be
 * TWEAK: Show all defined constants in the debug dialog
 * TWEAK: Detect + deal with situations where the webserver double-gzipped the database file
 * TWEAK: Display a warning in the FTP configuration section if the hosting company disabled FTP functions
+* TWEAK: Make sure that WebDAV notices are included in UD's log file
 
 = 1.8.5 - 2014/01/09 =
 
@@ -717,7 +765,7 @@ We recognise and thank the following for code and/or libraries used and/or modif
 
 == License ==
 
-    Copyright 2011-4 David Anderson
+    Copyright 2011-14 David Anderson
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -736,4 +784,4 @@ We recognise and thank the following for code and/or libraries used and/or modif
 Furthermore, reliance upon any non-English translation is at your own risk. UpdraftPlus can give no guarantees that translations from the original English are accurate.
 
 == Upgrade Notice ==
-* 1.8.8 : Various small tweaks
+* 1.9.0 : WordPress 3.9 compatibility; ability to re-scan remote storage; updated translations; new Importer add-on for restoring backups made by other plugins

@@ -2,7 +2,7 @@
 Tags: order, reorder, re order, order by category,order custom post type, order by categories, order category, order categories, order by taxonomy, order by taxonomies
 Requires at least: 3.4
 Tested up to: 3.5
-Stable tag: 1.1.5
+Stable tag: 1.1.6
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,6 +28,9 @@ It works with a selected category, each category can have different order of sam
 2. Re-order your post through a drag & drop interface
 
 == Changelog ==
+
+= 1.1.6 =
+* Important bug fix (See http://wordpress.org/support/topic/updating-a-post-removes-it-from-the-custom-order). Thanks to Faison for this fix
 
 = 1.1.5 =
 * Add DE_de language

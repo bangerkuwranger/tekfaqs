@@ -21,11 +21,11 @@ class Wpe_Notices extends WpeCommon {
 
     function hooks() {
         add_action( 'admin_notices', array( $this, 'display_notices' ) );
-     
-        if( @constant('WP_ALLOW_MULTISITE') ) {
+
+        if ( is_multisite() ) {
         	add_action('network_admin_notices',array( $this, 'display_notices' ) );
         }
-        
+
         //ajax hook
         add_action('wp_ajax_remove_notice',array($this,'_do_ajax'));
     }
@@ -36,13 +36,13 @@ class Wpe_Notices extends WpeCommon {
     function load() {
     		if(function_exists('wp_get_current_user'))
     			$current_user = wp_get_current_user();
-    	
+
 				// If already loaded notices from cache or remote and stored in local variable, don't do again.
         if ( $this->notices and is_array($this->notices) ) {
         		$this->notices['read'] = get_user_meta($current_user->ID,'wpe_notices_read',true);
             return $this->notices;
 				}
-					
+
         // Don't make this request when in staging.
         if ( is_wpe_snapshot() )
             return array( );
@@ -67,23 +67,23 @@ class Wpe_Notices extends WpeCommon {
 			// If TTL is more then interval from now, it's bogus, so kill it.
 			if ( $notices_ttl > (time()+WPE_MESSAGES_INTERVAL) )
 				$notices_ttl = false;
-	
+
 			// If have notice from cache and it's within TTL, then do nothing else.
 			// If TTL has not expired, leave
 			if ( $notices_ttl && $notices_ttl >= time() )
 				return;
-	
+
 			// Clear notices we have, and we'll attempt to refresh it from the server
 			// Save the notices that we've already read.
-	
+
 			$this->notices['read'] = get_user_meta($current_user->ID,'wpe_notices_read',true);
-			
+
 			$seen = array();
 			if ( isset($this->notices['read']) )
 				$seen = $this->notices['read'];
 			$this->from_remote();
 			$this->notices['read'] = $seen;
-	
+
 			update_option('wpe_notices', $this->notices);
 			$expire = time() + WPE_MESSAGES_INTERVAL;
 			update_option('wpe_notices_ttl', $expire);
@@ -91,7 +91,7 @@ class Wpe_Notices extends WpeCommon {
 
 	/**
 	 * fetch notices from api
-	 * @return 
+	 * @return
 	 **/
 	function from_remote ()
 	{
@@ -109,21 +109,21 @@ class Wpe_Notices extends WpeCommon {
 	do_action('wpe_notices', $this);
 
         global $current_user;
-				
+
 	//make sure we have notices
         $this->load();
-			  
+
         $this->notices['read'] = get_user_meta($current_user->ID,'wpe_notices_read',true);
-        
+
 	// Leave immediately if nothing to do
         if ( ! is_array( $this->notices ) OR empty($this->notices['messages']) )
             return false;
-	
+
         foreach ( $this->notices['messages'] as $notice ) {
 
 					//if this message isn't forced then lets validate it's time/date
 					//@internal this check allows us to hijack the message feature elsewhere in the plugin
-					if($notice['force'] != 1) 
+					if($notice['force'] != 1)
 					{
 						if($notice == -1)
 							continue;
@@ -133,10 +133,10 @@ class Wpe_Notices extends WpeCommon {
 							continue;
 					}
 
-					//check this for all notices	
+					//check this for all notices
 					if ( @in_array($notice['id'],$this->notices['read']) )
 						continue;
-	
+
 					switch($notice['type']) {
 						case 'normal':
 							$notice['icon'] =  WPE_PLUGIN_URL.'/images/window-close.png';
@@ -150,28 +150,28 @@ class Wpe_Notices extends WpeCommon {
 							$this->view('admin/notice-sticky',$notice);
 						break;
 					}
-					
+
 				}
     }
-    
+
     function footer_scripts() {
     	?>
     	<script>
-    		jQuery.noConflict(); 
+    		jQuery.noConflict();
 				jQuery('img#dismiss-it').click(function() {
 					var notice = jQuery(this).parent().parent();
-					var id = notice.attr('title'); 
+					var id = notice.attr('title');
 					jQuery.post(ajaxurl,{action: 'remove_notice','id': id});
 					notice.ajaxStop(function() { notice.fadeOut(); });
 				});
     	</script>
     	<?php
     }
-    
+
     function _do_ajax() {
     	extract($_REQUEST);
     		$current_user = wp_get_current_user();
-        
+
         $read = get_user_meta($current_user->ID,'wpe_notices_read',true);
 
 				// If already selected to not see this message, do nothing

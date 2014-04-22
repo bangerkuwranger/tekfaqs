@@ -1,0 +1,1 @@
+Images in this directory were created by Matt Everson (astuteo.com) as part of his SlickMap CSS package; All rights to this property are reserved by the original creator.

@@ -25,9 +25,9 @@ require_once( WPE_PLUGIN_DIR . '/util.php' );
 require_once( ABSPATH . "wp-admin/includes/plugin.php" );
 //require_once( 'class.wpengine-logs.php' );
 
-//include the network mods if network is defined
-if( defined('WP_ALLOW_MULTISITE')  ) {
-	require_once(WPE_PLUGIN_DIR.'/network.php');
+// Include the network mods if this is a Multisite
+if ( is_multisite() ) {
+	require_once( WPE_PLUGIN_DIR . '/network.php' );
 }
 
 
@@ -423,11 +423,16 @@ class WpeCommon extends WpePlugin_common {
 				wp_enqueue_style('jquery-ui');
 			}
 
-			//setup some vars to be user in js/wpe-common.js
-			$popup_disabled = defined( 'WPE_POPUP_DISABLED' ) ? (bool) WPE_POPUP_DISABLED : false;
+			// Determine whether the backup modal is disabled
+			$popup_disabled = (bool) ( ( defined( 'WPE_POPUP_DISABLED' ) && WPE_POPUP_DISABLED ) || is_wpe_snapshot() );
 
-			//set some vars for usage in the admin
-			wp_localize_script('wpe-common','wpe', array('account'=>PWP_NAME,'popup_disabled'=> $popup_disabled,'user_email'=>$current_user->user_email,'deployment'=>WpeDeployment::warn() ) );
+			// Set some vars for usage in the admin
+			wp_localize_script( 'wpe-common', 'wpe', array(
+				'account'        => PWP_NAME,
+				'popup_disabled' => $popup_disabled,
+				'user_email'     => $current_user->user_email,
+				'deployment'     => WpeDeployment::warn(),
+			) );
 
 			// check for admin messages
 			if($this->wpe_messaging_enabled() AND defined("PWP_NAME")) {
@@ -2221,3 +2226,46 @@ function preg_find( $pattern, $subject )
         return $match[0];
     return $match[1];       // return first group
 }
+
+class WPE_Query_Governator
+{
+    const QUERY_LENGTH_WARN = 1024;
+    const QUERY_LENGTH_MAX = 16384;
+
+    public function __construct()
+    {
+        add_filter( 'query', array($this,'check_and_govern') );
+    }
+
+    public function check_and_govern($query)
+    {
+        if ( defined("WPE_GOVERNOR") && !WPE_GOVERNOR ) {
+            return $query;
+        }
+        $query_length = strlen($query);
+
+        if ( self::QUERY_LENGTH_WARN > $query_length || !preg_match( '#^\s*select#i', $query ) ) {
+            return $query;
+        }
+
+        $backtrace = ec_get_non_core_backtrace();
+        $log_this_message = sprintf("%s QUERY (%d characters long generated in %s): %s", ($query_length > self::QUERY_LENGTH_MAX ? "KILLED" : "LONG"), $query_length, sprintf('%s:%s', $backtrace[0]['file'], $backtrace[0]['line']), $query);
+        error_log( $log_this_message );
+
+        if ( $query_length > self::QUERY_LENGTH_MAX ) {
+            return '';
+        }
+        return $query;
+    }
+}
+$WPE_Query_Governator = new WPE_Query_Governator();
+
+/*
+ * Make failed logins return `403` so either `badboyz` or `fail2ban`
+ * can pick them up and ban frequent offenders.
+ *
+ */
+function wpe_login_failed_403() {
+	status_header( 403 );
+}
+add_action( 'wp_login_failed', 'wpe_login_failed_403' );

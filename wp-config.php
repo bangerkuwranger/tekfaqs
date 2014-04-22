@@ -4,7 +4,7 @@ define('DB_NAME','snapshot_tekserve');
 define('DB_USER','tekserve');
 define('DB_PASSWORD','hCQ1kO5ixoVUBxionCLS');
 define('DB_HOST','127.0.0.1');
-define('DB_HOST_SLAVE','localhost');
+define('DB_HOST_SLAVE','127.0.0.1');
 define('DB_CHARSET', 'utf8');
 define('DB_COLLATE', 'utf8_unicode_ci');
 $table_prefix = 'wp_';

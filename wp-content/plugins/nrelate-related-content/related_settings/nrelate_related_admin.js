@@ -1,10 +1,10 @@
 // Takes values from input fields, makes appropriate conversions
 // Opens a pop up window with preview url with these parameters
-function nrelate_related_popup_preview(NRELATE_RELATED_SETTINGS_URL,wp_root_nr, NRELATE_RELATED_PLUGIN_VERSION){
+function nrelate_related_popup_preview(NRELATE_RELATED_SETTINGS_URL,wp_root_nr, NRELATE_RELATED_API_VERSION){
 	if (!window.focus)return true;
 	var nr_thumbsize, nr_ext_opt, nr_maxageposts, nr_age_num,age_frame, nr_href, nr_imageurl, nr_title, nr_number_ext, nr_numberrelated, nr_r_title, nr_r_show_post_title, nr_r_max_char_perline, nr_r_show_post_excerpt, nr_r_max_char_post_excerpt, nr_ad, nr_logo, nr_thumb, nr_adval, nr_logoval, nr_thumbval;
 	nr_title = "Nrelate_Preview";
-	nr_href = 'http://api.nrelate.com/rcw_wp/' + NRELATE_RELATED_PLUGIN_VERSION + '/nrelate_popup_content.php';
+	nr_href = 'http://api.nrelate.com/rcw_wp/' + NRELATE_RELATED_API_VERSION + '/nrelate_popup_content.php';
 	nr_numberrelated = document.getElementById("related_number_of_posts").value;
 	nr_num_ext = document.getElementById("related_number_of_posts_ext").value;
 	nr_r_title = document.getElementById("related_title").value;
@@ -94,7 +94,7 @@ function nrelate_related_popup_preview(NRELATE_RELATED_SETTINGS_URL,wp_root_nr, 
 	default:
 		nr_thumb = 0;
 	}																													 
-	nr_tag = "?NUM="+nr_numberrelated+"&DOMAIN="+wp_root_nr+"&IMAGEURL="+escape(nr_imageurl)+"&NUMEXT="+nr_num_ext+"&TITLE="+escape(nr_r_title)+"&SHOWPOSTTITLE="+nr_r_show_post_title+"&MAXCHAR="+nr_r_max_char_perline+"&SHOWEXCERPT="+nr_r_show_post_excerpt+"&MAXCHAREXCERPT="+nr_r_max_char_post_excerpt+"&AD="+nr_ad+"&LOGO="+nr_logo+"&THUMB="+nr_thumb+"&MAXAGE="+nr_maxageposts+"&EXTOPT="+nr_ext_opt+"&THUMBSIZE="+nr_thumbsize+"&RELATED_VERSION="+NRELATE_RELATED_PLUGIN_VERSION;
+	nr_tag = "?NUM="+nr_numberrelated+"&DOMAIN="+wp_root_nr+"&IMAGEURL="+escape(nr_imageurl)+"&NUMEXT="+nr_num_ext+"&TITLE="+escape(nr_r_title)+"&SHOWPOSTTITLE="+nr_r_show_post_title+"&MAXCHAR="+nr_r_max_char_perline+"&SHOWEXCERPT="+nr_r_show_post_excerpt+"&MAXCHAREXCERPT="+nr_r_max_char_post_excerpt+"&AD="+nr_ad+"&LOGO="+nr_logo+"&THUMB="+nr_thumb+"&MAXAGE="+nr_maxageposts+"&EXTOPT="+nr_ext_opt+"&THUMBSIZE="+nr_thumbsize+"&RELATED_VERSION="+NRELATE_RELATED_API_VERSION;
 	nr_tag += '&NUMADS=' + nr_num_ads + '&ADSPLACE=' + nr_ads_placement + '&THUMBSTYLE=' + nr_thumbstyle + '&TEXTSTYLE=' + nr_textstyle;
 	
 	if (jQuery('#ad_animation').is(':checked')) nr_tag += '&AD_ANIMATION=1';

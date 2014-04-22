@@ -59,7 +59,7 @@ v1.0.33
 	- Regex chunk of domains into re_curr_domains when building cdn regular expressions.
 v1.0.34
 	- With more than 10 domains, purge only the current domain, not all domains.
-v1.0.35 
+v1.0.35
 	- Reimplement logging of active plugins and WP versions in advance on WordPress 3.2
 v1.0.36
 	- Removed PHP error log download since it's currently insecure
@@ -161,7 +161,7 @@ v2.0.23
 	- Use the domain mapping database list of blog domain when purge varnish cache.
 v2.0.24
 	- Curation: change the way we show curated plugins. (Mark)
-v2.0.25 
+v2.0.25
 	-Add domain mapping integration with API server. (Mike)
 v2.0.26
 	-Fix powered-by link bug
@@ -171,9 +171,9 @@ v2.0.28
 	- Add admin messages.
 v2.0.29
 	- Refactor messaging cache and pull from S3. (Mark)
-v2.0.30 
-	-added popup warnings before upgrading. Added common stylesheet and JS. 
-v2.0.31 
+v2.0.30
+	-added popup warnings before upgrading. Added common stylesheet and JS.
+v2.0.31
 	-Cleanup message styles, allow individual users to hide messages
 v2.0.32
 	-Add WPE_POPUP_DISABLE functionality and fix bug with popup activating on search form
@@ -187,15 +187,15 @@ v2.0.36
 	- Fix debug being added to html when wp-admin and textarea replacement.
 v2.0.37
 	- Prevent internal commands from being run from the outside network.
-v2.0.40 
+v2.0.40
 	- Added Deploy From Staging
 v2.0.41
 	- Fix staging refresh page link to point at staging tab.
 v2.0.42
 	- Updated method of defining WPE_PLUGIN_VERSION constant
-v2.0.43 
+v2.0.43
 	- Change plugin links to WPE User Portal
-v2.0.44 
+v2.0.44
 	- Updated staging to production push to prevent update if staging version is older than production version
 v2.0.45
 	- Added torquemag.io and wpengine blog feeds
@@ -221,3 +221,9 @@ v2.1.3
 v2.1.4
 	- Remove the "hide" class from the Staging dialog as it fades in
 	- Add version number to wpe-common.js file enqueueing
+v2.1.5
+	- Change the default WordPress password hint text to link to strong password support article
+v2.1.6
+	- Add throttle for EWWW Image Optimizer Cloud users to make their plugin more load friendly.
+v2.1.7
+	- Add `403` error code to failed logins for easier internal tracking.

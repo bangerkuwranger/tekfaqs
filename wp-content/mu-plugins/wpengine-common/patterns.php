@@ -4,7 +4,7 @@
 $regex_path_static_suffix = "\\.(?:jpe?g|gif|png|css|js|ico|zip|7z|tgz|gz|rar|bz2|do[ct][mx]?|xl[ast][bmx]?|exe|pdf|p[op][ast][mx]?|sld[xm]?|thmx?|txt|tar|midi?|wav|bmp|rtf|avi|mp\\d|mpg|iso|mov|djvu|dmg|flac|r70|mdf|chm|sisx|sis|flv|thm|bin|swf|cert|otf|ttf|eot|svgx?|woff|jar|class)";
 
 // Case-insensitive regex for whether a user-agent is a bot
-$regex_is_user_agent_bot = 'bot|facebook|crawler|feed|flipboard|slurp|re(?:e|a)der|spider|scoutjet|ssowl|site24|google|news|pubsub|^expo9|^tzogeoagent|jakarta';
+$regex_is_user_agent_bot = 'bot|facebook|crawler|feed|flipboard|slurp|re[ea]der|spider|scoutjet|ssowl|site24|google|news|pubsub|^expo9|^tzogeoagent|jakarta|teoma|scrap(?:[ey]|ing)';
 
 // Case-insensitive regex for whether a user-agent is something we don't cache if it's dynamic content
 $regex_is_user_agent_nodyncache = 'acer\ s100|archos5|cupcake|docomo\ ht\-03a|dream|htc\ hero|htc\ magic|htc_dream|htc_magic|incognito|lg\-gw620|liquid\ build|maemo|mot\-mb200|mot\-mb300|nexus\ one|opera\ mini|samsung\-s8000|series60.*webkit|series60/5\.0|sonyericssone10|sonyericssonu20|sonyericssonx10|t\-mobile\ mytouch\ 3g|t\-mobile\ opal|tattoo|webmate|2\.0\ mmp|240x320|alcatel|amoi|asus|au\-mic|audiovox|avantgo|benq|blackberry|blazer|cellphone|danger|ddipocket|docomo|dopod|elaine/3\.0|ericsson|eudoraweb|haier|hiptop|hp\.ipaq|htc|huawei|i\-mobile|iemobile|j\-phone|kddi|konka|kwc|kyocera/wx310k|lg/u990|lge\ vx|midp|midp\-2\.0|mmef20|mobilephone|mot\-v|motorola|netfront|newgen|newt|nintendo\ ds|nintendo\ wii|nitro|nokia|novarra|openweb|opera[\s\.]mobi|palm|panasonic|pantech|pdxgw|philips|\bphone\b|playstation\ portable|portalmmm|proxinet|psp|qtek|sagem|samsung|sanyo|sendo|sharp|sharp\-tq\-gx10|smartphone|softbank|sonyericsson|symbian|symbian\ os|symbianos|toshiba|treo|ts21i\-10|up\.browser|up\.link|vertu|vodafone|willcome|windows[ \.]ce|winwap';
@@ -54,7 +54,7 @@ $regex_content_type_js  = "(?:\\.js|[\\._/-](?:js|javascripts?|scripts?)\.php)\$
 $regex_content_type_html = "(?:\\.html|/|/index\\.php)\$";
 
 // Regex for cookies that prevent us from serving the page cached
-$regex_is_cookie_nocache = "\\b(?:(?!wordpress_test_cookie)wordpress_|wp-postpass_|comment_author_|wptouch[\w-]+|wpengine_no_cache|mp_globalcart_|wlcookie|wishlist|Cart66\\w*SID|ap_id|wc_bundle_pge_id|wm_affid|cart_in_use|eMember_in_use|wpsc_customer_cookie_|BS_SESSION|region_pref|lax_user)";
+$regex_is_cookie_nocache = "\\b(?:(?!wordpress_test_cookie)wordpress_|wp-postpass_|comment_author_|wpengine_no_cache|mp_globalcart_|wlcookie|wishlist|Cart66\\w*SID|ap_id|wc_bundle_pge_id|wm_affid|cart_in_use|eMember_in_use|wpsc_customer_cookie_|BS_SESSION|region_pref|lax_user)";
 
 // Regex for paths which we never cache
 $regex_is_path_nocache_prefix = "/(?:store|cart|check-?out)(?:/|\$)";
@@ -184,6 +184,33 @@ class Patterns
 		);
 	}
 
+	// Filter out regexs which do not compile (or otherwise annoy preg_match)
+	static public function filter_noncompiled_regex($ssl_forced_x) {
+		return array_filter($ssl_forced_x, function ($re) {
+			if (false === @preg_match("#$re#", '')) {
+				// preg_match says this regex is no good, lets not use it
+				error_log(__FILE__ . "@" . __LINE__ . " we are not using this bad regex in force ssl: #$re#");
+				return false;
+			}
+			// all clear
+			return true;
+		});
+	}
+
+	// Reject paths that have quotes, double quotes, or that end in backslashes
+	static public function reject_dangerous_regex($ssl_forced_x) {
+		if (is_string($ssl_forced_x)) {
+			$ssl_forced_x = array($ssl_forced_x);
+		}
+		return array_filter($ssl_forced_x, function($re) {
+			if(false !== strpos($re, "'") || false !== strpos($re, '"') || "\\" === substr($re, -1)) {
+				error_log(__FILE__ . " @ " . __LINE__ . " - We are not accepting quotes, double quotes, or strings ending with backslash");
+				return false;
+			}
+			// all clear
+			return true;
+		});
+	}
 }
 
 // Given a regular expression which matches the path-part of a URL, returns a regular expression

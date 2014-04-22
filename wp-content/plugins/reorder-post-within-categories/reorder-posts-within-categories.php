@@ -3,7 +3,7 @@
 Plugin Name: ReOrder Post Within Categories
 Plugin URI:   http://www.deefuse.fr/wordpress/nouveau-plugin-reorder-post-within-categories
 Description: Arrange Post and Custom Post Type through drag & drop interface of selected category (or custom taxonomies).
-Version: 1.1.5
+Version: 1.1.6
 Author: Aurélien Chappard
 Author URI: http://www.deefuse.fr/
 License: GPLv2
@@ -180,16 +180,20 @@ if( !class_exists('ReOrderPostWithinCategory') ) {
 			if($taxonomie->hierarchical == 1 && is_array($orderedSettingOptions) && in_array($taxonomie->name, $orderedSettingOptions)){
 			     //echo "<li>".$taxonomie->name."</li>";
 			     $terms = get_terms( $taxonomie->name );
+			     
+			     $terms_of_the_post = wp_get_post_terms( $post_id, $taxonomie->name );
+			     $term_ids_of_the_post = wp_list_pluck( $terms_of_the_post, 'term_id' );
 			     //echo "<pre>";
 			     //print_r($terms);
 			     //echo "</pre>";
 			     if (count($terms) > 0){
 				 //echo "<ul>";
 				 foreach ($terms as $term){
-				     $terms_of_the_post = wp_get_post_terms( $post_id, $taxonomie->name );
+				     //$terms_of_the_post = wp_get_post_terms( $post_id, $taxonomie->name );
 				     //echo "<li>";
 					//echo "<p>--" . $term->name . " (" . $term->term_id .")</p>";
-					if(in_array($term, $terms_of_the_post))
+					//if(in_array($term, $terms_of_the_post))
+					if(in_array($term->term_id, $term_ids_of_the_post))
 					{
 					    $trieEnCoursEnDb = $wpdb->get_var( $wpdb->prepare("SELECT COUNT(*) FROM $table_name WHERE category_id=%d", $term->term_id) );
 					    if($trieEnCoursEnDb != 0)

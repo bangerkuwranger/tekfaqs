@@ -4,7 +4,7 @@
   Plugin URI: http://wpengine.com/plugins
   Description: WP Engine-specific services and options
   Author: WP Engine
-  Version: 2.1.4
+  Version: 2.1.7
   Changelog: (see changelog.txt)
  */
 
@@ -77,6 +77,25 @@ function wpe_filter_site_url( $url, $path, $scheme, $blog_id ) {
     }
     return $url;
 }
+
+// Change default WordPress password hint to something more helpful.
+// We can also use this code to change other strings in WordPress core.
+// @TODO Break this out when we want to customize the dashboard further.
+
+function wpengine_filter_gettext( $translated, $original, $domain ) {
+    $strings = array(
+        'Hint: The password should be at least seven characters long. To make it stronger, use upper and lower case letters, numbers and symbols like ! " ? $ % ^ &amp; ).' => '<strong>Help:</strong> For assistance picking a strong password, please read <a href="http://wpengine.com/support/strong-passwords/">this support article</a>.',
+    );
+
+    if ( isset( $strings[$original] ) ) {
+        $translations = &get_translations_for_domain( $domain );
+        $translated = $translations->translate( $strings[$original] );
+    }
+
+    return $translated;
+}
+
+add_filter( 'gettext', 'wpengine_filter_gettext', 10, 3 );
 
 // Disable core updates and emails.
 add_filter( 'auto_update_core', '__return_false' );

@@ -1,0 +1,93 @@
+
+.darkbluetxt{
+            position: absolute; 
+			color: #004d72; 
+			text-shadow: none;
+			line-height: 1.5em; 
+			font-family: Tekvetica; 
+			padding: 0px 4px; 
+			padding-top: 1px;
+			margin: 0px; 
+			border-width: 0px; 
+			border-style: none; 
+			background-color:transparent;
+								
+		}
+.orangetxt{
+            position: absolute; 
+			color: #f36f37; 
+			text-shadow: none;
+			line-height: 1.5em; 
+			font-family: Tekvetica; 
+			padding: 0px 4px; 
+			padding-top: 1px;
+			margin: 0px; 
+			border-width: 0px; 
+			border-style: none; 
+			background-color:transparent;						
+		}
+.lightbluetxt{
+            position: absolute; 
+			color: #40a8c9; 
+			text-shadow: none;
+			line-height: 1.5em; 
+			font-family: Tekvetica; 
+			padding: 0px 4px; 
+			padding-top: 1px;
+			margin: 0px; 
+			border-width: 0px; 
+			border-style: none; 
+			background-color:transparent;
+								
+		}
+.whitetxt{
+			position: absolute; 
+			color: #fff; 
+			text-shadow: none;
+			line-height: 1.5em; 
+			font-family: Tekvetica; 
+			padding: 0px 4px; 
+			padding-top: 1px;
+			margin: 0px; 
+			border-width: 0px; 
+			border-style: none;
+			background-color:transparent; 									
+		}
+.tp-caption a { 
+	color: #f36f37; text-decoration: none; text-shadow: none;	-webkit-transition: all 0.2s ease-out; -moz-transition: all 0.2s ease-out; -o-transition: all 0.2s ease-out; -ms-transition: all 0.2s ease-out;	 
+}			
+	
+.tp-caption a:hover { 
+	color: #40a8c9; 
+}
+.tp-caption.img200 {
+    height: 200px;
+	width: 200px;    
+}
+.size14 {
+   font-size: 14px; 
+  }
+.size28 {
+      font-size: 28px;
+    }
+.size36 {
+      font-size: 36px;
+      }
+.size48 {
+      font-size: 48px;
+        }
+.size60 {
+      font-size: 60px;
+        }
+.size72 {
+      font-size: 72px;
+        }
+.heavy {
+font-weight: 900;
+}
+.bold {
+font-weight: bold;
+}
+.thin {
+font-weight: thin;
+}

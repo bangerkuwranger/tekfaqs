@@ -2,7 +2,7 @@
 <div id="header">
 <div id="title-area" style="background-image: url(http://maintekserve.wpengine.com/wp-content/themes/apparition1.1_tekserve/images/header.9-8.11-6@2x.svg);">
 	<p id="title">
-		<a href="http://faq.tekserve.com/" title="Tekserve FAQ"></a>
+		<a href="http://www.tekserve.com/" title="Return to Tekserve homepage from page - Tekserve FAQ"></a>
 	</p>
 </div>
 <span id="tekserve-shared-data-hours-swap" style="display: none;">url(http://maintekserve.wpengine.com/wp-content/uploads/2014/02/mobileheader.9-8.11-6@2x.svg)</span>

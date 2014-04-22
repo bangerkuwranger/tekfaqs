@@ -33,6 +33,8 @@ if (!is_array(UpdraftPlus_Options::get_updraft_option('updraft_cloudfiles')) && 
 # Old SDK
 class UpdraftPlus_BackupModule_cloudfiles_oldsdk {
 
+	private $cloudfiles_object;
+
 	// This function does not catch any exceptions - that should be done by the caller
 	function getCF($user, $apikey, $authurl, $useservercerts = false) {
 		
@@ -60,7 +62,7 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk {
 		return array('updraft_cloudfiles');
 	}
 
-	protected static function get_opts() {
+	protected function get_opts() {
 		global $updraftplus;
 		$opts = $updraftplus->get_job_option('updraft_cloudfiles');
 		if (!is_array($opts)) $opts = array('user' => '', 'authurl' => 'https://auth.api.rackspacecloud.com', 'apikey' => '', 'path' => '');
@@ -222,6 +224,45 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk {
 		}
 
 		return array('cloudfiles_object' => $container_object, 'cloudfiles_orig_path' => $opts['path'], 'cloudfiles_container' => $container);
+
+	}
+
+	public function listfiles($match = 'backup_') {
+
+		$opts = $this->get_opts();
+		$container = $opts['path'];
+
+		if (empty($opts['user']) || empty($opts['apikey'])) new WP_Error('no_settings', __('No settings were found','updraftplus'));
+
+		try {
+			$conn = $this->getCF($opts['user'], $opts['apikey'], $opts['authurl'], UpdraftPlus_Options::get_updraft_option('updraft_ssl_useservercerts'));
+			$container_object = $conn->create_container($container);
+		} catch(Exception $e) {
+			return new WP_Error('no_access', sprintf(__('%s authentication failed','updraftplus'),'Cloud Files').' ('.$e->getMessage().')');
+		}
+
+		$results = array();
+
+		try {
+			$objects = $container_object->list_objects(0, NULL, $match);
+			foreach ($objects as $name) {
+				$result = array('name' => $name);
+				try {
+					$object = new UpdraftPlus_CF_Object($container_object, $name, true);
+					if ($object->content_length == 0) {
+						$result = false;
+					} else {
+						$result['size'] = $object->content_length;
+					}
+				} catch (Exception $e) {
+				}
+				if (is_array($result)) $results[] = $result;
+			}
+		} catch (Exception $e) {
+			return new WP_Error('cf_error', 'Cloud Files error ('.$e->getMessage().')');
+		}
+
+		return $results;
 
 	}
 
@@ -387,7 +428,7 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk {
 
 	}
 
-	public static function config_print_javascript_onready() {
+	public function config_print_javascript_onready() {
 		?>
 		jQuery('#updraft-cloudfiles-test').click(function(){
 			jQuery(this).html('<?php echo esc_js(__('Testing - Please Wait...','updraftplus'));?>');
@@ -414,9 +455,9 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk {
 		<?php
 	}
 
-	public static function config_print() {
+	public function config_print() {
 
-		$opts = self::get_opts();
+		$opts = $this->get_opts();
 
 		?>
 		<tr class="updraftplusmethod cloudfiles">
@@ -485,7 +526,7 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk {
 	<?php
 	}
 
-	public static function credentials_test() {
+	public function credentials_test() {
 
 		if (empty($_POST['apikey'])) {
 			printf(__("Failure: No %s was given.",'updraftplus'),__('API key','updraftplus'));
@@ -520,7 +561,7 @@ class UpdraftPlus_BackupModule_cloudfiles_oldsdk {
 		define('UPDRAFTPLUS_SSL_DISABLEVERIFY', $disableverify);
 
 		try {
-			$conn = self::getCF($user, $key, $authurl, $useservercerts);
+			$conn = $this->getCF($user, $key, $authurl, $useservercerts);
 			$container_object = $conn->create_container($container);
 		} catch(AuthenticationException $e) {
 			echo __('Cloud Files authentication failed','updraftplus').' ('.$e->getMessage().')';

@@ -43,3 +43,12 @@ if( !class_exists("PluginsConfig") ) {
 
 	}
 }
+/*
+ * Throttle remote connections for EWWW Image Optimizer Cloud users.
+ */
+function wpe_ewww_cloud_throttle() {
+	if ( is_plugin_active( 'ewww-image-optimizer-cloud/ewww-image-optimizer-cloud.php' ) ) {
+		set_option( 'ewww_image_optimizer_delay', 5 );
+	}
+}
+add_action( 'admin_init', 'wpe_ewww_cloud_throttle' ); 

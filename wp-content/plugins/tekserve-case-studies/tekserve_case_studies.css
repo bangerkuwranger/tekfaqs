@@ -1,0 +1,13 @@
+.tekserve-case-study {
+	display: inline-block;
+}
+
+.tekserve-case-study .tekserve-case-study-text p {
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+
+.tekserve-testimonial .tekserve-case-study-cta {
+	text-align: right;
+}

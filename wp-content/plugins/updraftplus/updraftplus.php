@@ -4,7 +4,7 @@ Plugin Name: UpdraftPlus - Backup/Restore
 Plugin URI: http://updraftplus.com
 Description: Backup and restore: take backups locally, or backup to Amazon S3, Dropbox, Google Drive, Rackspace, (S)FTP, WebDAV & email, on automatic schedules.
 Author: UpdraftPlus.Com, DavidAnderson
-Version: 1.8.8
+Version: 1.9.0
 Donate link: http://david.dw-perspective.org.uk/donate
 License: GPLv3 or later
 Text Domain: updraftplus
@@ -16,36 +16,30 @@ Author URI: http://updraftplus.com
 TODO - some of these are out of date/done, needs pruning
 // On plugins restore, don't let UD over-write itself - because this usually means a down-grade. Since upgrades are db-compatible, there's no reason to downgrade.
 // Schedule a task to report on failure
-// When doing AJAX pre-restore check capture all PHP notices and dump them in our 'warning' array (don't let them go to browser directly and break the JSON)
-// When using FTP, verify that the FTP functions are not disabled (e.g. one.com disable them)
-// Renewal warning is sending them to shop... instead, send them to a 'renewals' page which gives them instructions + the coupon
-// Detect when the webserver has double-gzipped the db
+// Copy.Com, Box
+// Check the timestamps used in filenames - they should be UTC
+// Get user to confirm if they check both the search/replace and wp-config boxes
 // Tweak the display so that users seeing resumption messages don't think it's stuck
-// http://www.empsebiz.com/woocommerce/
 // Store/show current Dropbox account
+// A search/replace console without needing to restore
 // On restore, check for some 'standard' PHP modules (prevents support requests related to them) -e.g. GD, Curl
-// Get checkout page to pre-select country by IP address? (Make as free plugin?)
 // Recognise known huge non-core tables on restore, and postpone them to the end (AJAX method?)
-// Add a link on the restore page to the log file
 // Add a cart notice if people have DBSF=quantity1
 // Pre-restore actually unpack the zips if they are not insanely big (to prevent the restore crashing at this stage if there's a problem)
-// Don't set file permissions post-restore tighter than they were before
+// Include in email report the list of "more" directories: http://updraftplus.com/forums/support-forum-group1/paid-support-forum-forum2/wordpress-multi-sites-thread121/
+// Integrate jstree for a nice files-chooser; use https://wordpress.org/plugins/dropbox-photo-sideloader/ to see how it's done
+// Verify that attempting to bring back a MS backup on a non-MS install warns the user
 // Pre-schedule resumptions that we know will be scheduled later
 // Make SFTP chunked (there is a new stream wrapper)
-// In WebDAV library, swap all error_log calls for trigger_error, and make sure they get up to the top layer
 // If we're on the last resumption, zipping, and nothing's succeeded for a while, then auto-split
-// After Oct 15 2013: Remove page(s) from websites discussing W3TC
 // Change add-ons screen, to be less confusing for people who haven't yet updated but have connected
 // Change migrate window: 1) Retain link to article 2) Have selector to choose which backup set to migrate - or a fresh one 3) Have option for FTP/SFTP/SCP despatch 4) Have big "Go" button. Have some indication of what happens next. Test the login first. Have the remote site auto-scan its directory + pick up new sets. Have a way of querying the remote site for its UD-dir. Have a way of saving the settings as a 'profile'. Or just save the last set of settings (since mostly will be just one place to send to). Implement an HTTP/JSON method for sending files too.
 // Post restore, do an AJAX get for the site; if this results in a 500, then auto-turn-on WP_DEBUG
 // Place in maintenance mode during restore - ?
-// Add FAQ about upgrades
 // Test Azure: https://blogs.technet.com/b/blainbar/archive/2013/08/07/article-create-a-wordpress-site-using-windows-azure-read-on.aspx?Redirected=true
 // Seen during autobackup on 1.8.2: Warning: Invalid argument supplied for foreach() in /home/infinite/public_html/new/wp-content/plugins/updraftplus/updraftplus.php on line 1652
 // Add some kind of automated scan for post content (e.g. images) that has the same URL base, but is not part of WP. There's an example of such a site in tmp-rich.
-// Log all output of restore; include Migrator
 // Free/premium comparison page
-// Limited auto-rescan... on settings page load, if we have no known files, and if some exist, then add them
 // Complete the tweak to bring the delete-old-dirs within a dialog (just needed to deal wtih case of needing credentials more elegantly).
 // Add note to support page requesting that non-English be translated
 // More locking: lock the resumptions too (will need to manage keys to make sure junk data is not left behind)
@@ -63,7 +57,6 @@ TODO - some of these are out of date/done, needs pruning
 // Take a look at logfile-to-examine.txt (stored), and the pattern of detection of zipfile contents
 // http://www.phpclasses.org/package/8269-PHP-Send-MySQL-database-backup-files-to-Ubuntu-One.html
 // Put the -old directories in updraft_dir instead of present location. Prevents file perms issues, and also will be automatically excluded from backups.
-// Update updates checker so that it checks for updates on a sliding-scale: those who've not updated in last X only end up checking every Y : https://github.com/YahnisElsts/plugin-update-checker/issues/9
 // Add feature in Backup Now to skip cloud despatch for this backup
 // Test restores via cloud service for small $??? (Relevant: http://browshot.com/features) (per-day? per-install?)
 // Warn/prevent if trying to migrate between sub-domain/sub-folder based multisites
@@ -73,7 +66,6 @@ TODO - some of these are out of date/done, needs pruning
 // Can some tables be omitted from the search/replace on a migrate? i.e. Special knowledge?
 // Put a 'what do I get if I upgrade?' link into the mix
 // Add to admin bar (and make it something that can be turned off)
-// Option to log to syslog
 // If migrated database from somewhere else, then add note about revising UD settings
 // Strategy for what to do if the updraft_dir contains untracked backups. Automatically rescan?
 // MySQL manual: See Section 8.2.2.1, Speed of INSERT Statements.
@@ -84,7 +76,6 @@ TODO - some of these are out of date/done, needs pruning
 // Test with: http://wordpress.org/plugins/wp-db-driver/
 // Backup notes
 // Automatically re-count folder usage after doing a delete
-// Exclude by default: uploads/wp-clone
 // Switch zip engines earlier if no progress - see log.cfd793337563_hostingfails.txt
 // The delete-em at the end needs to be made resumable. And to only run on last run-through (i.e. no errors, or no resumption)
 // Incremental - can leverage some of the multi-zip work???
@@ -106,7 +97,6 @@ TODO - some of these are out of date/done, needs pruning
 // Detect CloudFlare output in attempts to connect - detecting cloudflare.com should be sufficient
 // Bring multisite shop page up to date
 // Re-do pricing + support packages
-// Option to create S3 bucket with RRS
 // More files: back up multiple directories, not just one
 // Give a help page to go with the message: A zip error occurred - check your log for more details (reduce support requests)
 // Exclude .git and .svn by default from wpcore
@@ -131,8 +121,6 @@ TODO - some of these are out of date/done, needs pruning
 // With ginormous tables, log how many times they've been attempted: after 3rd attempt, log a warning and move on. But first, batch ginormous tables (resumable)
 // Import single site into a multisite: http://codex.wordpress.org/Migrating_Multiple_Blogs_into_WordPress_3.0_Multisite, http://wordpress.org/support/topic/single-sites-to-multisite?replies=5, http://wpmu.org/import-export-wordpress-sites-multisite/
 // Selective restores - some resources
-// Automatically de-activate cacheing/minifying plugins upon restore (and inform user) to prevent unexpected clashes
-// After restoring the themes, should check to see if the currently-active one still exists or not
 // When you migrate/restore, if there is a .htaccess, warn/give option about it.
 // 'Show log' should be done in a nice pop-out, with a button to download the raw
 // delete_old_dirs() needs to use WP_Filesystem in a more user-friendly way when errors occur
@@ -185,7 +173,7 @@ Encrypt filesystem, if memory allows (and have option for abort if not)
 */
 
 /*
-Portions copyright 2011-13 David Anderson
+Portions copyright 2011-14 David Anderson
 Portions copyright 2010 Paul Kehrer
 Other portions copyright as indicated authors in the relevant files
 
@@ -210,6 +198,8 @@ define('UPDRAFT_DEFAULT_OTHERS_EXCLUDE','upgrade,cache,updraft,backup*,*backups'
 define('UPDRAFT_DEFAULT_UPLOADS_EXCLUDE','backup*,*backups,backwpup*,wp-clone');
 
 # The following can go in your wp-config.php
+# Tables whose data can be safed without significant loss, if (and only if) the attempt to back them up fails (e.g. bwps_log, from WordPress Better Security, is log data; but individual entries can be huge and cause out-of-memory fatal errors on low-resource environments). Comma-separate the table names (without the WordPress table prefix).
+if (!defined('UPDRAFTPLUS_DATA_OPTIONAL_TABLES')) define('UPDRAFTPLUS_DATA_OPTIONAL_TABLES', 'bwps_log,statpress');
 if (!defined('UPDRAFTPLUS_ZIP_EXECUTABLE')) define('UPDRAFTPLUS_ZIP_EXECUTABLE', "/usr/bin/zip,/bin/zip,/usr/local/bin/zip,/usr/sfw/bin/zip,/usr/xdg4/bin/zip,/opt/bin/zip");
 if (!defined('UPDRAFTPLUS_MYSQLDUMP_EXECUTABLE')) define('UPDRAFTPLUS_MYSQLDUMP_EXECUTABLE', "/usr/bin/mysqldump,/bin/mysqldump,/usr/local/bin/mysqldump,/usr/sfw/bin/mysqldump,/usr/xdg4/bin/mysqldump,/opt/bin/mysqldump");
 # If any individual file size is greater than this, then a warning is given
@@ -263,17 +253,17 @@ class UpdraftPlus {
 	public $plugin_title = 'UpdraftPlus Backup/Restore';
 
 	// Choices will be shown in the admin menu in the order used here
-	public $backup_methods = array (
-		"s3" => "Amazon S3",
-		"dropbox" => "Dropbox",
+	public $backup_methods = array(
+		's3' => 'Amazon S3',
+		'dropbox' => 'Dropbox',
 		'cloudfiles' => 'Rackspace Cloud Files',
-		"googledrive" => "Google Drive",
-		"ftp" => "FTP",
+		'googledrive' => 'Google Drive',
+		'ftp' => 'FTP',
 		'sftp' => 'SFTP / SCP',
 		'webdav' => 'WebDAV',
 		's3generic' => 'S3-Compatible (Generic)',
 		'dreamobjects' => 'DreamObjects',
-		"email" => "Email"
+		'email' => 'Email'
 	);
 
 	public $errors = array();
@@ -295,7 +285,7 @@ class UpdraftPlus {
 	public $current_resumption;
 	public $newresumption_scheduled = false;
 
-	function __construct() {
+	public function __construct() {
 
 		// Initialisation actions - takes place on plugin load
 
@@ -378,7 +368,7 @@ class UpdraftPlus {
 			$log_file = '';
 			$mod_time = 0;
 
-			if ($handle = opendir($updraft_dir)) {
+			if ($handle = @opendir($updraft_dir)) {
 				while (false !== ($entry = readdir($handle))) {
 					// The latter match is for files created internally by zipArchive::addFile
 					if (preg_match('/^log\.[a-z0-9]+\.txt$/i', $entry)) {
@@ -425,8 +415,9 @@ class UpdraftPlus {
 				require_once(UPDRAFTPLUS_DIR.'/methods/'.$method.'.php');
 				$call_class = "UpdraftPlus_BackupModule_".$method;
 				$call_method = "action_".$matches[2];
+				$backup_obj = new $call_class;
 				add_action('http_api_curl', array($this, 'add_curl_capath'));
-				if (method_exists($call_class, $call_method)) call_user_func(array($call_class, $call_method));
+				if (method_exists($backup_obj, $call_method)) call_user_func(array($backup_obj, $call_method));
 				remove_action('http_api_curl', array($this, 'add_curl_capath'));
 			} elseif (isset( $_GET['page'] ) && $_GET['page'] == 'updraftplus' && $_GET['action'] == 'downloadlog' && isset($_GET['updraftplus_backup_nonce']) && preg_match("/^[0-9a-f]{12}$/",$_GET['updraftplus_backup_nonce']) && UpdraftPlus_Options::user_can_manage()) {
 				// No WordPress nonce is needed here or for the next, since the backup is already nonce-based
@@ -479,7 +470,7 @@ class UpdraftPlus {
 		$updraftplus_admin->show_admin_warning('<strong>'.__('UpdraftPlus notice:','updraftplus').'</strong> '.__('The given file could not be read.','updraftplus'));
 	}
 
-	function load_translations() {
+	public function load_translations() {
 		// Tell WordPress where to find the translations
 		load_plugin_textdomain('updraftplus', false, basename(dirname(__FILE__)).'/languages');
 	}
@@ -558,7 +549,7 @@ class UpdraftPlus {
 		if (file_exists($this->logfile_name)) {
 			$seek_to = max((filesize($this->logfile_name) - 340), 1);
 			$handle = fopen($this->logfile_name, 'r');
-			if ($handle) {
+			if (is_resource($handle)) {
 				# Returns 0 on success
 				if (0 === @fseek($handle, $seek_to)) {
 					$bytes_back = filesize($this->logfile_name) - $seek_to;
@@ -650,9 +641,10 @@ class UpdraftPlus {
 	- Messages at level 'error' are not logged to file - it is assumed that a separate call to log() at another level will take place. This is because at level 'error', messages are translated; whereas the log file is for developers who may not know the translated language. Messages at level 'error' are for the user.
 	- Messages at level 'error' do not persist through the job (they are only saved with save_backup_history(), and never restored from there - so only the final save_backup_history() errors persist); we presume that either a) they will be cleared on the next attempt, or b) they will occur again on the final attempt (at which point they will go to the user). But...
 	- ... messages at level 'warning' persist. These are conditions that are unlikely to be cleared, not-fatal, but the user should be informed about. The $uniq_id field (which should not be numeric) can then be used for warnings that should only be logged once
+	$skip_dblog = true is suitable when there's a risk of excessive logging, and the information is not important for the user to see in the browser on the settings page
 	*/
 
-	public function log($line, $level = 'notice', $uniq_id = false) {
+	public function log($line, $level = 'notice', $uniq_id = false, $skip_dblog = false) {
 
 		if ('error' == $level || 'warning' == $level) {
 			if ('error' == $level && 0 == $this->error_count()) $this->log('An error condition has occurred for the first time during this job');
@@ -674,6 +666,8 @@ class UpdraftPlus {
 			$this->jobdata_set('warnings', $warnings);
 		}
 
+		do_action('updraftplus_logline', $line, $this->nonce, $level, $uniq_id);
+
 		if ($this->logfile_handle) {
 			# Record log file times relative to the backup start, if possible
 			$rtime = (!empty($this->job_time_ms)) ? microtime(true)-$this->job_time_ms : microtime(true)-$this->opened_log_time;
@@ -693,7 +687,7 @@ class UpdraftPlus {
 				#if ('debug' != $level) echo $line."\n";
 				break;
 			default:
-				if ('debug' != $level) UpdraftPlus_Options::update_updraft_option('updraft_lastmessage', $line." (".date_i18n('M d H:i:s').")", false);
+				if (!$skip_dblog && 'debug' != $level) UpdraftPlus_Options::update_updraft_option('updraft_lastmessage', $line." (".date_i18n('M d H:i:s').")", false);
 				break;
 		}
 
@@ -773,9 +767,8 @@ class UpdraftPlus {
 
 		// Log it
 		global $updraftplus_backup;
-		$log = ucfirst($updraftplus_backup->current_service)." chunked upload: $percent % uploaded";
-		if ($extra) $log .= " ($extra)";
-		$this->log($log);
+		$log = (!empty($updraftplus_backup->current_service)) ? ucfirst($updraftplus_backup->current_service)." chunked upload: $percent % uploaded" : '';
+		if ($log) $this->log($log.(($extra) ? " ($extra)" : ''));
 		// If we are on an 'overtime' resumption run, and we are still meaningfully uploading, then schedule a new resumption
 		// Our definition of meaningful is that we must maintain an overall average of at least 0.7% per run, after allowing 9 runs for everything else to get going
 		// i.e. Max 100/.7 + 9 = 150 runs = 760 minutes = 12 hrs 40, if spaced at 5 minute intervals. However, our algorithm now decreases the intervals if it can, so this should not really come into play
@@ -854,7 +847,7 @@ class UpdraftPlus {
 		}
 	}
 
-	function chunked_download($file, $method, $remote_size, $manually_break_up = false, $passback = null) {
+	public function chunked_download($file, $method, $remote_size, $manually_break_up = false, $passback = null) {
 
 		try {
 
@@ -906,14 +899,14 @@ class UpdraftPlus {
 		return true;
 	}
 
-	function decrypt($fullpath, $key, $ciphertext = false) {
+	public function decrypt($fullpath, $key, $ciphertext = false) {
 		$this->ensure_phpseclib('Crypt_Rijndael', 'Crypt/Rijndael');
 		$rijndael = new Crypt_Rijndael();
 		$rijndael->setKey($key);
 		return (false == $ciphertext) ? $rijndael->decrypt(file_get_contents($fullpath)) : $rijndael->decrypt($ciphertext);
 	}
 
-	function encrypt($fullpath, $key, $rformat = 'inline') {
+	public function encrypt($fullpath, $key, $rformat = 'inline') {
 		if (!function_exists('mcrypt_encrypt')) {
 			$this->log(sprintf(__('Your web-server does not have the %s module installed.', 'updraftplus'), 'mcrypt').' '.__('Without it, encryption will be a lot slower.', 'updraftplus'), 'warning', 'nomcrypt');
 		}
@@ -932,7 +925,7 @@ class UpdraftPlus {
 		return (@ini_get('safe_mode') && strtolower(@ini_get('safe_mode')) != "off") ? 1 : 0;
 	}
 
-	function find_working_sqldump($logit = true, $cacheit = true) {
+	public function find_working_sqldump($logit = true, $cacheit = true) {
 
 		// The hosting provider may have explicitly disabled the popen or proc_open functions
 		if ($this->detect_safe_mode() || !function_exists('popen')) {
@@ -1119,7 +1112,7 @@ class UpdraftPlus {
 	}
 
 	// This function is purely for timing - we just want to know the maximum run-time; not whether we have achieved anything during it
-	function record_still_alive() {
+	public function record_still_alive() {
 		// Update the record of maximum detected runtime on each run
 		$time_passed = $this->jobdata_get('run_times');
 		if (!is_array($time_passed)) $time_passed = array();
@@ -1138,7 +1131,7 @@ class UpdraftPlus {
 
 	}
 
-	function something_useful_happened() {
+	public function something_useful_happened() {
 
 		$this->record_still_alive();
 
@@ -1171,7 +1164,7 @@ class UpdraftPlus {
 	}
 
 	// This important function returns a list of file entities that can potentially be backed up (subject to users settings), and optionally further meta-data about them
-	function get_backupable_file_entities($include_others = true, $full_info = false) {
+	public function get_backupable_file_entities($include_others = true, $full_info = false) {
 
 		$wp_upload_dir = wp_upload_dir();
 
@@ -1270,6 +1263,7 @@ class UpdraftPlus {
 		// Restore state
 		$resumption_extralog = '';
 		$prev_resumption = $resumption_no - 1;
+		$last_successful_resumption = -1;
 
 		if ($resumption_no > 0) {
 			$this->nonce = $bnonce;
@@ -1301,11 +1295,16 @@ class UpdraftPlus {
 				}
 			}
 
+			for ($i = 0; $i<=$prev_resumption; $i++) {
+				if (isset($time_passed[$i])) $last_successful_resumption = $i;
+			}
+
 			if (isset($time_passed[$prev_resumption])) {
 				$resumption_extralog = ", previous check-in=".round($time_passed[$prev_resumption], 1)."s";
 			} else {
 				$this->no_checkin_last_time = true;
 			}
+			
 
 			# This is just a simple test to catch restorations of old backup sets where the backup includes a resumption of the backup job
 			if ($time_now - $this->backup_time > 172800) {
@@ -1314,6 +1313,7 @@ class UpdraftPlus {
 			}
 
 		}
+		$this->last_successful_resumption = $last_successful_resumption;
 
 		$runs_started[$resumption_no] = $time_now;
 		if (!empty($this->backup_time)) $this->jobdata_set('runs_started', $runs_started);
@@ -1879,7 +1879,7 @@ class UpdraftPlus {
 	}
 
 	// This should be called whenever a file is successfully uploaded
-	function uploaded_file($file, $id = false, $force = false) {
+	public function uploaded_file($file, $id = false, $force = false) {
 	
 		global $updraftplus_backup;
 
@@ -1994,6 +1994,17 @@ class UpdraftPlus {
 		}
 	}
 
+	public function get_exclude($whichone) {
+		if ('uploads' == $whichone) {
+			$exclude = explode(',', UpdraftPlus_Options::get_updraft_option('updraft_include_uploads_exclude', UPDRAFT_DEFAULT_UPLOADS_EXCLUDE));
+		} elseif ('others' == $whichone) {
+			$exclude = explode(',', UpdraftPlus_Options::get_updraft_option('updraft_include_others_exclude', UPDRAFT_DEFAULT_OTHERS_EXCLUDE));
+		} else {
+			$exclude = apply_filters('updraftplus_include_'.$whichone.'_exclude', array());
+		}
+		return (empty($exclude) || !is_array($exclude)) ? array() : $exclude;
+	}
+
 	public function really_is_writable($dir) {
 		// Suppress warnings, since if the user is dumping warnings to screen, then invalid JavaScript results and the screen breaks.
 		if (!@is_writable($dir)) return false;
@@ -2024,8 +2035,21 @@ class UpdraftPlus {
 		$exclude = UpdraftPlus_Options::get_updraft_option('updraft_include_others_exclude', UPDRAFT_DEFAULT_OTHERS_EXCLUDE);
 		if ($logit) $this->log("Exclusion option setting (others): ".$exclude);
 		$skip = array_flip(preg_split("/,/", $exclude));
-		$possible_backups_dirs = array_flip($this->get_backupable_file_entities(false));
-		return $this->compile_folder_list_for_backup(WP_CONTENT_DIR, $possible_backups_dirs, $skip);
+		$file_entities = $this->get_backupable_file_entities(false);
+
+		# Keys = directory names to avoid; values = the label for that directory (used only in log files)
+		#$avoid_these_dirs = array_flip($file_entities);
+		$avoid_these_dirs = array();
+		foreach ($file_entities as $type => $dirs) {
+			if (is_string($dirs)) {
+				$avoid_these_dirs[$dirs] = $type;
+			} elseif (is_array($dirs)) {
+				foreach ($dirs as $dir) {
+					$avoid_these_dirs[$dir] = $type;
+				}
+			}
+		}
+		return $this->compile_folder_list_for_backup(WP_CONTENT_DIR, $avoid_these_dirs, $skip);
 	}
 
 	// Add backquotes to tables and db-names in SQL queries. Taken from phpMyAdmin.
@@ -2035,14 +2059,26 @@ class UpdraftPlus {
 				$result = array();
 				reset($a_name);
 				while(list($key, $val) = each($a_name)) 
-					$result[$key] = '`' . $val . '`';
+					$result[$key] = '`'.$val.'`';
 				return $result;
 			} else {
-				return '`' . $a_name . '`';
+				return '`'.$a_name.'`';
 			}
 		} else {
 			return $a_name;
 		}
+	}
+
+	public function strip_dirslash($string) {
+		return preg_replace('#/+(,|$)#', '$1', $string);
+	}
+
+	public function remove_empties($list) {
+		if (!is_array($list)) return $list;
+		foreach ($list as $ind => $entry) {
+			if (empty($entry)) unset($list[$ind]);
+		}
+		return $list;
 	}
 
 	// avoid_these_dirs and skip_these_dirs ultimately do the same thing; but avoid_these_dirs takes full paths whereas skip_these_dirs takes basenames; and they are logged differently (dirs in avoid are potentially dangerous to include; skip is just a user-level preference). They are allowed to overlap.
@@ -2050,10 +2086,10 @@ class UpdraftPlus {
 
 		// Entries in $skip_these_dirs are allowed to end in *, which means "and anything else as a suffix". It's not a full shell glob, but it covers what is needed to-date.
 
-		$dirlist = array(); 
+		$dirlist = array();
+		$added = 0;
 
 		$this->log('Looking for candidates to back up in: '.$backup_from_inside_dir);
-
 		$updraft_dir = $this->backups_dir_location();
 		if ($handle = opendir($backup_from_inside_dir)) {
 		
@@ -2084,8 +2120,10 @@ class UpdraftPlus {
 							}
 						}
 						if ($add_to_list) {
-							$this->log("finding files: $entry: adding to list");
 							array_push($dirlist, $candidate);
+							$added++;
+							$skip_dblog = ($added > 50 && 0 != $added % 100);
+							$this->log("finding files: $entry: adding to list ($added)", 'notice', false, $skip_dblog);
 						}
 					}
 				}
@@ -2155,27 +2193,41 @@ class UpdraftPlus {
 	}
 
 	/*
-	this function is both the backup scheduler and ostensibly a filter callback for saving the option.
+	This function is both the backup scheduler and ostensibly a filter callback for saving the option.
 	it is called in the register_setting for the updraft_interval, which means when the admin settings 
-	are saved it is called.  it returns the actual result from wp_filter_nohtml_kses (a sanitization filter) 
-	so the option can be properly saved.
+	are saved it is called.
 	*/
 	public function schedule_backup($interval) {
-		//clear schedule and add new so we don't stack up scheduled backups
+
+		// Clear schedule so that we don't stack up scheduled backups
 		wp_clear_scheduled_hook('updraft_backup');
-		switch($interval) {
-			case 'every4hours':
-			case 'every8hours':
-			case 'twicedaily':
-			case 'daily':
-			case 'weekly':
-			case 'fortnightly':
-			case 'monthly':
-				$first_time = apply_filters('updraftplus_schedule_firsttime_files', time()+30);
-				wp_schedule_event($first_time, $interval, 'updraft_backup');
-			break;
-		}
-		return wp_filter_nohtml_kses($interval);
+		
+		if ('manual' == $interval) return 'manual';
+
+		$valid_schedules = wp_get_schedules();
+		if (empty($valid_schedules[$interval])) $interval = 'daily';
+
+		$first_time = apply_filters('updraftplus_schedule_firsttime_files', time()+30);
+		wp_schedule_event($first_time, $interval, 'updraft_backup');
+
+		return $interval;
+	}
+
+	public function schedule_backup_database($interval) {
+
+		// Clear schedule so that we don't stack up scheduled backups
+		wp_clear_scheduled_hook('updraft_backup_database');
+
+		if ('manual' == $interval) return 'manual';
+
+		$valid_schedules = wp_get_schedules();
+		if (empty($valid_schedules[$interval])) $interval = 'daily';
+
+		$first_time = apply_filters('updraftplus_schedule_firsttime_db', time()+30);
+		wp_schedule_event($first_time, $interval, 'updraft_backup_database');
+
+		return $interval;
+
 	}
 
 	public function deactivation () {
@@ -2189,27 +2241,8 @@ class UpdraftPlus {
 			add_action('http_api_curl', array($this, 'add_curl_capath'));
 			UpdraftPlus_BackupModule_googledrive::gdrive_auth_revoke(true);
 			remove_action('http_api_curl', array($this, 'add_curl_capath'));
-
 		}
 		return $client_id;
-	}
-
-	public function schedule_backup_database($interval) {
-		//clear schedule and add new so we don't stack up scheduled backups
-		wp_clear_scheduled_hook('updraft_backup_database');
-		switch($interval) {
-			case 'every4hours':
-			case 'every8hours':
-			case 'twicedaily':
-			case 'daily':
-			case 'weekly':
-			case 'fortnightly':
-			case 'monthly':
-				$first_time = apply_filters('updraftplus_schedule_firsttime_db', time()+30);
-				wp_schedule_event($first_time, $interval, 'updraft_backup_database');
-			break;
-		}
-		return wp_filter_nohtml_kses($interval);
 	}
 
 	//wp-cron only has hourly, daily and twicedaily, so we need to add some of our own
@@ -2222,7 +2255,7 @@ class UpdraftPlus {
 		return $schedules;
 	}
 
-	public function remove_local_directory($dir) {
+	public function remove_local_directory($dir, $contents_only = false) {
 		// PHP 5.3+ only
 		//foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir, FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST) as $path) {
 		//	$path->isFile() ? unlink($path->getPathname()) : rmdir($path->getPathname());
@@ -2410,7 +2443,7 @@ class UpdraftPlus {
 			break;
 		case 1:
 			if (defined('WPLANG') && strlen(WPLANG)>0 && !is_file(UPDRAFTPLUS_DIR.'/languages/updraftplus-'.WPLANG.
-'.mo')) return __('Can you translate? Want to improve UpdraftPlus for speakers of your language?','updraftplus').$this->url_start($urls,'updraftplus.com/translate/')."Please go here for instructions - it is easy.".$this->url_end($urls,'updraftplus.com/translate/');
+'.mo')) return __('Can you translate? Want to improve UpdraftPlus for speakers of your language?','updraftplus').' '.$this->url_start($urls,'updraftplus.com/translate/')."Please go here for instructions - it is easy.".$this->url_end($urls,'updraftplus.com/translate/');
 
 			return __('Like UpdraftPlus and can spare one minute?','updraftplus').$this->url_start($urls,'wordpress.org/support/view/plugin-reviews/updraftplus#postform').' '.__('Please help UpdraftPlus by giving a positive review at wordpress.org','updraftplus').$this->url_end($urls,'wordpress.org/support/view/plugin-reviews/updraftplus#postform');
 			break;

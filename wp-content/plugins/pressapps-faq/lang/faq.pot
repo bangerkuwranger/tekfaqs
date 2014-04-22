@@ -1,0 +1,236 @@
+# Copyright (C) 2013 WP Modal Login
+# This file is distributed under the same license as the WP Modal Login package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WP Modal Login 2.0.6\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/wp-modal-login\n"
+"POT-Creation-Date: 2013-08-29 08:43+0100\n"
+"PO-Revision-Date: 2013-08-29 08:43+0100\n"
+"Last-Translator: Cole Geissinger <cole@colegeissinger.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_n:1,2;_x:1,2c;_ex:1,2x;esc_attr__;esc_attr_e;_;"
+"gettext;gettext_noop\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPath-1: ..\n"
+
+#: ../add_filter.php:13
+msgid "Shortcode"
+msgstr ""
+
+#: ../add_filter.php:34
+msgid "Question"
+msgstr ""
+
+#: ../add_filter.php:35 ../init.php:63 ../init.php:111
+msgid "Category"
+msgstr ""
+
+#: ../help.php:12
+msgid "Faq Overview"
+msgstr ""
+
+#: ../help.php:14
+msgid "<h2>Faq Overview</h2>"
+msgstr ""
+
+#: ../help.php:16
+#, php-format
+msgid ""
+"Thank you for using FAQ Plugin. Should you need help using or extending FAQ "
+"please <a href=\"%s\">read the documentation</a>. For further assistance you "
+"can contact <a href=\"%s\">support</a>."
+msgstr ""
+
+#: ../help.php:25
+msgid "Faq Shortcodes"
+msgstr ""
+
+#: ../help.php:28
+msgid "<h2>Faq Shortcodes</h2>"
+msgstr ""
+
+#: ../help.php:30
+msgid ""
+"You can use <code>[faq]</code> Shortcode to include the Faqs on any page or "
+"post or custom post type"
+msgstr ""
+
+#: ../help.php:32
+msgid "this shortcode can have 2 attribute as listed follows"
+msgstr ""
+
+#: ../help.php:33
+msgid "(1) <b>category</b> = <i>-1</i> <b>|</b> <i>{any faq category id}</i>"
+msgstr ""
+
+#: ../help.php:34
+msgid ""
+"(2) <b>template</b> = <i>default</i> <b>|</b> <i>{any custom/existing "
+"template}</i>"
+msgstr ""
+
+#: ../help.php:35
+msgid "<b>Examples</b>"
+msgstr ""
+
+#: ../help.php:36
+msgid "1. <code>[faq]</code>"
+msgstr ""
+
+#: ../help.php:37
+#, php-format
+msgid ""
+"2. <code>[faq category={category_id}]</code> {category_id} you will find it "
+"from <a href=\"%s\">here</a> Under shortcode Section"
+msgstr ""
+
+#: ../help.php:38
+msgid "3. <code>[faq category={category_id} template='accordion']</code>"
+msgstr ""
+
+#: ../help.php:45
+msgid "Faq Templates"
+msgstr ""
+
+#: ../help.php:48
+msgid "<h2>Faq Templates</h2>"
+msgstr ""
+
+#: ../help.php:50
+msgid ""
+"if you are developer and or you want to customize the existing Style of the "
+"Faq Disaply to match it with your theme we are having Solution for that as "
+"well insted of Modifing the core file directly we would prefeer you to "
+"follow the Below listed step."
+msgstr ""
+
+#: ../help.php:52
+msgid "<b>1. customize the existing template</b>"
+msgstr ""
+
+#: ../help.php:53
+msgid ""
+"to customize the existing template copy the template file from plugin "
+"<code>templates</code> folder to your currently <code>active theme</code>"
+msgstr ""
+
+#: ../help.php:54
+msgid ""
+"So let say you wanted to modify the <b>accordion</b> Template in that case "
+"you can simply copy the <code>pressappsfaq-accordion.php</code> file from "
+"the Plugin's template folder to your Current Active theme's Folder"
+msgstr ""
+
+#: ../help.php:56
+msgid "<b>2. Create your own custom template</b>"
+msgstr ""
+
+#: ../help.php:57
+msgid ""
+"if you wanted to create a new Template of your own in that case copy any of "
+"the Existing template from the plugin's <code>templates</code> folder to "
+"your currently <code>active theme</code>"
+msgstr ""
+
+#: ../help.php:58
+msgid ""
+"and rename that template in the following file format <b>pressappsfaq-"
+"{templat-name}.php</b> and place it to your Current Active theme's Folder"
+msgstr ""
+
+#: ../help.php:59
+msgid ""
+"So let say you wanted to create the <b>custom</b> Template in that case you "
+"can simply copy the <code>pressappsfaq-default.php</code> file from the "
+"Plugin's template folder to your Current Active theme's Folder and then "
+"rename this file to <code>pressappsfaq-custom.php</code>"
+msgstr ""
+
+#: ../help.php:60
+msgid ""
+"Customly created template can be used using <code>template</code> attribute "
+"like <i>template='custom'</i> with in the faq shortcode"
+msgstr ""
+
+#: ../init.php:36
+msgid "FAQ Articles"
+msgstr ""
+
+#: ../init.php:38 ../init.php:39
+msgid "FAQ"
+msgstr ""
+
+#: ../init.php:40
+msgid "Add New"
+msgstr ""
+
+#: ../init.php:41
+msgid "Add New FAQ"
+msgstr ""
+
+#: ../init.php:42
+msgid "Edit FAQ"
+msgstr ""
+
+#: ../init.php:43
+msgid "New FAQ"
+msgstr ""
+
+#: ../init.php:44
+msgid "View FAQ"
+msgstr ""
+
+#: ../init.php:45
+msgid "Search FAQ"
+msgstr ""
+
+#: ../init.php:46
+msgid "No FAQ found"
+msgstr ""
+
+#: ../init.php:47
+msgid "No FAQ found in Trash"
+msgstr ""
+
+#: ../init.php:62 ../init.php:73
+msgid "Categories"
+msgstr ""
+
+#: ../init.php:64
+msgid "Search Categories"
+msgstr ""
+
+#: ../init.php:65
+msgid "All Categories"
+msgstr ""
+
+#: ../init.php:66
+msgid "Parent Category"
+msgstr ""
+
+#: ../init.php:67
+msgid "Parent Category:"
+msgstr ""
+
+#: ../init.php:68
+msgid "Edit Category"
+msgstr ""
+
+#: ../init.php:69
+msgid "Update Category"
+msgstr ""
+
+#: ../init.php:70
+msgid "Add New Category"
+msgstr ""
+
+#: ../init.php:71
+msgid "New Category Name"
+msgstr ""

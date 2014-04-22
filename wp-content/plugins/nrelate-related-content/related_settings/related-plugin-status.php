@@ -337,7 +337,7 @@ function nr_rc_add_defaults() {
 			'ADTITLE'=>$r_ad_title,
 			'NONJS'=>$r_nonjs
 		);
-		$url = 'http://api.nrelate.com/rcw_wp/'.NRELATE_RELATED_PLUGIN_VERSION.'/processWPrelatedAll.php';
+		$url = 'http://api.nrelate.com/rcw_wp/'.NRELATE_RELATED_API_VERSION.'/processWPrelatedAll.php';
 		
 		$result = wp_remote_post($url, array('body'=>$body,'blocking'=>false,'timeout'=>15));
 	}
